@@ -1,7 +1,12 @@
+import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { DEFAULT_COLLECT_TOKEN, IS_MAINNET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import { type AnyPost, useExecutePostActionMutation } from "@hey/indexer";
+import {
+  type LoggedInPostOperations,
+  type Post,
+  useExecutePostActionMutation
+} from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button, Input, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
@@ -22,7 +27,7 @@ const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
 interface ActionProps {
   closePopover: () => void;
-  post: AnyPost;
+  post: Post;
 }
 
 const Action: FC<ActionProps> = ({ closePopover, post }) => {
@@ -34,6 +39,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const [other, setOther] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { cache } = useApolloClient();
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
   const symbol = IS_MAINNET ? "GHO" : "WGRASS";
 
@@ -43,10 +49,27 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
     token: DEFAULT_COLLECT_TOKEN as Address
   });
 
+  const updateCache = () => {
+    cache.modify({
+      fields: { hasTipped: () => true },
+      id: cache.identify(post.operations as LoggedInPostOperations)
+    });
+    // cache.modify({
+    //   fields: {
+    //     stats: (existingData) => ({
+    //       ...existingData,
+    //       tips: existingData.tips + 1
+    //     })
+    //   },
+    //   id: cache.identify(post)
+    // });
+  };
+
   const onCompleted = (hash: string) => {
     addSimpleOptimisticTransaction(hash, OptimisticTxType.CREATE_TIP);
     setIsLoading(false);
     closePopover();
+    updateCache();
     toast.success(`Tipped ${amount} ${symbol}`);
   };
 
