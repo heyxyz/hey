@@ -98,6 +98,7 @@ const GlobalModals: FC = () => {
         onClose={() => setShowFundModal(false)}
         show={showFundModal}
         title="Fund account"
+        size="lg"
       >
         <div>WIP</div>
       </Modal>
