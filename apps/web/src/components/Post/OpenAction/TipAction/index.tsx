@@ -1,6 +1,7 @@
 import MenuTransition from "@components/Shared/MenuTransition";
 import { TipIcon } from "@components/Shared/TipIcon";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import nFormatter from "@hey/helpers/nFormatter";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Post } from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
@@ -15,6 +16,7 @@ interface TipActionProps {
 
 const TipAction: FC<TipActionProps> = ({ post, showCount }) => {
   const hasTipped = post.operations?.hasTipped;
+  const postTipCount = post.operations?.postTipCount || 0;
 
   const iconClassName = showCount
     ? "w-[17px] sm:w-[20px]"
@@ -50,6 +52,16 @@ const TipAction: FC<TipActionProps> = ({ post, showCount }) => {
           </MenuItems>
         </MenuTransition>
       </Menu>
+      {(postTipCount || 0) > 0 && !showCount && (
+        <span
+          className={cn(
+            hasTipped ? "text-brand-500" : "ld-text-gray-500",
+            "text-[11px] sm:text-xs"
+          )}
+        >
+          {nFormatter(postTipCount || 0)}
+        </span>
+      )}
     </div>
   );
 };
