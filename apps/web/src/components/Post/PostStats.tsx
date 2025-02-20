@@ -20,7 +20,6 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
   const { bookmarks, comments, reposts, quotes, reactions } = postStats;
-  postStats;
 
   const showStats =
     comments > 0 || reactions > 0 || reposts > 0 || quotes > 0 || bookmarks > 0;
@@ -67,6 +66,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
             {plur("Like", reactions)}
           </button>
         ) : null}
+        {/* TODO: Add tips count */}
         {bookmarks > 0 ? (
           <span>
             <b className="text-black dark:text-white">
