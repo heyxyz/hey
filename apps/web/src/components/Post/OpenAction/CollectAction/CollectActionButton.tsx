@@ -2,7 +2,6 @@ import { useApolloClient } from "@apollo/client";
 import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import errorToast from "@helpers/errorToast";
-import getCurrentSession from "@helpers/getCurrentSession";
 import { COLLECT_FEES_WALLET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
@@ -19,6 +18,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { type Address, formatUnits } from "viem";
 import { useBalance } from "wagmi";
@@ -37,7 +37,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   post
 }) => {
   const collectAction = getCollectActionData(postAction as any);
-  const { address: sessionAccountAddress } = getCurrentSession();
+  const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [hasSimpleCollected, setHasSimpleCollected] = useState(
@@ -89,7 +89,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   };
 
   const { data: balanceData } = useBalance({
-    address: sessionAccountAddress as Address,
+    address: currentAccount?.address as Address,
     query: { refetchInterval: 2000 },
     token: assetAddress
   });
@@ -141,7 +141,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
     });
   };
 
-  if (!sessionAccountAddress) {
+  if (!currentAccount) {
     return (
       <LoginButton
         className="mt-5 w-full justify-center"

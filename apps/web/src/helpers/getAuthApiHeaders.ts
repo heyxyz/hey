@@ -17,7 +17,5 @@ export const getAuthApiHeadersWithAccessToken = () => {
  * @returns Auth API headers
  */
 export const getAuthApiHeaders = () => {
-  return {
-    "X-Id-Token": hydrateAuthTokens()?.idToken
-  };
+  return { "X-Id-Token": hydrateAuthTokens()?.idToken };
 };
