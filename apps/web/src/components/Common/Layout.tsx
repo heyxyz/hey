@@ -50,12 +50,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         currentAccount: me.loggedInAs.account as Account,
         isSignlessEnabled: me.isSignless
       });
-
-      // If the profile has no following, we should fallback to the curated feed
-      // TODO: Lens v3
-      // if (profile?.stats.followers === 0) {
-      //   setFallbackToCuratedFeed(true);
-      // }
     },
     onError: () => logout(true),
     skip: !sessionAccountAddress

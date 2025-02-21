@@ -2,18 +2,13 @@ import New from "@components/Shared/Badges/New";
 import { HomeFeedType } from "@hey/data/enums";
 import { TabButton } from "@hey/ui";
 import type { FC, JSX } from "react";
-import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useHomeTabStore } from "src/store/persisted/useHomeTabStore";
 
 const FeedType: FC = () => {
-  const { fallbackToCuratedFeed } = useAccountStore();
   const { feedType, setFeedType } = useHomeTabStore();
 
   const tabs = [
-    {
-      name: fallbackToCuratedFeed ? "Curated Feed" : "Following",
-      type: HomeFeedType.FOLLOWING
-    },
+    { name: "Following", type: HomeFeedType.FOLLOWING },
     {
       badge: <New />,
       name: "For You",
