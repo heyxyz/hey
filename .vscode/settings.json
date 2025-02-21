@@ -22,5 +22,7 @@
   },
   "git.autofetch": true,
   "git.confirmSync": false,
-  "git.enableSmartCommit": true
+  "git.enableSmartCommit": true,
+  "editor.fontSize": 12,
+  "editor.lineHeight": 2.2
 }
