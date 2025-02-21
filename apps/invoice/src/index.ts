@@ -5,7 +5,7 @@ import easyinvoice, { type InvoiceData } from "easyinvoice";
 // Only Update these values
 const forYogi = true;
 const month = "12";
-const year = "2024";
+const year = "2025";
 
 const amountPerAccount = 190;
 const accounts = [""];
