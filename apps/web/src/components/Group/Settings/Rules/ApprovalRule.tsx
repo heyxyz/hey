@@ -63,7 +63,11 @@ const ApprovalRule: FC<ApprovalRuleProps> = ({ group }) => {
           group: group.address,
           ...(isApprovalRuleEnabled
             ? { toRemove: [approvalRule.id] }
-            : { toAdd: { required: [{ membershipApprovalRule: null }] } })
+            : {
+                toAdd: {
+                  required: [{ membershipApprovalRule: { enable: true } }]
+                }
+              })
         }
       }
     });
