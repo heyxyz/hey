@@ -11,13 +11,13 @@ import { postUpdateTasks } from "../permissions/assign";
 interface ExtensionRequest {
   enabled: boolean;
   id: string;
-  account: string;
+  accountAddress: string;
 }
 
 const validationSchema = object({
   enabled: boolean(),
   id: string(),
-  account: string()
+  accountAddress: string()
 });
 
 // TODO: Merge this with the one in permissions/assign
@@ -37,26 +37,26 @@ export const post = [
       return invalidBody(res);
     }
 
-    const { enabled, id, account } = body as ExtensionRequest;
+    const { enabled, id, accountAddress } = body as ExtensionRequest;
 
     try {
       if (enabled) {
         await prisma.accountPermission.create({
-          data: { permissionId: id, accountAddress: account }
+          data: { permissionId: id, accountAddress }
         });
 
-        await postUpdateTasks(account, id);
-        logger.info(`Enabled permissions for ${account}`);
+        await postUpdateTasks(accountAddress, id);
+        logger.info(`Enabled permissions for ${accountAddress}`);
 
         return res.status(200).json({ enabled, success: true });
       }
 
       await prisma.accountPermission.deleteMany({
-        where: { permissionId: id as string, accountAddress: account }
+        where: { permissionId: id as string, accountAddress }
       });
 
-      await postUpdateTasks(account, id);
-      logger.info(`Disabled permissions for ${account}`);
+      await postUpdateTasks(accountAddress, id);
+      logger.info(`Disabled permissions for ${accountAddress}`);
 
       return res.status(200).json({ enabled, success: true });
     } catch (error) {
