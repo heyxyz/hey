@@ -1,4 +1,4 @@
-import { Norican, Rubik_Mono_One } from "next/font/google";
+import { Rubik_Mono_One } from "next/font/google";
 import localFont from "next/font/local";
 
 export const heyFont = localFont({
@@ -23,11 +23,6 @@ export const heyFont = localFont({
     }
   ],
   style: "normal"
-});
-
-export const signatureFont = Norican({
-  subsets: ["latin"],
-  weight: "400"
 });
 
 export const rubikMonoOneFont = Rubik_Mono_One({
