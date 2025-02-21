@@ -2,6 +2,14 @@ fragment GroupFields on Group {
   address
   feed
   owner
+  rules {
+    anyOf {
+      ...GroupRuleFields
+    }
+    required {
+      ...GroupRuleFields
+    }
+  }
   operations {
     ...LoggedInGroupOperationsFields
   }

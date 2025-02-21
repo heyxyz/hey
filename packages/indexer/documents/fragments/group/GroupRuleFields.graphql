@@ -1,0 +1,6 @@
+fragment GroupRuleFields on GroupRule {
+  id
+  type
+  address
+  executesOn
+}
