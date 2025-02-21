@@ -1,0 +1,67 @@
+import MetaTags from "@components/Common/MetaTags";
+import NotLoggedIn from "@components/Shared/NotLoggedIn";
+import { APP_NAME } from "@hey/data/constants";
+import { type Group, useGroupQuery } from "@hey/indexer";
+import {
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  PageLoading
+} from "@hey/ui";
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import Custom404 from "src/pages/404";
+import Custom500 from "src/pages/500";
+import { useAccountStore } from "src/store/persisted/useAccountStore";
+import SettingsSidebar from "../Sidebar";
+import ApprovalRule from "./ApprovalRule";
+import BanRule from "./BanRule";
+
+const RulesSettings: NextPage = () => {
+  const {
+    isReady,
+    query: { address }
+  } = useRouter();
+  const { currentAccount } = useAccountStore();
+
+  const { data, loading, error } = useGroupQuery({
+    variables: { request: { group: address } },
+    skip: !address
+  });
+
+  if (!isReady || loading) {
+    return <PageLoading />;
+  }
+
+  if (error) {
+    return <Custom500 />;
+  }
+
+  const group = data?.group as Group;
+
+  if (currentAccount?.address !== group.owner) {
+    return <Custom404 />;
+  }
+
+  if (!currentAccount) {
+    return <NotLoggedIn />;
+  }
+
+  return (
+    <GridLayout>
+      <MetaTags title={`Rules settings • ${APP_NAME}`} />
+      <GridItemFour>
+        <SettingsSidebar group={group} />
+      </GridItemFour>
+      <GridItemEight>
+        <Card className="space-y-5 p-5">
+          <ApprovalRule group={group} />
+          <BanRule group={group} />
+        </Card>
+      </GridItemEight>
+    </GridLayout>
+  );
+};
+
+export default RulesSettings;

@@ -1,6 +1,10 @@
 import Sidebar from "@components/Shared/Sidebar";
 import SingleGroup from "@components/Shared/SingleGroup";
-import { NoSymbolIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+import {
+  LockClosedIcon,
+  NoSymbolIcon,
+  UserGroupIcon
+} from "@heroicons/react/24/outline";
 import type { Group } from "@hey/indexer";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -27,6 +31,12 @@ const SettingsSidebar: FC<SettingsSidebarProps> = ({ group }) => {
       title: "Banned Members",
       url: `/g/${address}/settings/banned`,
       active: pathname === "/g/[address]/settings/banned"
+    },
+    {
+      icon: <LockClosedIcon className="size-4" />,
+      title: "Group Rules",
+      url: `/g/${address}/settings/rules`,
+      active: pathname === "/g/[address]/settings/rules"
     }
   ];
 
