@@ -46,7 +46,7 @@ export const WALLETCONNECT_PROJECT_ID = "cd542acc70c2b548030f9901a52e70c8";
 export const GIPHY_KEY = "yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd";
 export const LIVEPEER_KEY = "70508bf8-2e16-4594-852d-5aed798f6403";
 export const UNLEASH_API_TOKEN =
-  "*:production.1cc40547dde90e0b342a3dffa825d52a9d9e13597c9dedea480aa9c0";
+  "*:production.4e706f5ffec12e4444c3acb0c9223ec253580360d346e7b4cf363b79";
 
 // Named transforms for ImageKit
 export const AVATAR = "tr:w-350,h-350";

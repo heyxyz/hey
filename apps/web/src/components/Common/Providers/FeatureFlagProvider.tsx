@@ -18,7 +18,7 @@ const FeatureFlagProvider: FC<FeatureFlagProviderProps> = ({ children }) => {
         clientKey: UNLEASH_API_TOKEN,
         context: { sessionId: authenticationId, userId: address },
         refreshInterval: 15,
-        url: "https://unleash.hey.xyz/api/frontend"
+        url: "https://unleash-v3.up.railway.app/api/frontend"
       }}
     >
       {children}
