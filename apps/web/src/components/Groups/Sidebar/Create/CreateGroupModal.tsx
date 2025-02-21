@@ -81,7 +81,12 @@ const CreateGroupModal: FC = () => {
       variables: {
         request: {
           metadataUri,
-          rules: { required: [{ banAccountRule: { enable: true } }] }
+          rules: {
+            required: [
+              { banAccountRule: { enable: true } },
+              { membershipApprovalRule: { enable: true } }
+            ]
+          }
         }
       }
     });
