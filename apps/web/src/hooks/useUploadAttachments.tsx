@@ -59,8 +59,8 @@ const useUploadAttachments = () => {
           if (file.type.includes("image") && !file.type.includes("gif")) {
             return await imageCompression(file, {
               exifOrientation: 1,
-              maxSizeMB: 3,
-              maxWidthOrHeight: 5000,
+              maxSizeMB: 6,
+              maxWidthOrHeight: 6000,
               useWebWorker: true
             });
           }

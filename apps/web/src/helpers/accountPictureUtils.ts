@@ -32,8 +32,8 @@ const uploadCroppedImage = async (
   });
   const cleanedFile = await imageCompression(file, {
     exifOrientation: 1,
-    maxSizeMB: 3,
-    maxWidthOrHeight: 2000,
+    maxSizeMB: 5,
+    maxWidthOrHeight: 3000,
     useWebWorker: true
   });
   const attachment = await uploadFileToStorageNode(cleanedFile);
