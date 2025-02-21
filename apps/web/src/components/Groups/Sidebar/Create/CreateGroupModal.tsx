@@ -73,7 +73,7 @@ const CreateGroupModal: FC = () => {
 
     const metadata = group({
       name: data.name,
-      description: data.description,
+      description: data.description || undefined,
       icon: pfpUrl
     });
     const metadataUri = await uploadMetadata(metadata);

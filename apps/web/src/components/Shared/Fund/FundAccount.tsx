@@ -12,8 +12,21 @@ import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { type Address, formatUnits, parseEther } from "viem";
-import { useAccount, useBalance, useSendTransaction } from "wagmi";
+import { useAccount, useBalance, useWriteContract } from "wagmi";
 import Loader from "../Loader";
+
+const ABI = [
+  {
+    inputs: [
+      { internalType: "address", name: "dst", type: "address" },
+      { internalType: "uint256", name: "wad", type: "uint256" }
+    ],
+    name: "transfer",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function"
+  }
+];
 
 const FundAccount: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -37,7 +50,7 @@ const FundAccount: FC = () => {
       query: { refetchInterval: 2000 }
     });
 
-  const { sendTransactionAsync, isPending } = useSendTransaction();
+  const { writeContractAsync, isPending } = useWriteContract();
 
   if (accountBalanceLoading || walletBalanceLoading) {
     return <Loader message="Loading balance..." className="my-10" />;
@@ -63,12 +76,14 @@ const FundAccount: FC = () => {
 
   const handleFund = async () => {
     try {
-      const hash = await sendTransactionAsync({
-        to: currentAccount?.address,
-        value: parseEther(amount.toString())
+      await writeContractAsync({
+        abi: ABI,
+        functionName: "transfer",
+        address: DEFAULT_COLLECT_TOKEN as Address,
+        args: [currentAccount?.address, parseEther(amount.toString())]
       });
 
-      return toast.success(`Transaction sent: ${hash}`);
+      return toast.success("Funded account successfully");
     } catch (error) {
       return errorToast(error);
     }
@@ -99,21 +114,21 @@ const FundAccount: FC = () => {
               onClick={() => handleSetAmount(2)}
               outline={amount !== 2}
             >
-              $2
+              2 GHO
             </Button>
             <Button
               className="w-full"
               onClick={() => handleSetAmount(5)}
               outline={amount !== 5}
             >
-              $5
+              5 GHO
             </Button>
             <Button
               className="w-full"
               onClick={() => handleSetAmount(10)}
               outline={amount !== 10}
             >
-              $10
+              10 GHO
             </Button>
             <Button
               className="w-full"
