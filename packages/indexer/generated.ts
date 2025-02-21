@@ -1234,10 +1234,10 @@ export type CreateAppRequest = {
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
   /** The app username namespace */
   namespace: UsernameNamespaceChoiceOneOf;
-  /** The app paymaster leave empty if none */
-  paymaster?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The app signers leave empty if none */
   signers?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The app sponsorship leave empty if none */
+  sponsorship?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The app treasury leave empty if none */
   treasury?: InputMaybe<Scalars['EvmAddress']['input']>;
   /**
@@ -6053,7 +6053,7 @@ export type Query = {
    *
    * You MUST be authenticated as a builder to use this mutation.
    */
-  appServerApiKey: Scalars['ServerAPIKey']['output'];
+  appServerApiKey?: Maybe<Scalars['String']['output']>;
   /** Get the signers for an app */
   appSigners: PaginatedAppSignersResult;
   /** Get accounts for an app. */
@@ -6106,6 +6106,7 @@ export type Query = {
   health: Scalars['Boolean']['output'];
   /** Get the last logged in account for the given address and app if specified. */
   lastLoggedInAccount?: Maybe<Account>;
+  maintenance: Scalars['Boolean']['output'];
   /**
    * Account information for the authenticated account.
    *
