@@ -63,7 +63,7 @@ const BanRule: FC<BanRuleProps> = ({ group }) => {
           group: group.address,
           ...(isBanRuleEnabled
             ? { toRemove: [banRule.id] }
-            : { toAdd: { required: [{ banAccountRule: null }] } })
+            : { toAdd: { required: [{ banAccountRule: { enable: true } }] } })
         }
       }
     });
