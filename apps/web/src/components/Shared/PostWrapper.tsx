@@ -21,7 +21,7 @@ const PostWrapper: FC<PostWrapperProps> = ({
     const selection = window.getSelection();
     if (!selection || selection.toString().length === 0) {
       setPreLoadedPosts([...preLoadedPosts, post]);
-      push(`/posts/${post.id}`);
+      push(`/posts/${post.slug}`);
     }
   };
 

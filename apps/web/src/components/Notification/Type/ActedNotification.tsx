@@ -42,13 +42,13 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstAccount={firstAccount}
-          linkToType={`/posts/${notification?.publication?.id}`}
+          linkToType={`/posts/${notification?.publication?.slug}`}
           text={text}
           type={type}
         />
         <Link
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
-          href={`/posts/${notification?.publication?.id}`}
+          href={`/posts/${notification?.publication?.slug}`}
         >
           <Markup mentions={targetPost.mentions}>{filteredContent}</Markup>
         </Link>

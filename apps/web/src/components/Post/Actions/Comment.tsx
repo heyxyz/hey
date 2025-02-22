@@ -24,7 +24,7 @@ const Comment: FC<CommentProps> = ({ post, showCount }) => {
         aria-label="Comment"
         className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
         onClick={() => {
-          push(`/posts/${post.id}`);
+          push(`/posts/${post.slug}`);
         }}
         type="button"
       >
