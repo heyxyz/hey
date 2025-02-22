@@ -14,14 +14,14 @@
   "dependencies": {
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@prisma/client": "^6.4.0",
+    "@prisma/client": "^6.4.1",
     "dotenv": "^16.4.7",
     "redis": "^4.7.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.13.4",
-    "prisma": "^6.4.0",
+    "@types/node": "^22.13.5",
+    "prisma": "^6.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
