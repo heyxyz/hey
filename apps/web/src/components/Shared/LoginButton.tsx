@@ -20,7 +20,7 @@ const LoginButton: FC<LoginButtonProps> = ({
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setShowAuthModal(true);
+    return setShowAuthModal(true);
   };
 
   return (

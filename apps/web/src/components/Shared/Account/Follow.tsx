@@ -75,8 +75,7 @@ const Follow: FC<FollowProps> = ({
 
   const handleCreateFollow = async () => {
     if (!currentAccount) {
-      setShowAuthModal(true);
-      return;
+      return setShowAuthModal(true);
     }
 
     if (isSuspended) {

@@ -140,8 +140,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           onClick={() => {
             if (!currentAccount) {
               closePopover();
-              setShowAuthModal(true);
-              return;
+              return setShowAuthModal(true);
             }
           }}
         >

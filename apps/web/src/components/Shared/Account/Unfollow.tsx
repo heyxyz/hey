@@ -74,8 +74,7 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const handleCreateUnfollow = async () => {
     if (!currentAccount) {
-      setShowAuthModal(true);
-      return;
+      return setShowAuthModal(true);
     }
 
     if (isSuspended) {

@@ -21,8 +21,7 @@ const Ban: FC<BanProps> = ({ group, account }) => {
 
   const handleBan = async () => {
     if (!currentAccount) {
-      setShowAuthModal(true);
-      return;
+      return setShowAuthModal(true);
     }
 
     if (isSuspended) {

@@ -33,8 +33,7 @@ const Quote: FC<QuoteProps> = ({ post }) => {
       }
       onClick={() => {
         if (!currentAccount) {
-          setShowAuthModal(true);
-          return;
+          return setShowAuthModal(true);
         }
 
         if (isSuspended) {
