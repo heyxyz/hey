@@ -82,6 +82,17 @@ const CreateGroupModal: FC = () => {
         request: {
           metadataUri,
           rules: { required: [{ banAccountRule: { enable: true } }] }
+          // TODO: Remove this once after testing
+          // rules: {
+          //   required: [
+          //     {
+          //       simplePaymentRule: {
+          //         cost: { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
+          //         recipient: "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF"
+          //       }
+          //     }
+          //   ]
+          // }
         }
       }
     });
