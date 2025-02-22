@@ -17,18 +17,18 @@ import { Virtuoso } from "react-virtuoso";
 import SinglePost from "./SinglePost";
 
 interface QuotesProps {
-  postId: string;
+  post: Post;
 }
 
-const Quotes: FC<QuotesProps> = ({ postId }) => {
+const Quotes: FC<QuotesProps> = ({ post }) => {
   const request: PostReferencesRequest = {
     pageSize: PageSize.Fifty,
     referenceTypes: [PostReferenceType.QuoteOf],
-    referencedPost: postId
+    referencedPost: post.id
   };
 
   const { data, error, fetchMore, loading } = usePostReferencesQuery({
-    skip: !postId,
+    skip: !post.id,
     variables: { request }
   });
 
@@ -64,7 +64,7 @@ const Quotes: FC<QuotesProps> = ({ postId }) => {
   return (
     <Card>
       <div className="flex items-center space-x-3 p-5">
-        <Link href={`/posts/${postId}`}>
+        <Link href={`/posts/${post.slug}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
         <H5>Quotes</H5>

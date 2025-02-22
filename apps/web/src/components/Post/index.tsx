@@ -53,27 +53,27 @@ const ViewPost: NextPage = () => {
   const {
     isReady,
     pathname,
-    query: { id }
+    query: { slug }
   } = useRouter();
 
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { preLoadedPosts } = useOptimisticNavigation();
 
-  const showQuotes = pathname === "/posts/[id]/quotes";
-  const preLoadedPost = preLoadedPosts.find((p) => p.id === id);
+  const showQuotes = pathname === "/posts/[slug]/quotes";
+  const preLoadedPost = preLoadedPosts.find((p) => p.slug === slug);
 
   const { data, error, loading } = usePostQuery({
-    skip: !id || preLoadedPost?.id,
-    variables: { request: { post: id } }
+    skip: !slug || preLoadedPost?.slug,
+    variables: { request: { post: slug } }
   });
 
   const { data: comments } = usePostReferencesQuery({
-    skip: !id,
+    skip: !slug,
     variables: {
       request: {
         pageSize: PageSize.Fifty,
-        referencedPost: id,
+        referencedPost: slug,
         visibilityFilter: PostVisibilityFilter.Hidden,
         referenceTypes: [PostReferenceType.CommentOn]
       }
@@ -111,7 +111,7 @@ const ViewPost: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         {showQuotes ? (
-          <Quotes postId={targetPost.id} />
+          <Quotes post={targetPost} />
         ) : (
           <>
             <Card>
