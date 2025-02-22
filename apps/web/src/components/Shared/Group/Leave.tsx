@@ -52,6 +52,10 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
         return onCompleted(leaveGroup.hash);
       }
 
+      if (leaveGroup.__typename === "GroupOperationValidationFailed") {
+        return onError({ message: leaveGroup.reason });
+      }
+
       return await handleTransactionLifecycle({
         transactionData: leaveGroup,
         onCompleted,

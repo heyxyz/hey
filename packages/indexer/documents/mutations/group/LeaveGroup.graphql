@@ -3,6 +3,9 @@ mutation LeaveGroup($request: LeaveGroupRequest!) {
     ... on LeaveGroupResponse {
       hash
     }
+    ... on GroupOperationValidationFailed {
+      reason
+    }
     ... on SelfFundedTransactionRequest {
       ...SelfFundedTransactionRequestFields
     }

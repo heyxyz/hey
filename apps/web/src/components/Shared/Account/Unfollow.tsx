@@ -71,6 +71,10 @@ const Unfollow: FC<UnfollowProps> = ({
         return onCompleted(unfollow.hash);
       }
 
+      if (unfollow.__typename === "AccountFollowOperationValidationFailed") {
+        return onError({ message: unfollow.reason });
+      }
+
       return await handleTransactionLifecycle({
         transactionData: unfollow,
         onCompleted,

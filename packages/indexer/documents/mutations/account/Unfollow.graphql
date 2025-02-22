@@ -3,6 +3,9 @@ mutation Unfollow($request: CreateUnfollowRequest!) {
     ... on UnfollowResponse {
       hash
     }
+    ... on AccountFollowOperationValidationFailed {
+      reason
+    }
     ... on SelfFundedTransactionRequest {
       ...SelfFundedTransactionRequestFields
     }

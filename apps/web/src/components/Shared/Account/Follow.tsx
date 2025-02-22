@@ -72,6 +72,10 @@ const Follow: FC<FollowProps> = ({
         return onCompleted(follow.hash);
       }
 
+      if (follow.__typename === "AccountFollowOperationValidationFailed") {
+        return onError({ message: follow.reason });
+      }
+
       return await handleTransactionLifecycle({
         transactionData: follow,
         onCompleted,

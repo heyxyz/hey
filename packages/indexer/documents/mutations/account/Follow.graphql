@@ -3,6 +3,9 @@ mutation Follow($request: CreateFollowRequest!) {
     ... on FollowResponse {
       hash
     }
+    ... on AccountFollowOperationValidationFailed {
+      reason
+    }
     ... on SelfFundedTransactionRequest {
       ...SelfFundedTransactionRequestFields
     }
