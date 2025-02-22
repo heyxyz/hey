@@ -171,6 +171,16 @@ const AccountSettingsForm: FC = () => {
     }
   };
 
+  const onSetAvatar = async (src: string | undefined) => {
+    setPfpUrl(src);
+    return await updateAccount({ ...form.getValues() }, src, coverUrl);
+  };
+
+  const onSetCover = async (src: string | undefined) => {
+    setCoverUrl(src);
+    return await updateAccount({ ...form.getValues() }, pfpUrl, src);
+  };
+
   return (
     <Card className="p-5">
       <Form
@@ -214,20 +224,8 @@ const AccountSettingsForm: FC = () => {
           placeholder="Tell us something about you!"
           {...form.register("bio")}
         />
-        <AvatarUpload
-          src={pfpUrl || ""}
-          setSrc={(src) => {
-            setPfpUrl(src);
-            updateAccount({ ...form.getValues() }, src, coverUrl);
-          }}
-        />
-        <CoverUpload
-          src={coverUrl || ""}
-          setSrc={(src) => {
-            setCoverUrl(src);
-            updateAccount({ ...form.getValues() }, pfpUrl, src);
-          }}
-        />
+        <AvatarUpload src={pfpUrl || ""} setSrc={onSetAvatar} />
+        <CoverUpload src={coverUrl || ""} setSrc={onSetCover} />
         <Button
           className="ml-auto"
           disabled={
