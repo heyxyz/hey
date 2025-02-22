@@ -14,13 +14,17 @@ import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-interface PFPUploadProps {
+interface AvatarUploadProps {
   src: string;
   setSrc: (src: string) => void;
   isSmall?: boolean;
 }
 
-const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc, isSmall = false }) => {
+const AvatarUpload: FC<AvatarUploadProps> = ({
+  src,
+  setSrc,
+  isSmall = false
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [pictureSrc, setPictureSrc] = useState(src);
   const [showPictureCropModal, setShowPictureCropModal] = useState(false);
@@ -121,4 +125,4 @@ const PFPUpload: FC<PFPUploadProps> = ({ src, setSrc, isSmall = false }) => {
   );
 };
 
-export default PFPUpload;
+export default AvatarUpload;

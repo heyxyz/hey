@@ -1,4 +1,4 @@
-import PFPUpload from "@components/Shared/PFPUpload";
+import AvatarUpload from "@components/Shared/AvatarUpload";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
@@ -100,7 +100,11 @@ const CreateGroupModal: FC = () => {
         placeholder="Please provide additional details"
         {...form.register("description")}
       />
-      <PFPUpload src={pfpUrl || ""} setSrc={(src) => setPfpUrl(src)} isSmall />
+      <AvatarUpload
+        src={pfpUrl || ""}
+        setSrc={(src) => setPfpUrl(src)}
+        isSmall
+      />
       <Button
         className="flex w-full justify-center"
         disabled={isLoading}
