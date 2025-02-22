@@ -127,7 +127,6 @@ const ChooseUsername: FC = () => {
               setChoosedHandle(username);
               setScreen("minting");
             }
-            // TODO: Add more types
           }
         });
       }
