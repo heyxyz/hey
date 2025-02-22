@@ -34,7 +34,7 @@ const PostHeader: FC<PostHeaderProps> = ({
     >
       <PostAccount
         account={account}
-        postId={targetPost.id}
+        postSlug={targetPost.slug}
         app={targetPost.app}
         timestamp={timestamp}
       />

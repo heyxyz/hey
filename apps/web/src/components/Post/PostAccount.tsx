@@ -11,14 +11,14 @@ import Slug from "../Shared/Slug";
 
 interface PostAccountProps {
   account: Account;
-  postId: string;
+  postSlug: string;
   app?: Maybe<App>;
   timestamp: Date;
 }
 
 const PostAccount: FC<PostAccountProps> = ({
   account,
-  postId,
+  postSlug,
   app,
   timestamp
 }) => {
@@ -52,7 +52,7 @@ const PostAccount: FC<PostAccountProps> = ({
       {timestamp ? (
         <span className="ld-text-gray-500">
           <span className="mr-1">·</span>
-          <Link className="text-xs hover:underline" href={`/posts/${postId}`}>
+          <Link className="text-xs hover:underline" href={`/posts/${postSlug}`}>
             {formatRelativeOrAbsolute(timestamp)}
           </Link>
         </span>
