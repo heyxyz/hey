@@ -102,7 +102,11 @@ const AccountSettingsForm: FC = () => {
     schema: validationSchema
   });
 
-  const updateAccount = async (data: z.infer<typeof validationSchema>) => {
+  const updateAccount = async (
+    data: z.infer<typeof validationSchema>,
+    pfpUrl: string | undefined,
+    coverUrl: string | undefined
+  ) => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
@@ -169,7 +173,11 @@ const AccountSettingsForm: FC = () => {
 
   return (
     <Card className="p-5">
-      <Form className="space-y-4" form={form} onSubmit={updateAccount}>
+      <Form
+        className="space-y-4"
+        form={form}
+        onSubmit={(data) => updateAccount(data, pfpUrl, coverUrl)}
+      >
         <Input
           disabled
           label="Account Id"
@@ -206,8 +214,20 @@ const AccountSettingsForm: FC = () => {
           placeholder="Tell us something about you!"
           {...form.register("bio")}
         />
-        <AvatarUpload src={pfpUrl || ""} setSrc={(src) => setPfpUrl(src)} />
-        <CoverUpload src={coverUrl || ""} setSrc={(src) => setCoverUrl(src)} />
+        <AvatarUpload
+          src={pfpUrl || ""}
+          setSrc={(src) => {
+            setPfpUrl(src);
+            updateAccount({ ...form.getValues() }, src, coverUrl);
+          }}
+        />
+        <CoverUpload
+          src={coverUrl || ""}
+          setSrc={(src) => {
+            setCoverUrl(src);
+            updateAccount({ ...form.getValues() }, pfpUrl, src);
+          }}
+        />
         <Button
           className="ml-auto"
           disabled={
