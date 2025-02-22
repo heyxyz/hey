@@ -1,5 +1,5 @@
+import AvatarUpload from "@components/Shared/AvatarUpload";
 import CoverUpload from "@components/Shared/CoverUpload";
-import PFPUpload from "@components/Shared/PFPUpload";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
@@ -122,7 +122,7 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
           placeholder="Tell us something about your group!"
           {...form.register("description")}
         />
-        <PFPUpload src={pfpUrl || ""} setSrc={(src) => setPfpUrl(src)} />
+        <AvatarUpload src={pfpUrl || ""} setSrc={(src) => setPfpUrl(src)} />
         <CoverUpload src={coverUrl || ""} setSrc={(src) => setCoverUrl(src)} />
         <Button
           className="ml-auto"
