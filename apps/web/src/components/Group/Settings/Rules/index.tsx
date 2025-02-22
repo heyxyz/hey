@@ -10,6 +10,7 @@ import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import BasicRules from "./BasicRules";
+import PaymentRule from "./PaymentRule";
 
 const RulesSettings: NextPage = () => {
   const {
@@ -49,6 +50,7 @@ const RulesSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <BasicRules group={group} />
+        <PaymentRule group={group} />
       </GridItemEight>
     </GridLayout>
   );
