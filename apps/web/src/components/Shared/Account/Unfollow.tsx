@@ -6,7 +6,6 @@ import {
   type LoggedInAccountOperations,
   useUnfollowMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -15,10 +14,6 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import {
-  addOptimisticTransaction,
-  useTransactionStore
-} from "src/store/persisted/useTransactionStore";
 
 interface UnfollowProps {
   buttonClassName: string;
@@ -36,7 +31,6 @@ const Unfollow: FC<UnfollowProps> = ({
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useAuthModalStore();
-  const { isFollowPending } = useTransactionStore();
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -48,13 +42,7 @@ const Unfollow: FC<UnfollowProps> = ({
     });
   };
 
-  const onCompleted = (hash: string) => {
-    addOptimisticTransaction({
-      txHash: hash,
-      type: OptimisticTxType.UNFOLLOW_ACCOUNT,
-      unfollowOn: account.address
-    });
-
+  const onCompleted = () => {
     updateCache();
     setIsLoading(false);
     toast.success("Unfollowed");
@@ -68,7 +56,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const [unfollow] = useUnfollowMutation({
     onCompleted: async ({ unfollow }) => {
       if (unfollow.__typename === "UnfollowResponse") {
-        return onCompleted(unfollow.hash);
+        return onCompleted();
       }
 
       if (unfollow.__typename === "AccountFollowOperationValidationFailed") {
@@ -104,7 +92,7 @@ const Unfollow: FC<UnfollowProps> = ({
     <Button
       aria-label={title}
       className={buttonClassName}
-      disabled={isLoading || isFollowPending(account.address)}
+      disabled={isLoading}
       onClick={handleCreateUnfollow}
       size={small ? "sm" : "md"}
     >

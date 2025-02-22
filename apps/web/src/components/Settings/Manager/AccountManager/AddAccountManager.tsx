@@ -4,7 +4,6 @@ import errorToast from "@helpers/errorToast";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { useAddAccountManagerMutation } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
@@ -12,7 +11,6 @@ import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { isAddress } from "viem";
 
 interface AddAccountManagerProps {
@@ -30,10 +28,9 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
   const [canSetMetadataUri, setCanSetMetadataUri] = useState(true);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = () => {
     setIsLoading(false);
     setShowAddManagerModal(false);
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.ADD_ACCOUNT_MANAGER);
     toast.success("Account manager added");
   };
 

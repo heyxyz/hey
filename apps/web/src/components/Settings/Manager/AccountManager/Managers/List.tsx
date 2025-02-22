@@ -11,7 +11,6 @@ import {
   useAccountManagersQuery,
   useRemoveAccountManagerMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -20,7 +19,6 @@ import { Virtuoso } from "react-virtuoso";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 const List: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -29,8 +27,8 @@ const List: FC = () => {
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const updateCache = (hash: string) => {
-    if (hash && data?.accountManagers?.items) {
+  const updateCache = () => {
+    if (data?.accountManagers?.items) {
       const updatedManagers = data.accountManagers.items.filter(
         (item) => item.manager !== removingAddress
       );
@@ -48,13 +46,9 @@ const List: FC = () => {
     }
   };
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = () => {
     setRemovingAddress(null);
-    updateCache(hash);
-    addSimpleOptimisticTransaction(
-      hash,
-      OptimisticTxType.REMOVE_ACCOUNT_MANAGER
-    );
+    updateCache();
     toast.success("Manager removed successfully");
   };
 

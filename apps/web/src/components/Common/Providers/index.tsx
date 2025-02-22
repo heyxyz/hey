@@ -7,7 +7,7 @@ import type { FC, ReactNode } from "react";
 import ErrorBoundary from "../ErrorBoundary";
 import Layout from "../Layout";
 import FeatureFlagProvider from "./FeatureFlagProvider";
-import OptimisticTransactionsProvider from "./OptimisticTransactionsProvider";
+import OptimisticPublicationProvider from "./OptimisticPublicationProvider";
 import PreferencesProvider from "./PreferencesProvider";
 import Web3Provider from "./Web3Provider";
 
@@ -27,7 +27,7 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
       <Web3Provider>
         <ApolloProvider client={lensApolloClient}>
           <FeatureFlagProvider>
-            <OptimisticTransactionsProvider />
+            <OptimisticPublicationProvider />
             <QueryClientProvider client={queryClient}>
               <PreferencesProvider />
               <ThemeProvider attribute="class" defaultTheme="light">

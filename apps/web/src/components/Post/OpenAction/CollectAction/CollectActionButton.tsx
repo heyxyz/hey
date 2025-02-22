@@ -11,7 +11,6 @@ import {
   type PostAction,
   useExecutePostActionMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button, WarningMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -19,7 +18,6 @@ import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { type Address, formatUnits } from "viem";
 import { useBalance } from "wagmi";
 
@@ -73,8 +71,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
     });
   };
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.CREATE_COLLECT);
+  const onCompleted = () => {
     // Should not disable the button if it's a paid collect module
     setHasSimpleCollected(amount <= 0);
     setIsLoading(false);
@@ -107,7 +104,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   const [executePostAction] = useExecutePostActionMutation({
     onCompleted: async ({ executePostAction }) => {
       if (executePostAction.__typename === "ExecutePostActionResponse") {
-        return onCompleted(executePostAction.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({

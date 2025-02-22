@@ -6,13 +6,11 @@ import {
   type LoggedInGroupOperations,
   useLeaveGroupMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 interface LeaveProps {
   group: Group;
@@ -33,8 +31,7 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
     });
   };
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.LEAVE_GROUP);
+  const onCompleted = () => {
     updateCache();
     setIsLoading(false);
     setJoined(false);
@@ -49,7 +46,7 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
   const [leaveGroup] = useLeaveGroupMutation({
     onCompleted: async ({ leaveGroup }) => {
       if (leaveGroup.__typename === "LeaveGroupResponse") {
-        return onCompleted(leaveGroup.hash);
+        return onCompleted();
       }
 
       if (leaveGroup.__typename === "GroupOperationValidationFailed") {

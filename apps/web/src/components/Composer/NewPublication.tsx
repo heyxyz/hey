@@ -124,8 +124,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const { createPost } = useCreatePost({
     commentOn: post,
     onCompleted: () => reset(),
-    onError,
-    quoteOf: quotedPost as Post
+    onError
   });
 
   useEffect(() => {

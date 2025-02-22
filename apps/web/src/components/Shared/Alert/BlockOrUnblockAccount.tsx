@@ -2,25 +2,20 @@ import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import {
   type Account,
   type LoggedInAccountOperations,
   useBlockMutation,
   useUnblockMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useBlockAlertStore } from "src/store/non-persisted/alert/useBlockAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
-import { sendEip712Transaction, sendTransaction } from "viem/zksync";
-import { useWalletClient } from "wagmi";
 
 const BlockOrUnblockAccount: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -36,7 +31,7 @@ const BlockOrUnblockAccount: FC = () => {
   );
   const { isSuspended } = useAccountStatus();
   const { cache } = useApolloClient();
-  const { data: walletClient } = useWalletClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateCache = () => {
     cache.modify({
@@ -48,14 +43,7 @@ const BlockOrUnblockAccount: FC = () => {
     cache.evict({ id: cache.identify(blockingorUnblockingAccount as Account) });
   };
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(
-      hash,
-      hasBlocked
-        ? OptimisticTxType.UNBLOCK_ACCOUNT
-        : OptimisticTxType.BLOCK_ACCOUNT
-    );
-
+  const onCompleted = () => {
     updateCache();
     setIsLoading(false);
     setHasBlocked(!hasBlocked);
@@ -73,40 +61,14 @@ const BlockOrUnblockAccount: FC = () => {
   const [block] = useBlockMutation({
     onCompleted: async ({ block }) => {
       if (block.__typename === "BlockResponse") {
-        return onCompleted(block.hash);
+        return onCompleted();
       }
 
-      if (walletClient) {
-        try {
-          if (block.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(block.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (block.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(block.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (block.__typename === "BlockError") {
-            return toast.error(block.error);
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
-
-      if (block.__typename === "BlockError") {
-        return toast.error(block.error);
-      }
+      return await handleTransactionLifecycle({
+        transactionData: block,
+        onCompleted,
+        onError
+      });
     },
     onError
   });
@@ -114,40 +76,14 @@ const BlockOrUnblockAccount: FC = () => {
   const [unblock] = useUnblockMutation({
     onCompleted: async ({ unblock }) => {
       if (unblock.__typename === "UnblockResponse") {
-        return onCompleted(unblock.hash);
+        return onCompleted();
       }
 
-      if (walletClient) {
-        try {
-          if (unblock.__typename === "SponsoredTransactionRequest") {
-            const hash = await sendEip712Transaction(walletClient, {
-              account: walletClient.account,
-              ...sponsoredTransactionData(unblock.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (unblock.__typename === "SelfFundedTransactionRequest") {
-            const hash = await sendTransaction(walletClient, {
-              account: walletClient.account,
-              ...selfFundedTransactionData(unblock.raw)
-            });
-
-            return onCompleted(hash);
-          }
-
-          if (unblock.__typename === "UnblockError") {
-            return toast.error(unblock.error);
-          }
-        } catch (error) {
-          return onError(error);
-        }
-      }
-
-      if (unblock.__typename === "UnblockError") {
-        return toast.error(unblock.error);
-      }
+      return await handleTransactionLifecycle({
+        transactionData: unblock,
+        onCompleted,
+        onError
+      });
     },
     onError
   });

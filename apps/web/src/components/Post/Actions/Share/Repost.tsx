@@ -8,7 +8,6 @@ import {
   type Post,
   useRepostMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import cn from "@hey/ui/cn";
 import { useCounter } from "@uidotdev/usehooks";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -16,7 +15,6 @@ import { toast } from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 interface RepostProps {
   isLoading: boolean;
@@ -56,8 +54,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
     });
   };
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.CREATE_REPOST);
+  const onCompleted = () => {
     setIsLoading(false);
     increment();
     updateCache();
@@ -72,7 +69,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   const [repost] = useRepostMutation({
     onCompleted: async ({ repost }) => {
       if (repost.__typename === "PostResponse") {
-        return onCompleted(repost.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({

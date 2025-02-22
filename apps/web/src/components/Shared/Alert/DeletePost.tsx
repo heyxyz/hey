@@ -2,14 +2,12 @@ import type { ApolloCache } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { useDeletePostMutation } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { toast } from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useDeletePostAlertStore } from "src/store/non-persisted/alert/useDeletePostAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 const DeletePost: FC = () => {
   const { deletingPost, setShowPostDeleteAlert, showPostDeleteAlert } =
@@ -23,8 +21,7 @@ const DeletePost: FC = () => {
     });
   };
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.DELETE_POST);
+  const onCompleted = () => {
     setShowPostDeleteAlert(false, null);
     toast.success("Post deleted");
   };
@@ -36,7 +33,7 @@ const DeletePost: FC = () => {
   const [deletePost, { loading }] = useDeletePostMutation({
     onCompleted: async ({ deletePost }) => {
       if (deletePost.__typename === "DeletePostResponse") {
-        return onCompleted(deletePost.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({

@@ -4,17 +4,14 @@ import {
   usePostLazyQuery,
   useTransactionStatusQuery
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
-import type { OptimisticTransaction } from "@hey/types/misc";
-import { useRouter } from "next/router";
+import type { OptimisticPublication } from "@hey/types/misc";
 import type { FC } from "react";
-import { useTransactionStore } from "src/store/persisted/useTransactionStore";
+import { useOptimisticPublicationStore } from "src/store/persisted/useOptimisticPublicationStore";
 
-const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
+const Transaction: FC<{ transaction: OptimisticPublication }> = ({
   transaction
 }) => {
-  const { reload } = useRouter();
-  const { removeTransaction } = useTransactionStore();
+  const { removePublication } = useOptimisticPublicationStore();
   const { cache } = useApolloClient();
   const [getPost] = usePostLazyQuery();
 
@@ -30,7 +27,7 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
       ) {
         // Push new post to the feed
         if (
-          transaction.type === OptimisticTxType.CREATE_POST &&
+          !transaction.commentOn &&
           transactionStatus.__typename === "FinishedTransactionStatus"
         ) {
           const { data } = await getPost({
@@ -50,35 +47,25 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
 
         // Push new comment to the feed
         if (
-          transaction.type === OptimisticTxType.CREATE_COMMENT &&
+          transaction.commentOn &&
           transactionStatus.__typename === "FinishedTransactionStatus"
         ) {
-          if (transaction.commentOn) {
-            const post = await getPost({
-              variables: { request: { txHash: transaction.txHash } }
-            });
+          const post = await getPost({
+            variables: { request: { txHash: transaction.txHash } }
+          });
 
-            if (post) {
-              cache.modify({
-                fields: {
-                  postReferences: () => {
-                    cache.writeQuery({ data: post, query: PostDocument });
-                  }
+          if (post) {
+            cache.modify({
+              fields: {
+                postReferences: () => {
+                  cache.writeQuery({ data: post, query: PostDocument });
                 }
-              });
-            }
+              }
+            });
           }
         }
 
-        // Reload the page when signless toggle is successful
-        if (
-          transaction.type === OptimisticTxType.TOGGLE_SIGNLESS &&
-          transactionStatus.__typename === "FinishedTransactionStatus"
-        ) {
-          reload();
-        }
-
-        return removeTransaction(transaction.txHash as string);
+        return removePublication(transaction.txHash as string);
       }
     }
   });
@@ -86,8 +73,8 @@ const Transaction: FC<{ transaction: OptimisticTransaction }> = ({
   return null;
 };
 
-const OptimisticTransactionsProvider: FC = () => {
-  const { txnQueue } = useTransactionStore();
+const OptimisticPublicationProvider: FC = () => {
+  const { txnQueue } = useOptimisticPublicationStore();
 
   return (
     <>
@@ -98,4 +85,4 @@ const OptimisticTransactionsProvider: FC = () => {
   );
 };
 
-export default OptimisticTransactionsProvider;
+export default OptimisticPublicationProvider;

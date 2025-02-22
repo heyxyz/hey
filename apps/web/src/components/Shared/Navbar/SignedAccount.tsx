@@ -13,7 +13,6 @@ import { NextLink } from "./MenuItems";
 import MobileDrawerMenu from "./MobileDrawerMenu";
 import AppVersion from "./NavItems/AppVersion";
 import Logout from "./NavItems/Logout";
-import OptimisticTransactions from "./NavItems/OptimisticTransactions";
 import Settings from "./NavItems/Settings";
 import SwitchAccount from "./NavItems/SwitchAccount";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
@@ -116,14 +115,6 @@ const SignedAccount: FC = () => {
               }
             >
               <ThemeSwitch />
-            </MenuItem>
-            <MenuItem
-              as="div"
-              className={({ focus }) =>
-                cn({ "dropdown-active": focus }, "m-2 rounded-lg")
-              }
-            >
-              <OptimisticTransactions />
             </MenuItem>
             <div className="divider" />
             <AppVersion />
