@@ -9,7 +9,7 @@ import {
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
-import { Button, Card, CardHeader, Image, Input, Tooltip } from "@hey/ui";
+import { Button, Card, Image, Input, Tooltip } from "@hey/ui";
 import { type FC, type RefObject, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
@@ -99,58 +99,52 @@ const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
   };
 
   return (
-    <Card>
-      <CardHeader
-        body="Update the payment rule, so accounts can only join if they pay a certain amount."
-        title="Payment Rule"
+    <>
+      <ToggleWithHelper
+        heading="Enable Payment Rule"
+        description="Enable the payment rule to require users to pay a certain amount to join the group."
+        disabled={isLoading}
+        icon={<CurrencyDollarIcon className="size-5" />}
+        on={enabled}
+        setOn={handleToggle}
       />
-      <div className="m-5 space-y-5">
-        <ToggleWithHelper
-          heading="Enable Payment Rule"
-          description="Enable the payment rule to require users to pay a certain amount to join the group."
-          disabled={isLoading}
-          icon={<CurrencyDollarIcon className="size-5" />}
-          on={enabled}
-          setOn={handleToggle}
-        />
-        {enabled && (
-          <Card className="flex flex-col space-y-4 p-5">
-            <Input
-              label="Amount"
-              placeholder="1"
-              prefix={
-                <Tooltip content="Payable in GHO" placement="top">
-                  <Image
-                    className="size-5"
-                    src={`${STATIC_IMAGES_URL}/tokens/gho.svg`}
-                    alt="GHO"
-                  />
-                </Tooltip>
-              }
-              className="no-spinner"
-              ref={inputRef}
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
-            />
-            <Input
-              label="Recipient"
-              placeholder="0x123..."
-              value={recipient}
-              onChange={(e) => setRecipient(e.target.value)}
-            />
-            <div className="flex justify-end">
-              <Button
-                disabled={isLoading}
-                onClick={() => handleUpdateRule(false)}
-              >
-                Update
-              </Button>
-            </div>
-          </Card>
-        )}
-      </div>
-    </Card>
+      {enabled && (
+        <Card className="flex flex-col space-y-4 p-5">
+          <Input
+            label="Amount"
+            placeholder="1"
+            prefix={
+              <Tooltip content="Payable in GHO" placement="top">
+                <Image
+                  className="size-5"
+                  src={`${STATIC_IMAGES_URL}/tokens/gho.svg`}
+                  alt="GHO"
+                />
+              </Tooltip>
+            }
+            className="no-spinner"
+            ref={inputRef}
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(Number(e.target.value))}
+          />
+          <Input
+            label="Recipient"
+            placeholder="0x123..."
+            value={recipient}
+            onChange={(e) => setRecipient(e.target.value)}
+          />
+          <div className="flex justify-end">
+            <Button
+              disabled={isLoading}
+              onClick={() => handleUpdateRule(false)}
+            >
+              Update
+            </Button>
+          </div>
+        </Card>
+      )}
+    </>
   );
 };
 

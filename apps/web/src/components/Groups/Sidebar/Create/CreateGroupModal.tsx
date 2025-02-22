@@ -78,7 +78,12 @@ const CreateGroupModal: FC = () => {
     });
     const metadataUri = await uploadMetadata(metadata);
     return await createGroup({
-      variables: { request: { metadataUri } }
+      variables: {
+        request: {
+          metadataUri,
+          rules: { required: [{ banAccountRule: { enable: true } }] }
+        }
+      }
     });
   };
 
