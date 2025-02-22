@@ -55,7 +55,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
-  const canCollect = !hasSimpleCollected || !amount;
+  const canCollect = !hasSimpleCollected;
 
   const updateCache = () => {
     cache.modify({
@@ -80,7 +80,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
     setIsLoading(false);
     onCollectSuccess?.();
     updateCache();
-    toast.success("Collected");
+    toast.success("Collected successfully");
   };
 
   const onError = (error: any) => {
