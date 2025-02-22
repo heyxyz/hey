@@ -28,6 +28,12 @@ const SettingsSidebar: FC<SettingsSidebarProps> = ({ group }) => {
       active: pathname === "/g/[address]/settings"
     },
     {
+      icon: <LockClosedIcon className="size-4" />,
+      title: "Group Rules",
+      url: `/g/${address}/settings/rules`,
+      active: pathname === "/g/[address]/settings/rules"
+    },
+    {
       icon: <NoSymbolIcon className="size-4" />,
       title: "Banned Members",
       url: `/g/${address}/settings/banned`,
@@ -38,12 +44,6 @@ const SettingsSidebar: FC<SettingsSidebarProps> = ({ group }) => {
       title: "Membership Requests",
       url: `/g/${address}/settings/approval`,
       active: pathname === "/g/[address]/settings/approval"
-    },
-    {
-      icon: <LockClosedIcon className="size-4" />,
-      title: "Group Rules",
-      url: `/g/${address}/settings/rules`,
-      active: pathname === "/g/[address]/settings/rules"
     }
   ];
 

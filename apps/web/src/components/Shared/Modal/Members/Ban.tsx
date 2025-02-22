@@ -1,7 +1,6 @@
-import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import type { Account, Group } from "@hey/indexer";
-import { Tooltip } from "@hey/ui";
+import { Button } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 import { useBanAlertStore } from "src/store/non-persisted/alert/useBanAlertStore";
@@ -42,11 +41,9 @@ const Ban: FC<BanProps> = ({ group, account }) => {
   }
 
   return (
-    <Tooltip content="Ban" placement="top">
-      <button onClick={handleBan} type="button">
-        <NoSymbolIcon className="size-4 text-red-500" />
-      </button>
-    </Tooltip>
+    <Button onClick={handleBan} size="sm" variant="danger">
+      Ban
+    </Button>
   );
 };
 
