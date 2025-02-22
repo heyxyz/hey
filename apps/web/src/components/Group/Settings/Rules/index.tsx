@@ -2,22 +2,14 @@ import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { APP_NAME } from "@hey/data/constants";
 import { type Group, useGroupQuery } from "@hey/indexer";
-import {
-  Card,
-  CardHeader,
-  GridItemEight,
-  GridItemFour,
-  GridLayout,
-  PageLoading
-} from "@hey/ui";
+import { GridItemEight, GridItemFour, GridLayout, PageLoading } from "@hey/ui";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
-import ApprovalRule from "./ApprovalRule";
-import BanRule from "./BanRule";
+import BasicRules from "./BasicRules";
 
 const RulesSettings: NextPage = () => {
   const {
@@ -55,17 +47,8 @@ const RulesSettings: NextPage = () => {
       <GridItemFour>
         <SettingsSidebar group={group} />
       </GridItemFour>
-      <GridItemEight>
-        <Card>
-          <CardHeader
-            body="Update the rules for your group and control how your group should operate."
-            title="Group Rules"
-          />
-          <div className="m-5 space-y-5">
-            <ApprovalRule group={group} />
-            <BanRule group={group} />
-          </div>
-        </Card>
+      <GridItemEight className="space-y-5">
+        <BasicRules group={group} />
       </GridItemEight>
     </GridLayout>
   );
