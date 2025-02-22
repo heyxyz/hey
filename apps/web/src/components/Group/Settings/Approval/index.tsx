@@ -50,15 +50,15 @@ const BanSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Ban settings • ${APP_NAME}`} />
+      <MetaTags title={`Approval settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar group={group} />
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <Card>
           <CardHeader
-            body="This is a list of banned accounts. You can unban them at any time."
-            title="Banned accounts"
+            body="This is a list of membership requests. You can approve or reject them at any time."
+            title="Membership requests"
           />
           <List group={group} />
         </Card>

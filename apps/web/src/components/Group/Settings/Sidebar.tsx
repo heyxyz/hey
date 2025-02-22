@@ -36,8 +36,8 @@ const SettingsSidebar: FC<SettingsSidebarProps> = ({ group }) => {
     {
       icon: <CheckCircleIcon className="size-4" />,
       title: "Membership Requests",
-      url: `/g/${address}/settings/approvals`,
-      active: pathname === "/g/[address]/settings/approvals"
+      url: `/g/${address}/settings/approval`,
+      active: pathname === "/g/[address]/settings/approval"
     },
     {
       icon: <LockClosedIcon className="size-4" />,
