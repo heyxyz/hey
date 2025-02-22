@@ -1,7 +1,6 @@
 import AvatarUpload from "@components/Shared/AvatarUpload";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
-import { DEFAULT_COLLECT_TOKEN } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { useCreateGroupMutation } from "@hey/indexer";
@@ -82,17 +81,18 @@ const CreateGroupModal: FC = () => {
       variables: {
         request: {
           metadataUri,
-          // rules: { required: [{ banAccountRule: { enable: true } }] }
-          rules: {
-            required: [
-              {
-                simplePaymentRule: {
-                  cost: { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
-                  recipient: "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF"
-                }
-              }
-            ]
-          }
+          rules: { required: [{ banAccountRule: { enable: true } }] }
+          // TODO: Remove this once after testing
+          // rules: {
+          //   required: [
+          //     {
+          //       simplePaymentRule: {
+          //         cost: { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
+          //         recipient: "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF"
+          //       }
+          //     }
+          //   ]
+          // }
         }
       }
     });
