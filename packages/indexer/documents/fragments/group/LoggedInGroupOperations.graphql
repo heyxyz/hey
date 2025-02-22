@@ -1,7 +1,4 @@
 fragment LoggedInGroupOperationsFields on LoggedInGroupOperations {
   isMember
   isBanned
-  canJoin {
-    __typename
-  }
 }
