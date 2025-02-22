@@ -13,7 +13,7 @@ interface FollowNotificationProps {
 
 const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
   const { currentAccount } = useAccountStore();
-  const followers = notification?.followers;
+  const followers = notification.followers;
   const firstAccount = followers?.[0];
   const length = followers.length - 1;
   const moreThanOneAccount = length > 1;

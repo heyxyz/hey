@@ -14,7 +14,7 @@ interface CommentNotificationProps {
 const CommentNotification: FC<CommentNotificationProps> = ({
   notification
 }) => {
-  const metadata = notification?.comment.metadata;
+  const metadata = notification.comment.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
   const firstAccount = notification.comment.author;
 
@@ -33,13 +33,13 @@ const CommentNotification: FC<CommentNotificationProps> = ({
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstAccount={firstAccount}
-          linkToType={`/posts/${notification?.comment?.slug}`}
+          linkToType={`/posts/${notification.comment.slug}`}
           text={text}
           type={type}
         />
         <Link
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
-          href={`/posts/${notification?.comment?.slug}`}
+          href={`/posts/${notification.comment.slug}`}
         >
           <Markup mentions={notification.comment.mentions}>
             {filteredContent}
