@@ -35,10 +35,6 @@ const PageMetatags: FC = () => {
       description: `Copyright Policy of ${APP_NAME}.`,
       title: `Copyright Policy • ${APP_NAME}`
     },
-    "/thanks": {
-      description: `Thanks to all the people and projects that have supported ${APP_NAME}.`,
-      title: `Thanks • ${APP_NAME}`
-    },
     default: {
       description: DESCRIPTION,
       title: APP_NAME
