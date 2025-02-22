@@ -3,4 +3,26 @@ fragment GroupRuleFields on GroupRule {
   type
   address
   executesOn
+  config {
+    ... on AddressKeyValue {
+      key
+      address
+    }
+    ... on BigDecimalKeyValue {
+      key
+      bigDecimal
+    }
+    ... on BooleanKeyValue {
+      key
+      boolean
+    }
+    ... on IntKeyValue {
+      key
+      int
+    }
+    ... on StringKeyValue {
+      key
+      string
+    }
+  }
 }
