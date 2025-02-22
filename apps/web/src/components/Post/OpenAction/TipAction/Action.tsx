@@ -39,8 +39,8 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const [amount, setAmount] = useState(2);
   const [other, setOther] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
-  const inputRef = useRef<HTMLInputElement>(null);
   const { cache } = useApolloClient();
+  const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
   const symbol = IS_MAINNET ? "GHO" : "WGRASS";
 
