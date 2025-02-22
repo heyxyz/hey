@@ -1,11 +1,7 @@
 import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
-import {
-  type Group,
-  type LoggedInGroupOperations,
-  useJoinGroupMutation
-} from "@hey/indexer";
+import { type Group, useJoinGroupMutation } from "@hey/indexer";
 import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import { type FC, useState } from "react";
@@ -35,8 +31,8 @@ const Join: FC<JoinProps> = ({
   const handleTransactionLifecycle = useTransactionLifecycle();
   const updateCache = () => {
     cache.modify({
-      fields: { isMember: () => true },
-      id: cache.identify(group.operations as LoggedInGroupOperations)
+      fields: { operations: () => true },
+      id: cache.identify(group)
     });
   };
 

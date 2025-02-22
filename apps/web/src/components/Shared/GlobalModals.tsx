@@ -110,7 +110,6 @@ const GlobalModals: FC = () => {
         onClose={() => setShowJoinGroupModal(false, joiningGroup)}
         show={showJoinGroupModal}
         title="Rules to join"
-        size="xs"
       >
         <JoinGroup />
       </Modal>

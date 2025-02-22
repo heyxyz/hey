@@ -1,4 +1,7 @@
-import { getMembershipApprovalDetails } from "@helpers/group";
+import {
+  getMembershipApprovalDetails,
+  getSimplePaymentDetails
+} from "@helpers/group";
 import type { Group } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
@@ -17,11 +20,12 @@ const JoinWithRulesCheck: FC<JoinWithRulesCheckProps> = ({
   small
 }) => {
   const { setShowJoinGroupModal } = useJoinGroupModalStore();
+  const { assetContract: requiredSimplePayment } = getSimplePaymentDetails(
+    group.rules
+  );
   const requiresMembershipApproval = getMembershipApprovalDetails(group.rules);
 
-  if (
-    group.operations?.canJoin.__typename === "GroupOperationValidationFailed"
-  ) {
+  if (requiredSimplePayment) {
     return (
       <Button
         aria-label="Join"

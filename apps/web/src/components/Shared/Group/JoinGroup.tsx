@@ -10,8 +10,8 @@ import { useJoinGroupModalStore } from "src/store/non-persisted/modal/useJoinGro
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Address } from "viem";
 import { useBalance } from "wagmi";
+import FundButton from "../Fund/FundButton";
 import Loader from "../Loader";
-import SingleGroup from "../SingleGroup";
 import Join from "./Join";
 
 const JoinGroup: FC = () => {
@@ -38,18 +38,11 @@ const JoinGroup: FC = () => {
 
   return (
     <div className="m-5 space-y-5">
-      <SingleGroup
-        hideJoinButton
-        hideLeaveButton
-        group={joiningGroup as Group}
-        linkToGroup={false}
-        isBig
-      />
       <div className="space-y-4">
         <div className="space-y-2">
           <h3 className="font-bold text-lg">Rules to join</h3>
           {requiresPayment && (
-            <div className="flex items-center gap-2 text-sm">
+            <div className="ld-text-gray-500 flex items-center gap-2 text-sm">
               {hasEnoughBalance ? (
                 <CheckCircleIcon className="size-4 text-green-500" />
               ) : (
@@ -65,18 +58,19 @@ const JoinGroup: FC = () => {
             </div>
           )}
         </div>
-        {hasEnoughBalance && (
-          <div className="w-full">
-            <Join
-              className="w-full"
-              group={joiningGroup as Group}
-              setJoined={() => {
-                setShowJoinGroupModal(false, null);
-              }}
-              small={false}
-              label={requiresMembershipApproval ? "Request to join" : "Join"}
-            />
-          </div>
+        {hasEnoughBalance ? (
+          <Join
+            group={joiningGroup as Group}
+            setJoined={() => {
+              setShowJoinGroupModal(false, joiningGroup);
+            }}
+            small={false}
+            label={
+              requiresMembershipApproval ? "Request to join" : "Join group"
+            }
+          />
+        ) : (
+          <FundButton />
         )}
       </div>
     </div>
