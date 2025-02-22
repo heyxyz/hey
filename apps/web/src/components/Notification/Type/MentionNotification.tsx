@@ -14,7 +14,7 @@ interface MentionNotificationProps {
 const MentionNotification: FC<MentionNotificationProps> = ({
   notification
 }) => {
-  const metadata = notification?.post.metadata;
+  const metadata = notification.post.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
   const firstAccount = notification.post.author;
 
@@ -32,15 +32,15 @@ const MentionNotification: FC<MentionNotificationProps> = ({
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstAccount={firstAccount}
-          linkToType={`/posts/${notification?.post?.slug}`}
+          linkToType={`/posts/${notification.post.slug}`}
           text={text}
           type={type}
         />
         <Link
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
-          href={`/posts/${notification?.post?.slug}`}
+          href={`/posts/${notification.post.slug}`}
         >
-          <Markup mentions={notification?.post.mentions}>
+          <Markup mentions={notification.post.mentions}>
             {filteredContent}
           </Markup>
         </Link>

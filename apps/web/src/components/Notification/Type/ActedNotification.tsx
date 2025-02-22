@@ -13,11 +13,11 @@ interface ActedNotificationProps {
 }
 
 const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
-  const post = notification?.publication;
+  const post = notification.post;
   const targetPost = isRepost(post) ? post.repostOf : post;
   const { metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";
-  const actions = notification?.actions;
+  const actions = notification.actions;
   const firstAccount = actions?.[0]?.by;
   const length = actions.length - 1;
   const moreThanOneAccount = length > 1;
@@ -25,7 +25,7 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
   const text = moreThanOneAccount
     ? `and ${length} ${plur("other", length)} acted on your`
     : "acted on your";
-  const type = notification?.publication.__typename;
+  const type = notification.post.__typename;
 
   return (
     <div className="space-y-2">
@@ -42,13 +42,13 @@ const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstAccount={firstAccount}
-          linkToType={`/posts/${notification?.publication?.slug}`}
+          linkToType={`/posts/${notification.post.slug}`}
           text={text}
           type={type}
         />
         <Link
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
-          href={`/posts/${notification?.publication?.slug}`}
+          href={`/posts/${notification.post.slug}`}
         >
           <Markup mentions={targetPost.mentions}>{filteredContent}</Markup>
         </Link>

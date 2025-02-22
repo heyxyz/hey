@@ -12,7 +12,7 @@ interface QuoteNotificationProps {
 }
 
 const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
-  const metadata = notification?.quote.metadata;
+  const metadata = notification.quote.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
   const firstAccount = notification.quote.author;
 
@@ -30,13 +30,13 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstAccount={firstAccount}
-          linkToType={`/posts/${notification?.quote?.slug}`}
+          linkToType={`/posts/${notification.quote.slug}`}
           text={text}
           type={type}
         />
         <Link
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
-          href={`/posts/${notification?.quote?.slug}`}
+          href={`/posts/${notification.quote.slug}`}
         >
           <Markup mentions={notification.quote.mentions}>
             {filteredContent}
