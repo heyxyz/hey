@@ -3,6 +3,9 @@ mutation JoinGroup($request: JoinGroupRequest!) {
     ... on JoinGroupResponse {
       hash
     }
+    ... on GroupOperationValidationFailed {
+      reason
+    }
     ... on SelfFundedTransactionRequest {
       ...SelfFundedTransactionRequestFields
     }

@@ -52,6 +52,10 @@ const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
         return onCompleted(joinGroup.hash);
       }
 
+      if (joinGroup.__typename === "GroupOperationValidationFailed") {
+        return onError({ message: joinGroup.reason });
+      }
+
       return await handleTransactionLifecycle({
         transactionData: joinGroup,
         onCompleted,
