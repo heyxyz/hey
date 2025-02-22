@@ -4,6 +4,7 @@ import { Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useFundModalStore } from "src/store/non-persisted/modal/useFundModalStore";
+import { useJoinGroupModalStore } from "src/store/non-persisted/modal/useJoinGroupModalStore";
 import { useNewPostModalStore } from "src/store/non-persisted/modal/useNewPostModalStore";
 import { useOptimisticTransactionsModalStore } from "src/store/non-persisted/modal/useOptimisticTransactionsModalStore";
 import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
@@ -14,6 +15,7 @@ import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import FundAccount from "./Fund/FundAccount";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
+import JoinGroup from "./Group/JoinGroup";
 import OptimisticTransactions from "./Modal/OptimisticTransactions";
 import ReportAccount from "./Modal/ReportAccount";
 import SwitchAccounts from "./SwitchAccounts";
@@ -37,6 +39,8 @@ const GlobalModals: FC = () => {
   const { reportingPostId, showReportPostModal, setShowReportPostModal } =
     useReportPostModalStore();
   const { showFundModal, setShowFundModal } = useFundModalStore();
+  const { showJoinGroupModal, setShowJoinGroupModal } =
+    useJoinGroupModalStore();
 
   const { screen: signupScreen } = useSignupStore();
   const { address } = useAccount();
@@ -101,6 +105,13 @@ const GlobalModals: FC = () => {
         title="Fund account"
       >
         <FundAccount />
+      </Modal>
+      <Modal
+        onClose={() => setShowJoinGroupModal(false, null)}
+        show={showJoinGroupModal}
+        title="Join group"
+      >
+        <JoinGroup />
       </Modal>
     </>
   );
