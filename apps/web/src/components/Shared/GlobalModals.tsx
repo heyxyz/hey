@@ -6,7 +6,6 @@ import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalSto
 import { useFundModalStore } from "src/store/non-persisted/modal/useFundModalStore";
 import { useJoinGroupModalStore } from "src/store/non-persisted/modal/useJoinGroupModalStore";
 import { useNewPostModalStore } from "src/store/non-persisted/modal/useNewPostModalStore";
-import { useOptimisticTransactionsModalStore } from "src/store/non-persisted/modal/useOptimisticTransactionsModalStore";
 import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "src/store/non-persisted/modal/useReportPostModalStore";
 import { useSwitchAccountModalStore } from "src/store/non-persisted/modal/useSwitchAccountModalStore";
@@ -16,18 +15,12 @@ import { useSignupStore } from "./Auth/Signup";
 import FundAccount from "./Fund/FundAccount";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
 import JoinGroup from "./Group/JoinGroup";
-import OptimisticTransactions from "./Modal/OptimisticTransactions";
 import ReportAccount from "./Modal/ReportAccount";
 import SwitchAccounts from "./SwitchAccounts";
 
 const GlobalModals: FC = () => {
   const { setShowSwitchAccountModal, showSwitchAccountModal } =
     useSwitchAccountModalStore();
-
-  const {
-    showOptimisticTransactionsModal,
-    setShowOptimisticTransactionsModal
-  } = useOptimisticTransactionsModalStore();
   const { showNewPostModal, setShowNewPostModal } = useNewPostModalStore();
   const { authModalType, showAuthModal, setShowAuthModal } =
     useAuthModalStore();
@@ -91,13 +84,6 @@ const GlobalModals: FC = () => {
         title="Create post"
       >
         <NewPublication className="!rounded-b-xl !rounded-t-none border-none" />
-      </Modal>
-      <Modal
-        onClose={() => setShowOptimisticTransactionsModal(false)}
-        show={showOptimisticTransactionsModal}
-        title="Optimistic Transactions"
-      >
-        <OptimisticTransactions />
       </Modal>
       <Modal
         onClose={() => setShowFundModal(false)}

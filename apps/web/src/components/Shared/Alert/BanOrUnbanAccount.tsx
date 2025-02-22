@@ -7,7 +7,6 @@ import {
   useBanGroupAccountsMutation,
   useUnbanGroupAccountsMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -16,7 +15,6 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useBanAlertStore } from "src/store/non-persisted/alert/useBanAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 const BanOrUnbanAccount: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -36,14 +34,7 @@ const BanOrUnbanAccount: FC = () => {
     cache.evict({ id: cache.identify(banningOrUnbanningAccount as Account) });
   };
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(
-      hash,
-      banning
-        ? OptimisticTxType.BAN_GROUP_ACCOUNT
-        : OptimisticTxType.UNBAN_GROUP_ACCOUNT
-    );
-
+  const onCompleted = () => {
     updateCache();
     setIsLoading(false);
     setShowBanOrUnbanAlert(false, banning, null, null);
@@ -58,7 +49,7 @@ const BanOrUnbanAccount: FC = () => {
   const [banGroupAccounts] = useBanGroupAccountsMutation({
     onCompleted: async ({ banGroupAccounts }) => {
       if (banGroupAccounts.__typename === "BanGroupAccountsResponse") {
-        return onCompleted(banGroupAccounts.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({
@@ -73,7 +64,7 @@ const BanOrUnbanAccount: FC = () => {
   const [unbanGroupAccounts] = useUnbanGroupAccountsMutation({
     onCompleted: async ({ unbanGroupAccounts }) => {
       if (unbanGroupAccounts.__typename === "UnbanGroupAccountsResponse") {
-        return onCompleted(unbanGroupAccounts.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({

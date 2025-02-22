@@ -4,7 +4,6 @@ import {
   useEnableSignlessMutation,
   useRemoveSignlessMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
@@ -13,10 +12,6 @@ import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import {
-  addSimpleOptimisticTransaction,
-  useTransactionStore
-} from "src/store/persisted/useTransactionStore";
 
 interface ToggleLensManagerProps {
   buttonSize?: "sm";
@@ -27,17 +22,12 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 }) => {
   const { isSignlessEnabled } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { txnQueue } = useTransactionStore();
   const [isLoading, setIsLoading] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const isIndexing = txnQueue.some(
-    (txn) => txn.type === OptimisticTxType.TOGGLE_SIGNLESS
-  );
-
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.TOGGLE_SIGNLESS);
+  const onCompleted = () => {
     setIsLoading(false);
+    toast.success("Signless enabled");
   };
 
   const onError = (error: any) => {
@@ -80,7 +70,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   return (
     <Button
       className={cn({ "text-sm": buttonSize === "sm" }, "mr-auto")}
-      disabled={isLoading || isIndexing}
+      disabled={isLoading}
       onClick={handleToggleDispatcher}
       variant={isSignlessEnabled ? "danger" : "primary"}
     >

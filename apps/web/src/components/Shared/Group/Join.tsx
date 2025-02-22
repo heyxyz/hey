@@ -2,13 +2,11 @@ import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { type Group, useJoinGroupMutation } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 interface JoinProps {
   group: Group;
@@ -36,8 +34,7 @@ const Join: FC<JoinProps> = ({
     });
   };
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.JOIN_GROUP);
+  const onCompleted = () => {
     updateCache();
     setIsLoading(false);
     setJoined(true);
@@ -52,7 +49,7 @@ const Join: FC<JoinProps> = ({
   const [joinGroup] = useJoinGroupMutation({
     onCompleted: async ({ joinGroup }) => {
       if (joinGroup.__typename === "JoinGroupResponse") {
-        return onCompleted(joinGroup.hash);
+        return onCompleted();
       }
 
       if (joinGroup.__typename === "GroupOperationValidationFailed") {

@@ -8,7 +8,6 @@ import {
   GroupRuleType,
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button, Card, Image, Input, Tooltip } from "@hey/ui";
 import { type FC, type RefObject, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -16,7 +15,6 @@ import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInp
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 interface PaymentRuleProps {
   group: Group;
@@ -38,8 +36,7 @@ const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
   ].find((rule) => rule.type === GroupRuleType.SimplePayment);
   const [enabled, setEnabled] = useState(!!simplePaymentRule);
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.UPDATE_GROUP_RULES);
+  const onCompleted = () => {
     setIsLoading(false);
     setEnabled(false);
     toast.success("Payment rule updated");

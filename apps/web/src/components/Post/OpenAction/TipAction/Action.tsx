@@ -8,7 +8,6 @@ import {
   type Post,
   useExecutePostActionMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button, Input, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { ChangeEvent, FC, RefObject } from "react";
@@ -19,7 +18,6 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import type { Address } from "viem";
 import { formatUnits } from "viem";
 import { useBalance } from "wagmi";
@@ -66,8 +64,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
     // });
   };
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.CREATE_TIP);
+  const onCompleted = () => {
     setIsLoading(false);
     closePopover();
     updateCache();
@@ -89,7 +86,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const [executePostAction] = useExecutePostActionMutation({
     onCompleted: async ({ executePostAction }) => {
       if (executePostAction.__typename === "ExecutePostActionResponse") {
-        return onCompleted(executePostAction.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({

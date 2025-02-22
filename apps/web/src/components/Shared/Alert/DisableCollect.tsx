@@ -2,14 +2,12 @@ import type { ApolloCache } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { type Post, useDisablePostActionMutation } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Alert } from "@hey/ui";
 import { type FC, useState } from "react";
 import { toast } from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useDisableCollectAlertStore } from "src/store/non-persisted/alert/useDisableCollectAlertStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 const DisableCollect: FC = () => {
   const { disablingPost, setShowDisableCollectAlert, showDisableCollectAlert } =
@@ -30,8 +28,7 @@ const DisableCollect: FC = () => {
     });
   };
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.DISABLE_COLLECT);
+  const onCompleted = () => {
     setLoading(false);
     setShowDisableCollectAlert(false, null);
     toast.success("Collect action disabled");
@@ -45,7 +42,7 @@ const DisableCollect: FC = () => {
   const [disablePostAction] = useDisablePostActionMutation({
     onCompleted: async ({ disablePostAction }) => {
       if (disablePostAction.__typename === "DisablePostActionResponse") {
-        return onCompleted(disablePostAction.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({

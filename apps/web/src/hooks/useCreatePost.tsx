@@ -1,35 +1,25 @@
 import { type Post, useCreatePostMutation } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
-import { addOptimisticTransaction } from "src/store/persisted/useTransactionStore";
+import { addOptimisticPublication } from "src/store/persisted/useOptimisticPublicationStore";
 import useTransactionLifecycle from "./useTransactionLifecycle";
 
 interface CreatePostProps {
   commentOn?: Post;
   onCompleted: () => void;
   onError: (error: any) => void;
-  quoteOf?: Post;
 }
 
 const useCreatePost = ({
   commentOn,
   onCompleted,
-  onError,
-  quoteOf
+  onError
 }: CreatePostProps) => {
   const handleTransactionLifecycle = useTransactionLifecycle();
-
   const isComment = Boolean(commentOn);
-  const isQuote = Boolean(quoteOf);
 
   const onCompletedWithTransaction = (hash: string) => {
-    addOptimisticTransaction({
+    addOptimisticPublication({
       ...(isComment && { commentOn: commentOn?.id }),
-      txHash: hash,
-      type: isComment
-        ? OptimisticTxType.CREATE_COMMENT
-        : isQuote
-          ? OptimisticTxType.CREATE_QUOTE
-          : OptimisticTxType.CREATE_POST
+      txHash: hash
     });
 
     return onCompleted();

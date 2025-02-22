@@ -1,7 +1,6 @@
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -9,7 +8,6 @@ import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 const UnlinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -17,9 +15,8 @@ const UnlinkHandle: FC = () => {
   const [unlinking, setUnlinking] = useState<boolean>(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = () => {
     setUnlinking(false);
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.UNASSIGN_USERNAME);
     toast.success("Unlinked");
   };
 
@@ -33,7 +30,7 @@ const UnlinkHandle: FC = () => {
       if (
         unassignUsernameFromAccount.__typename === "UnassignUsernameResponse"
       ) {
-        return onCompleted(unassignUsernameFromAccount.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({

@@ -7,7 +7,6 @@ import { Regex } from "@hey/data/regex";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import trimify from "@hey/helpers/trimify";
 import { useSetAccountMetadataMutation } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button, Card, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import type {
   AccountOptions,
@@ -23,7 +22,6 @@ import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import type { z } from "zod";
 import { object, string, union } from "zod";
 
@@ -56,9 +54,8 @@ const AccountSettingsForm: FC = () => {
   );
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = () => {
     setIsLoading(false);
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.SET_ACCOUNT_METADATA);
     toast.success("Account updated");
   };
 
@@ -70,7 +67,7 @@ const AccountSettingsForm: FC = () => {
   const [setAccountMetadata] = useSetAccountMetadataMutation({
     onCompleted: async ({ setAccountMetadata }) => {
       if (setAccountMetadata.__typename === "SetAccountMetadataResponse") {
-        return onCompleted(setAccountMetadata.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({

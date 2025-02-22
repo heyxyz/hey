@@ -4,14 +4,12 @@ import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { useCreateGroupMutation } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import { group } from "@lens-protocol/metadata";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 import { object, string, type z } from "zod";
 import { useCreateGroupStore } from "./CreateGroup";
 
@@ -38,7 +36,6 @@ const CreateGroupModal: FC = () => {
   });
 
   const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.CREATE_GROUP);
     setIsLoading(false);
     setTransactionHash(hash);
     setScreen("minting");

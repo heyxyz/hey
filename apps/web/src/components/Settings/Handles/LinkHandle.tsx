@@ -9,7 +9,6 @@ import {
   useUnassignUsernameFromAccountMutation,
   useUsernamesQuery
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button, EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -17,7 +16,6 @@ import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 const LinkHandle: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -25,9 +23,8 @@ const LinkHandle: FC = () => {
   const [linkingUsername, setLinkingUsername] = useState<null | string>(null);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = () => {
     setLinkingUsername(null);
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.ASSIGN_USERNAME);
     toast.success("Linked");
   };
 
@@ -43,7 +40,7 @@ const LinkHandle: FC = () => {
   const [assignUsernameToAccount] = useAssignUsernameToAccountMutation({
     onCompleted: async ({ assignUsernameToAccount }) => {
       if (assignUsernameToAccount.__typename === "AssignUsernameResponse") {
-        return onCompleted(assignUsernameToAccount.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({
@@ -82,7 +79,7 @@ const LinkHandle: FC = () => {
       if (
         unassignUsernameFromAccount.__typename === "UnassignUsernameResponse"
       ) {
-        return onCompleted(unassignUsernameFromAccount.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({

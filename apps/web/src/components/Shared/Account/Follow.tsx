@@ -6,7 +6,6 @@ import {
   type LoggedInAccountOperations,
   useFollowMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -15,10 +14,6 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import {
-  addOptimisticTransaction,
-  useTransactionStore
-} from "src/store/persisted/useTransactionStore";
 
 interface FollowProps {
   buttonClassName: string;
@@ -36,7 +31,6 @@ const Follow: FC<FollowProps> = ({
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useAuthModalStore();
-  const { isUnfollowPending } = useTransactionStore();
 
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();
@@ -49,13 +43,7 @@ const Follow: FC<FollowProps> = ({
     });
   };
 
-  const onCompleted = (hash: string) => {
-    addOptimisticTransaction({
-      followOn: account.address,
-      txHash: hash,
-      type: OptimisticTxType.FOLLOW_ACCOUNT
-    });
-
+  const onCompleted = () => {
     updateCache();
     setIsLoading(false);
     toast.success("Followed");
@@ -69,7 +57,7 @@ const Follow: FC<FollowProps> = ({
   const [follow] = useFollowMutation({
     onCompleted: async ({ follow }) => {
       if (follow.__typename === "FollowResponse") {
-        return onCompleted(follow.hash);
+        return onCompleted();
       }
 
       if (follow.__typename === "AccountFollowOperationValidationFailed") {
@@ -106,7 +94,7 @@ const Follow: FC<FollowProps> = ({
     <Button
       aria-label={title}
       className={buttonClassName}
-      disabled={isLoading || isUnfollowPending(account.address)}
+      disabled={isLoading}
       onClick={handleCreateFollow}
       outline
       size={small ? "sm" : "md"}

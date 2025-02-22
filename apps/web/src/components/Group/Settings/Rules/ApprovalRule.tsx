@@ -7,12 +7,10 @@ import {
   GroupRuleType,
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
-import { OptimisticTxType } from "@hey/types/enums";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
 interface ApprovalRuleProps {
   group: Group;
@@ -28,8 +26,7 @@ const ApprovalRule: FC<ApprovalRuleProps> = ({ group }) => {
   );
   const isApprovalRuleEnabled = approvalRule !== undefined;
 
-  const onCompleted = (hash: string) => {
-    addSimpleOptimisticTransaction(hash, OptimisticTxType.UPDATE_GROUP_RULES);
+  const onCompleted = () => {
     setIsLoading(false);
     toast.success("Approval rule updated");
   };
