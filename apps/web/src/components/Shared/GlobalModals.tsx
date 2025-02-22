@@ -39,7 +39,7 @@ const GlobalModals: FC = () => {
   const { reportingPostId, showReportPostModal, setShowReportPostModal } =
     useReportPostModalStore();
   const { showFundModal, setShowFundModal } = useFundModalStore();
-  const { showJoinGroupModal, setShowJoinGroupModal } =
+  const { showJoinGroupModal, setShowJoinGroupModal, joiningGroup } =
     useJoinGroupModalStore();
 
   const { screen: signupScreen } = useSignupStore();
@@ -107,9 +107,10 @@ const GlobalModals: FC = () => {
         <FundAccount />
       </Modal>
       <Modal
-        onClose={() => setShowJoinGroupModal(false, null)}
+        onClose={() => setShowJoinGroupModal(false, joiningGroup)}
         show={showJoinGroupModal}
-        title="Join group"
+        title="Rules to join"
+        size="xs"
       >
         <JoinGroup />
       </Modal>

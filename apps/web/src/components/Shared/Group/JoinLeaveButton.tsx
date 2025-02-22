@@ -3,7 +3,7 @@ import type { Group } from "@hey/indexer";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import Join from "./Join";
+import JoinWithRulesCheck from "./JoinWithRulesCheck";
 import Leave from "./Leave";
 
 interface JoinLeaveButtonProps {
@@ -34,7 +34,11 @@ const JoinLeaveButton: FC<JoinLeaveButtonProps> = ({
     <div className="contents" onClick={stopEventPropagation}>
       {!hideJoinButton &&
         (joined ? null : (
-          <Join group={group} setJoined={setJoined} small={small} />
+          <JoinWithRulesCheck
+            group={group}
+            setJoined={setJoined}
+            small={small}
+          />
         ))}
       {!hideLeaveButton &&
         (joined ? (

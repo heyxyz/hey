@@ -11,7 +11,6 @@ import { Button } from "@hey/ui";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
-import { useJoinGroupModalStore } from "src/store/non-persisted/modal/useJoinGroupModalStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { addSimpleOptimisticTransaction } from "src/store/persisted/useTransactionStore";
 
@@ -19,11 +18,18 @@ interface JoinProps {
   group: Group;
   setJoined: (joined: boolean) => void;
   small: boolean;
+  label?: string;
+  className?: string;
 }
 
-const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
+const Join: FC<JoinProps> = ({
+  group,
+  setJoined,
+  small,
+  className = "",
+  label = "Join"
+}) => {
   const { isSuspended } = useAccountStatus();
-  const { setShowJoinGroupModal } = useJoinGroupModalStore();
   const [isLoading, setIsLoading] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -78,30 +84,16 @@ const Join: FC<JoinProps> = ({ group, setJoined, small }) => {
     });
   };
 
-  if (
-    group.operations?.canJoin.__typename === "GroupOperationValidationFailed"
-  ) {
-    return (
-      <Button
-        aria-label="Join"
-        onClick={() => setShowJoinGroupModal(true, group)}
-        outline
-        size={small ? "sm" : "md"}
-      >
-        Join
-      </Button>
-    );
-  }
-
   return (
     <Button
       aria-label="Join"
+      className={className}
       disabled={isLoading}
       onClick={handleJoin}
       outline
       size={small ? "sm" : "md"}
     >
-      Join
+      {label}
     </Button>
   );
 };
