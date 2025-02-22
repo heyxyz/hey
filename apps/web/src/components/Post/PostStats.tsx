@@ -2,7 +2,7 @@ import Collectors from "@components/Shared/Modal/Collectors";
 import Likes from "@components/Shared/Modal/Likes";
 import Reposts from "@components/Shared/Modal/Reposts";
 import nFormatter from "@hey/helpers/nFormatter";
-import type { PostStats as IPostStats } from "@hey/indexer";
+import type { Post } from "@hey/indexer";
 import { Modal } from "@hey/ui";
 import Link from "next/link";
 import plur from "plur";
@@ -10,16 +10,15 @@ import type { FC } from "react";
 import { memo, useState } from "react";
 
 interface PostStatsProps {
-  postId: string;
-  postStats: IPostStats;
+  post: Post;
 }
 
-const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
+const PostStats: FC<PostStatsProps> = ({ post }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showRepostsModal, setShowRepostsModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const { bookmarks, comments, reposts, quotes, reactions } = postStats;
+  const { bookmarks, comments, reposts, quotes, reactions } = post.stats;
 
   const showStats =
     comments > 0 || reactions > 0 || reposts > 0 || quotes > 0 || bookmarks > 0;
@@ -49,7 +48,10 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
           </button>
         ) : null}
         {quotes > 0 ? (
-          <Link className="outline-offset-2" href={`/posts/${postId}/quotes`}>
+          <Link
+            className="outline-offset-2"
+            href={`/posts/${post.slug}/quotes`}
+          >
             <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{" "}
             {plur("Quote", quotes)}
           </Link>
@@ -82,7 +84,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
         title="Likes"
         size="md"
       >
-        <Likes postId={postId} />
+        <Likes postId={post.id} />
       </Modal>
       <Modal
         onClose={() => setShowRepostsModal(false)}
@@ -90,7 +92,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
         title="Reposts"
         size="md"
       >
-        <Reposts postId={postId} />
+        <Reposts postId={post.id} />
       </Modal>
       <Modal
         onClose={() => setShowCollectorsModal(false)}
@@ -98,7 +100,7 @@ const PostStats: FC<PostStatsProps> = ({ postId, postStats }) => {
         title="Collectors"
         size="md"
       >
-        <Collectors postId={postId} />
+        <Collectors postId={post.id} />
       </Modal>
     </>
   );
