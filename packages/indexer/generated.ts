@@ -669,8 +669,8 @@ export type AddReactionResult = AddReactionFailure | AddReactionResponse;
 
 export type AddressKeyValue = {
   __typename?: 'AddressKeyValue';
+  address: Scalars['EvmAddress']['output'];
   key: Scalars['String']['output'];
-  value: Scalars['EvmAddress']['output'];
 };
 
 export type Admin = {
@@ -919,8 +919,8 @@ export type ArrayData = AddressKeyValue | BigDecimalKeyValue | BooleanKeyValue |
 
 export type ArrayKeyValue = {
   __typename?: 'ArrayKeyValue';
+  array: Array<ArrayData>;
   key: Scalars['String']['output'];
-  value: Array<ArrayData>;
 };
 
 export type ArticleMetadata = {
@@ -1045,8 +1045,8 @@ export type BanGroupAccountsResult = BanGroupAccountsResponse | SelfFundedTransa
 
 export type BigDecimalKeyValue = {
   __typename?: 'BigDecimalKeyValue';
+  bigDecimal: Scalars['BigDecimal']['output'];
   key: Scalars['String']['output'];
-  value: Scalars['BigDecimal']['output'];
 };
 
 export type BlockError = {
@@ -1078,8 +1078,8 @@ export type BookmarkPostRequest = {
 
 export type BooleanKeyValue = {
   __typename?: 'BooleanKeyValue';
+  boolean: Scalars['Boolean']['output'];
   key: Scalars['String']['output'];
-  value: Scalars['Boolean']['output'];
 };
 
 export type BooleanValue = {
@@ -1523,8 +1523,8 @@ export type DeleteSnsSubscriptionRequest = {
 
 export type DictionaryKeyValue = {
   __typename?: 'DictionaryKeyValue';
+  dictionary: Array<PrimitiveData>;
   key: Scalars['String']['output'];
-  value: Array<PrimitiveData>;
 };
 
 export type DisableAccountActionRequest = {
@@ -3169,14 +3169,14 @@ export enum IndexingStatus {
 
 export type IntKeyValue = {
   __typename?: 'IntKeyValue';
+  int: Scalars['Int']['output'];
   key: Scalars['String']['output'];
-  value: Scalars['Int']['output'];
 };
 
 export type IntNullableKeyValue = {
   __typename?: 'IntNullableKeyValue';
   key: Scalars['String']['output'];
-  value?: Maybe<Scalars['Int']['output']>;
+  optionalInt?: Maybe<Scalars['Int']['output']>;
 };
 
 export type IsFollowedByMeRequest = {
@@ -6506,13 +6506,13 @@ export type QuoteNotification = {
 
 export type RawKeyValue = {
   __typename?: 'RawKeyValue';
+  data: Scalars['BlockchainData']['output'];
   key: Scalars['BlockchainData']['output'];
-  value: Scalars['BlockchainData']['output'];
 };
 
 export type RawKeyValueInput = {
+  data: Scalars['BlockchainData']['input'];
   key: Scalars['BlockchainData']['input'];
-  value: Scalars['BlockchainData']['input'];
 };
 
 export type ReactionNotification = {
@@ -7266,7 +7266,7 @@ export type StoryMetadata = {
 export type StringKeyValue = {
   __typename?: 'StringKeyValue';
   key: Scalars['String']['output'];
-  value: Scalars['String']['output'];
+  string: Scalars['String']['output'];
 };
 
 export type SubOperationStatus = {
