@@ -4,6 +4,7 @@ import { APP_NAME } from "@hey/data/constants";
 import { type Group, useGroupQuery } from "@hey/indexer";
 import {
   Card,
+  CardHeader,
   GridItemEight,
   GridItemFour,
   GridLayout,
@@ -55,9 +56,15 @@ const RulesSettings: NextPage = () => {
         <SettingsSidebar group={group} />
       </GridItemFour>
       <GridItemEight>
-        <Card className="space-y-5 p-5">
-          <ApprovalRule group={group} />
-          <BanRule group={group} />
+        <Card>
+          <CardHeader
+            body="Update the rules for your group and control how your group should operate."
+            title="Group Rules"
+          />
+          <div className="m-5 space-y-5">
+            <ApprovalRule group={group} />
+            <BanRule group={group} />
+          </div>
         </Card>
       </GridItemEight>
     </GridLayout>
