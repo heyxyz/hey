@@ -8,7 +8,7 @@ import {
   useAccountsAvailableQuery,
   useSwitchAccountMutation
 } from "@hey/indexer";
-import { ErrorMessage, H4, Image, Spinner } from "@hey/ui";
+import { ErrorMessage, Image, Spinner } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -16,8 +16,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { signIn, signOut } from "src/store/persisted/useAuthStore";
-import { useAccount } from "wagmi";
-import WalletSelector from "./Auth/WalletSelector";
 import Loader from "./Loader";
 
 const SwitchAccounts: FC = () => {
@@ -27,7 +25,6 @@ const SwitchAccounts: FC = () => {
   const [loggingInAccountId, setLoggingInAccountId] = useState<null | string>(
     null
   );
-  const { address } = useAccount();
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -36,8 +33,8 @@ const SwitchAccounts: FC = () => {
 
   const { data, error, loading } = useAccountsAvailableQuery({
     variables: {
-      lastLoggedInAccountRequest: { address },
-      accountsAvailableRequest: { managedBy: address }
+      lastLoggedInAccountRequest: { address: currentAccount?.owner },
+      accountsAvailableRequest: { managedBy: currentAccount?.owner }
     }
   });
   const [switchAccount] = useSwitchAccountMutation();
@@ -69,21 +66,6 @@ const SwitchAccounts: FC = () => {
       onError(error);
     }
   };
-
-  if (!address) {
-    return (
-      <div className="m-5 space-y-5">
-        <div className="space-y-2">
-          <H4>Connect your wallet.</H4>
-          <div className="ld-text-gray-500 text-sm">
-            Seems like you are disconnected from the wallet or trying to access
-            this from a different wallet. Please switch to the correct wallet.
-          </div>
-        </div>
-        <WalletSelector />
-      </div>
-    );
-  }
 
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">
