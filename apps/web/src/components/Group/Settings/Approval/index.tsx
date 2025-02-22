@@ -18,7 +18,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import List from "./List";
 
-const ApprovalSettings: NextPage = () => {
+const BanSettings: NextPage = () => {
   const {
     isReady,
     query: { address }
@@ -67,4 +67,4 @@ const ApprovalSettings: NextPage = () => {
   );
 };
 
-export default ApprovalSettings;
+export default BanSettings;

@@ -1,6 +1,7 @@
 import Sidebar from "@components/Shared/Sidebar";
 import SingleGroup from "@components/Shared/SingleGroup";
 import {
+  CheckCircleIcon,
   LockClosedIcon,
   NoSymbolIcon,
   UserGroupIcon
@@ -31,6 +32,12 @@ const SettingsSidebar: FC<SettingsSidebarProps> = ({ group }) => {
       title: "Banned Members",
       url: `/g/${address}/settings/banned`,
       active: pathname === "/g/[address]/settings/banned"
+    },
+    {
+      icon: <CheckCircleIcon className="size-4" />,
+      title: "Membership Requests",
+      url: `/g/${address}/settings/approvals`,
+      active: pathname === "/g/[address]/settings/approvals"
     },
     {
       icon: <LockClosedIcon className="size-4" />,
