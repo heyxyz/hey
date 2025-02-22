@@ -75,9 +75,9 @@ const ApprovalRule: FC<ApprovalRuleProps> = ({ group }) => {
 
   return (
     <ToggleWithHelper
-      description="Require approval from the group owner to join"
+      heading="Membership Approval"
+      description="Members must be approved by the group owner to join"
       disabled={isLoading}
-      heading="Approval Rule"
       icon={<PlusCircleIcon className="size-5" />}
       on={isApprovalRuleEnabled}
       setOn={handleUpdateRule}

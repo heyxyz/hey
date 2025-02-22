@@ -71,9 +71,9 @@ const BanRule: FC<BanRuleProps> = ({ group }) => {
 
   return (
     <ToggleWithHelper
-      description="Ban accounts from joining the group"
+      heading="Account Ban Rule"
+      description="Prevent specific accounts from joining the group"
       disabled={isLoading}
-      heading="Ban Rule"
       icon={<PlusCircleIcon className="size-5" />}
       on={isBanRuleEnabled}
       setOn={handleUpdateRule}
