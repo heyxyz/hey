@@ -23,7 +23,7 @@ const Share: FC<ShareProps> = ({ post }) => {
       onClick={async (event) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(
-          `${location.origin}/posts/${post?.id}`
+          `${location.origin}/posts/${post?.slug}`
         );
         toast.success("Copied to clipboard!");
       }}
