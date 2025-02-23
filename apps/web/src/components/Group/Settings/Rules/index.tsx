@@ -2,14 +2,7 @@ import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { APP_NAME } from "@hey/data/constants";
 import { type Group, useGroupQuery } from "@hey/indexer";
-import {
-  Card,
-  CardHeader,
-  GridItemEight,
-  GridItemFour,
-  GridLayout,
-  PageLoading
-} from "@hey/ui";
+import { GridItemEight, GridItemFour, GridLayout, PageLoading } from "@hey/ui";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Custom404 from "src/pages/404";
@@ -56,16 +49,8 @@ const RulesSettings: NextPage = () => {
         <SettingsSidebar group={group} />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Card>
-          <CardHeader
-            body="Update the rules for your group and control how your group should operate."
-            title="Group Rules"
-          />
-          <div className="m-5 space-y-5">
-            <ApprovalRule group={group} />
-            <PaymentRule group={group} />
-          </div>
-        </Card>
+        <ApprovalRule group={group} />
+        <PaymentRule group={group} />
       </GridItemEight>
     </GridLayout>
   );

@@ -7,6 +7,7 @@ import {
   GroupRuleType,
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
+import { Card, CardHeader } from "@hey/ui";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
@@ -71,14 +72,22 @@ const ApprovalRule: FC<ApprovalRuleProps> = ({ group }) => {
   };
 
   return (
-    <ToggleWithHelper
-      heading="Membership Approval"
-      description="Members must be approved by the group owner to join"
-      disabled={isLoading}
-      icon={<PlusCircleIcon className="size-5" />}
-      on={isApprovalRuleEnabled}
-      setOn={handleUpdateRule}
-    />
+    <Card>
+      <CardHeader
+        body="Approval is required for members to join the group"
+        title="Membership Approval"
+      />
+      <div className="m-5">
+        <ToggleWithHelper
+          heading="Enable Membership Approval"
+          description="Toggle to require approval for new members"
+          disabled={isLoading}
+          icon={<PlusCircleIcon className="size-5" />}
+          on={isApprovalRuleEnabled}
+          setOn={handleUpdateRule}
+        />
+      </div>
+    </Card>
   );
 };
 
