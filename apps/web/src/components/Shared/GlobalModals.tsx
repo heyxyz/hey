@@ -15,7 +15,7 @@ import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import FundAccount from "./Fund/FundAccount";
 import GlobalModalsFromUrl from "./GlobalModalsFromUrl";
-import JoinGroup from "./Group/JoinGroup";
+import SuperJoin from "./Group/SuperJoin";
 import ReportAccount from "./Modal/ReportAccount";
 import SwitchAccounts from "./SwitchAccounts";
 
@@ -103,7 +103,7 @@ const GlobalModals: FC = () => {
         show={showSuperJoinModal}
         title="Super Join"
       >
-        <JoinGroup />
+        <SuperJoin />
       </Modal>
       <Modal
         onClose={() => setShowSuperFollowModal(false, superFollowingAccount)}

@@ -14,7 +14,7 @@ import FundButton from "../Fund/FundButton";
 import Loader from "../Loader";
 import Join from "./Join";
 
-const JoinGroup: FC = () => {
+const SuperJoin: FC = () => {
   const { currentAccount } = useAccountStore();
   const { superJoiningGroup, setShowSuperJoinModal } = useSuperJoinModalStore();
   const { assetContract, assetSymbol, amount } = getSimplePaymentDetails(
@@ -77,4 +77,4 @@ const JoinGroup: FC = () => {
   );
 };
 
-export default JoinGroup;
+export default SuperJoin;
