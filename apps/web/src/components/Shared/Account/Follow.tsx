@@ -16,7 +16,7 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface FollowProps {
-  onFollow: () => void;
+  onFollow?: () => void;
   buttonClassName: string;
   account: Account;
   small: boolean;
