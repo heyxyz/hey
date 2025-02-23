@@ -2,6 +2,7 @@ import { getSimplePaymentDetails } from "@helpers/group";
 import type { Account } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
+import { useSuperFollowModalStore } from "src/store/non-persisted/modal/useSuperFollowModalStore";
 import Follow from "./Follow";
 
 interface FollowWithRulesCheckProps {
@@ -17,6 +18,7 @@ const FollowWithRulesCheck: FC<FollowWithRulesCheckProps> = ({
   small,
   title
 }) => {
+  const { setShowSuperFollowModal } = useSuperFollowModalStore();
   const { assetContract: requiredSimplePayment } = getSimplePaymentDetails(
     account.rules
   );
@@ -25,6 +27,7 @@ const FollowWithRulesCheck: FC<FollowWithRulesCheckProps> = ({
     return (
       <Button
         aria-label="Super Follow"
+        onClick={() => setShowSuperFollowModal(true, account)}
         className={buttonClassName}
         outline
         size={small ? "sm" : "md"}

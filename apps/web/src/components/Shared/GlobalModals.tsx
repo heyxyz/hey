@@ -8,6 +8,7 @@ import { useJoinGroupModalStore } from "src/store/non-persisted/modal/useJoinGro
 import { useNewPostModalStore } from "src/store/non-persisted/modal/useNewPostModalStore";
 import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "src/store/non-persisted/modal/useReportPostModalStore";
+import { useSuperFollowModalStore } from "src/store/non-persisted/modal/useSuperFollowModalStore";
 import { useSwitchAccountModalStore } from "src/store/non-persisted/modal/useSwitchAccountModalStore";
 import { useAccount } from "wagmi";
 import Auth from "./Auth";
@@ -34,6 +35,11 @@ const GlobalModals: FC = () => {
   const { showFundModal, setShowFundModal } = useFundModalStore();
   const { showJoinGroupModal, setShowJoinGroupModal, joiningGroup } =
     useJoinGroupModalStore();
+  const {
+    showSuperFollowModal,
+    setShowSuperFollowModal,
+    superFollowingAccount
+  } = useSuperFollowModalStore();
 
   const { screen: signupScreen } = useSignupStore();
   const { address } = useAccount();
@@ -95,9 +101,16 @@ const GlobalModals: FC = () => {
       <Modal
         onClose={() => setShowJoinGroupModal(false, joiningGroup)}
         show={showJoinGroupModal}
-        title="Rules to join"
+        title="Super Join"
       >
         <JoinGroup />
+      </Modal>
+      <Modal
+        onClose={() => setShowSuperFollowModal(false, superFollowingAccount)}
+        show={showSuperFollowModal}
+        title="Super Follow"
+      >
+        gm
       </Modal>
     </>
   );
