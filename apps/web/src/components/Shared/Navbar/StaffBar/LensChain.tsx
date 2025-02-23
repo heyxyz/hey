@@ -1,21 +1,26 @@
+import plur from "plur";
 import type { FC } from "react";
-import { useBlockNumber } from "wagmi";
+import { useBlock } from "wagmi";
 import { Badge } from ".";
 
 const LensChain: FC = () => {
-  const { data: blockNumber, isLoading: blockNumberLoading } = useBlockNumber({
-    query: { refetchInterval: 1000 }
+  const { data: block, isLoading: blockLoading } = useBlock({
+    query: { refetchInterval: 2000 }
   });
 
-  if (blockNumberLoading) {
+  if (blockLoading) {
     return null;
   }
 
+  const blockNumber = block?.number?.toString();
+  const transactionCount = block?.transactions.length;
+
   return (
     <>
-      {blockNumber && (
+      {block && (
         <Badge>
-          <span>Block: {blockNumber?.toString()}</span>
+          Block: {blockNumber} ({transactionCount}{" "}
+          {plur("txn", transactionCount)})
         </Badge>
       )}
     </>
