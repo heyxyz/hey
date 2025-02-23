@@ -1,8 +1,7 @@
-fragment GroupRuleFields on GroupRule {
+fragment AccountFollowRuleFields on AccountFollowRule {
   id
   type
   address
-  executesOn
   config {
     ...AnyKeyValueFields
   }

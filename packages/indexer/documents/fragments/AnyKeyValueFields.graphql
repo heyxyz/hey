@@ -1,0 +1,22 @@
+fragment AnyKeyValueFields on AnyKeyValue {
+  ... on AddressKeyValue {
+    key
+    address
+  }
+  ... on BigDecimalKeyValue {
+    key
+    bigDecimal
+  }
+  ... on BooleanKeyValue {
+    key
+    boolean
+  }
+  ... on IntKeyValue {
+    key
+    int
+  }
+  ... on StringKeyValue {
+    key
+    string
+  }
+}

@@ -3,6 +3,14 @@ fragment AccountFields on Account {
   address
   score
   createdAt
+  rules {
+    anyOf {
+      ...AccountFollowRuleFields
+    }
+    required {
+      ...AccountFollowRuleFields
+    }
+  }
   metadata {
     ...AccountMetadata
   }

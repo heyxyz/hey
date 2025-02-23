@@ -58,13 +58,13 @@ const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
     onError
   });
 
-  const handleUpdateRule = (remove: boolean) => {
+  const handleUpdateRule = async (remove: boolean) => {
     if (isSuspended) return toast.error(Errors.Suspended);
     if (!simplePaymentRule) return setEnabled(false);
 
     setIsLoading(true);
 
-    return updateGroupRules({
+    return await updateGroupRules({
       variables: {
         request: {
           group: group.address,
