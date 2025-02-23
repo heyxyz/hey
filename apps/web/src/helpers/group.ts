@@ -1,4 +1,9 @@
-import type { GroupRule, GroupRules } from "@hey/indexer";
+import type {
+  AccountFollowRule,
+  AccountFollowRules,
+  GroupRule,
+  GroupRules
+} from "@hey/indexer";
 import getAnyKeyValue from "./getAnyKeyValue";
 
 interface PaymentDetails {
@@ -7,7 +12,9 @@ interface PaymentDetails {
   amount: number | null;
 }
 
-const extractPaymentDetails = (rules: GroupRule[]): PaymentDetails => {
+const extractPaymentDetails = (
+  rules: GroupRule[] | AccountFollowRule[]
+): PaymentDetails => {
   for (const rule of rules) {
     if (rule.type === "SIMPLE_PAYMENT") {
       return {
@@ -22,7 +29,9 @@ const extractPaymentDetails = (rules: GroupRule[]): PaymentDetails => {
   return { assetContract: null, assetSymbol: null, amount: null };
 };
 
-export const getSimplePaymentDetails = (rules: GroupRules): PaymentDetails =>
+export const getSimplePaymentDetails = (
+  rules: GroupRules | AccountFollowRules
+): PaymentDetails =>
   extractPaymentDetails(rules.required) || extractPaymentDetails(rules.anyOf);
 
 const extractMembershipApproval = (rules: GroupRule[]): boolean => {

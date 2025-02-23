@@ -1,4 +1,5 @@
 import errorToast from "@helpers/errorToast";
+import { getSimplePaymentDetails } from "@helpers/group";
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import {
@@ -8,7 +9,7 @@ import {
 } from "@hey/indexer";
 import { Button, Card, CardHeader, Image, Input, Tooltip } from "@hey/ui";
 import { useRouter } from "next/router";
-import { type FC, type RefObject, useRef, useState } from "react";
+import { type FC, type RefObject, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
@@ -30,10 +31,19 @@ const SuperFollow: FC = () => {
     ...account.rules.required,
     ...account.rules.anyOf
   ].find((rule) => rule.type === AccountFollowRuleType.SimplePayment);
+  const { amount: simplePaymentAmount } = getSimplePaymentDetails(
+    account.rules
+  );
+
+  useEffect(() => {
+    setAmount(simplePaymentAmount || 0);
+  }, [simplePaymentAmount]);
 
   const onCompleted = () => {
+    setTimeout(() => {
+      reload();
+    }, 1000);
     setIsLoading(false);
-    reload();
     toast.success("Payment rule updated");
   };
 
