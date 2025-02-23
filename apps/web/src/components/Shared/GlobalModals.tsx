@@ -10,7 +10,6 @@ import { useReportPostModalStore } from "src/store/non-persisted/modal/useReport
 import { useSuperFollowModalStore } from "src/store/non-persisted/modal/useSuperFollowModalStore";
 import { useSuperJoinModalStore } from "src/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "src/store/non-persisted/modal/useSwitchAccountModalStore";
-import { useAccount } from "wagmi";
 import SuperFollow from "./Account/SuperFollow";
 import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
@@ -43,7 +42,6 @@ const GlobalModals: FC = () => {
   } = useSuperFollowModalStore();
 
   const { screen: signupScreen } = useSignupStore();
-  const { address } = useAccount();
 
   const authModalTitle =
     authModalType === "signup"
@@ -72,7 +70,7 @@ const GlobalModals: FC = () => {
       <Modal
         onClose={() => setShowSwitchAccountModal(false)}
         show={showSwitchAccountModal}
-        size={address ? "xs" : "sm"}
+        size="xs"
         title="Switch Account"
       >
         <SwitchAccounts />
