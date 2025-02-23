@@ -4,11 +4,11 @@ import { Modal } from "@hey/ui";
 import type { FC } from "react";
 import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useFundModalStore } from "src/store/non-persisted/modal/useFundModalStore";
-import { useJoinGroupModalStore } from "src/store/non-persisted/modal/useJoinGroupModalStore";
 import { useNewPostModalStore } from "src/store/non-persisted/modal/useNewPostModalStore";
 import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "src/store/non-persisted/modal/useReportPostModalStore";
 import { useSuperFollowModalStore } from "src/store/non-persisted/modal/useSuperFollowModalStore";
+import { useSuperJoinModalStore } from "src/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "src/store/non-persisted/modal/useSwitchAccountModalStore";
 import { useAccount } from "wagmi";
 import Auth from "./Auth";
@@ -33,8 +33,8 @@ const GlobalModals: FC = () => {
   const { reportingPostId, showReportPostModal, setShowReportPostModal } =
     useReportPostModalStore();
   const { showFundModal, setShowFundModal } = useFundModalStore();
-  const { showJoinGroupModal, setShowJoinGroupModal, joiningGroup } =
-    useJoinGroupModalStore();
+  const { showSuperJoinModal, setShowSuperJoinModal, superJoiningGroup } =
+    useSuperJoinModalStore();
   const {
     showSuperFollowModal,
     setShowSuperFollowModal,
@@ -99,8 +99,8 @@ const GlobalModals: FC = () => {
         <FundAccount />
       </Modal>
       <Modal
-        onClose={() => setShowJoinGroupModal(false, joiningGroup)}
-        show={showJoinGroupModal}
+        onClose={() => setShowSuperJoinModal(false, superJoiningGroup)}
+        show={showSuperJoinModal}
         title="Super Join"
       >
         <JoinGroup />

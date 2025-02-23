@@ -5,7 +5,7 @@ import {
 import type { Group } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
-import { useJoinGroupModalStore } from "src/store/non-persisted/modal/useJoinGroupModalStore";
+import { useSuperJoinModalStore } from "src/store/non-persisted/modal/useSuperJoinModalStore";
 import Join from "./Join";
 
 interface JoinWithRulesCheckProps {
@@ -19,7 +19,7 @@ const JoinWithRulesCheck: FC<JoinWithRulesCheckProps> = ({
   setJoined,
   small
 }) => {
-  const { setShowJoinGroupModal } = useJoinGroupModalStore();
+  const { setShowSuperJoinModal } = useSuperJoinModalStore();
   const { assetContract: requiredSimplePayment } = getSimplePaymentDetails(
     group.rules
   );
@@ -29,7 +29,7 @@ const JoinWithRulesCheck: FC<JoinWithRulesCheckProps> = ({
     return (
       <Button
         aria-label="Super Join"
-        onClick={() => setShowJoinGroupModal(true, group)}
+        onClick={() => setShowSuperJoinModal(true, group)}
         outline
         size={small ? "sm" : "md"}
       >

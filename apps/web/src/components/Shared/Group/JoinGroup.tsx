@@ -6,7 +6,7 @@ import { XCircleIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import type { Group, GroupRules } from "@hey/indexer";
 import type { FC } from "react";
-import { useJoinGroupModalStore } from "src/store/non-persisted/modal/useJoinGroupModalStore";
+import { useSuperJoinModalStore } from "src/store/non-persisted/modal/useSuperJoinModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Address } from "viem";
 import { useBalance } from "wagmi";
@@ -16,13 +16,13 @@ import Join from "./Join";
 
 const JoinGroup: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { joiningGroup, setShowJoinGroupModal } = useJoinGroupModalStore();
+  const { superJoiningGroup, setShowSuperJoinModal } = useSuperJoinModalStore();
   const { assetContract, assetSymbol, amount } = getSimplePaymentDetails(
-    joiningGroup?.rules as GroupRules
+    superJoiningGroup?.rules as GroupRules
   );
   const requiresPayment = !!assetContract && !!assetSymbol && !!amount;
   const requiresMembershipApproval = getMembershipApprovalDetails(
-    joiningGroup?.rules as GroupRules
+    superJoiningGroup?.rules as GroupRules
   );
   const { data: balance, isLoading: balanceLoading } = useBalance({
     address: currentAccount?.address as Address,
@@ -60,9 +60,9 @@ const JoinGroup: FC = () => {
         </div>
         {hasEnoughBalance ? (
           <Join
-            group={joiningGroup as Group}
+            group={superJoiningGroup as Group}
             setJoined={() => {
-              setShowJoinGroupModal(false, joiningGroup);
+              setShowSuperJoinModal(false, superJoiningGroup);
             }}
             small={false}
             label={
