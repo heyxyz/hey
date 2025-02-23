@@ -1,29 +1,24 @@
-import {
-  getMembershipApprovalDetails,
-  getSimplePaymentDetails
-} from "@helpers/group";
+import { getSimplePaymentDetails } from "@helpers/group";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import type { Group, GroupRules } from "@hey/indexer";
+import type { Account, AccountFollowRules } from "@hey/indexer";
 import type { FC } from "react";
-import { useSuperJoinModalStore } from "src/store/non-persisted/modal/useSuperJoinModalStore";
+import { useSuperFollowModalStore } from "src/store/non-persisted/modal/useSuperFollowModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Address } from "viem";
 import { useBalance } from "wagmi";
 import FundButton from "../Fund/FundButton";
 import Loader from "../Loader";
-import Join from "./Join";
+import Follow from "./Follow";
 
-const SuperJoin: FC = () => {
+const SuperFollow: FC = () => {
   const { currentAccount } = useAccountStore();
-  const { superJoiningGroup, setShowSuperJoinModal } = useSuperJoinModalStore();
+  const { superFollowingAccount, setShowSuperFollowModal } =
+    useSuperFollowModalStore();
   const { assetContract, assetSymbol, amount } = getSimplePaymentDetails(
-    superJoiningGroup?.rules as GroupRules
+    superFollowingAccount?.rules as AccountFollowRules
   );
   const requiresPayment = !!assetContract && !!assetSymbol && !!amount;
-  const requiresMembershipApproval = getMembershipApprovalDetails(
-    superJoiningGroup?.rules as GroupRules
-  );
   const { data: balance, isLoading: balanceLoading } = useBalance({
     address: currentAccount?.address as Address,
     token: assetContract as Address,
@@ -52,20 +47,19 @@ const SuperJoin: FC = () => {
                 <b>
                   {amount} {assetSymbol}
                 </b>{" "}
-                to join this group.
+                to follow this account.
               </span>
             </div>
           )}
         </div>
         {hasEnoughBalance ? (
-          <Join
-            group={superJoiningGroup as Group}
-            setJoined={() => {
-              setShowSuperJoinModal(false, superJoiningGroup);
-            }}
+          <Follow
+            account={superFollowingAccount as Account}
+            buttonClassName=""
             small={false}
-            label={
-              requiresMembershipApproval ? "Request to join" : "Join group"
+            title="Super Follow"
+            onFollow={() =>
+              setShowSuperFollowModal(false, superFollowingAccount)
             }
           />
         ) : (
@@ -76,4 +70,4 @@ const SuperJoin: FC = () => {
   );
 };
 
-export default SuperJoin;
+export default SuperFollow;

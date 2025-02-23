@@ -16,6 +16,7 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface FollowProps {
+  onFollow: () => void;
   buttonClassName: string;
   account: Account;
   small: boolean;
@@ -23,6 +24,7 @@ interface FollowProps {
 }
 
 const Follow: FC<FollowProps> = ({
+  onFollow,
   buttonClassName,
   account,
   small,
@@ -47,6 +49,7 @@ const Follow: FC<FollowProps> = ({
     updateCache();
     setIsLoading(false);
     toast.success("Followed");
+    onFollow();
   };
 
   const onError = (error: any) => {

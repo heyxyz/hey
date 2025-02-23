@@ -11,6 +11,7 @@ import { useSuperFollowModalStore } from "src/store/non-persisted/modal/useSuper
 import { useSuperJoinModalStore } from "src/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "src/store/non-persisted/modal/useSwitchAccountModalStore";
 import { useAccount } from "wagmi";
+import SuperFollow from "./Account/SuperFollow";
 import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import FundAccount from "./Fund/FundAccount";
@@ -110,7 +111,7 @@ const GlobalModals: FC = () => {
         show={showSuperFollowModal}
         title="Super Follow"
       >
-        gm
+        <SuperFollow />
       </Modal>
     </>
   );
