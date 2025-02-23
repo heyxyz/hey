@@ -1,5 +1,5 @@
 import Slug from "@components/Shared/Slug";
-import { BLOCKEXPLORER_URL } from "@hey/data/constants";
+import { BLOCK_EXPLORER_URL } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -68,7 +68,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                     </Link>
                   ) : (
                     <Link
-                      href={`${BLOCKEXPLORER_URL}/address/${address}`}
+                      href={`${BLOCK_EXPLORER_URL}/address/${address}`}
                       rel="noreferrer noopener"
                       target="_blank"
                     >

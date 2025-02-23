@@ -10,7 +10,7 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from "@heroicons/react/24/outline";
-import { APP_NAME, BLOCKEXPLORER_URL } from "@hey/data/constants";
+import { APP_NAME, BLOCK_EXPLORER_URL } from "@hey/data/constants";
 import { tokens } from "@hey/data/tokens";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import formatAddress from "@hey/helpers/formatAddress";
@@ -195,7 +195,7 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
                 <span>Token:</span>
                 <Link
                   className="font-bold text-gray-600"
-                  href={`${BLOCKEXPLORER_URL}/address/${collectAction.address}`}
+                  href={`${BLOCK_EXPLORER_URL}/address/${collectAction.address}`}
                   rel="noreferrer noopener"
                   target="_blank"
                 >

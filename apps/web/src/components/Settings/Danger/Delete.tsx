@@ -1,6 +1,10 @@
 import SingleAccount from "@components/Shared/SingleAccount";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { APP_NAME, BLOCKEXPLORER_URL, NULL_ADDRESS } from "@hey/data/constants";
+import {
+  APP_NAME,
+  BLOCK_EXPLORER_URL,
+  NULL_ADDRESS
+} from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import type { Account } from "@hey/indexer";
 import {
@@ -69,7 +73,7 @@ const DeleteSettings: FC = () => {
           </p>
           <p className="linkify py-3">
             Your account will be transferred to a{" "}
-            <Link href={`${BLOCKEXPLORER_URL}/address/${NULL_ADDRESS}`}>
+            <Link href={`${BLOCK_EXPLORER_URL}/address/${NULL_ADDRESS}`}>
               null address
             </Link>{" "}
             after deletion.

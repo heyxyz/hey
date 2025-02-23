@@ -1,5 +1,5 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import { BLOCKEXPLORER_URL, DEFAULT_AVATAR } from "@hey/data/constants";
+import { BLOCK_EXPLORER_URL, DEFAULT_AVATAR } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import { Image } from "@hey/ui";
 import Link from "next/link";
@@ -23,7 +23,7 @@ const WalletAccount: FC<WalletAccountProps> = ({ address }) => {
     <div className="flex items-center justify-between">
       <Link
         className="flex items-center space-x-3"
-        href={`${BLOCKEXPLORER_URL}/address/${address}`}
+        href={`${BLOCK_EXPLORER_URL}/address/${address}`}
         rel="noreferrer noopener"
         target="_blank"
       >
