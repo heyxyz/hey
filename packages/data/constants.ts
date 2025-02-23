@@ -28,6 +28,7 @@ export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = "#FB3A5D";
 
 // URLs
+export const UNLEASH_API_URL = "https://unleash-v3.up.railway.app/api/frontend";
 export const STATIC_ASSETS_URL = "https://static.hey.xyz";
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const LENS_MEDIA_SNAPSHOT_URL =

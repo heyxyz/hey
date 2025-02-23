@@ -1,10 +1,9 @@
-import { UNLEASH_API_TOKEN } from "@hey/data/constants";
+import { UNLEASH_API_TOKEN, UNLEASH_API_URL } from "@hey/data/constants";
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis } from "@hey/db/redisClient";
 import axios from "axios";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
-import { UNLEASH_API_URL } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 
 const measureQueryTime = async (

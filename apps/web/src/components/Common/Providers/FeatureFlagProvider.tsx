@@ -1,5 +1,5 @@
 import getCurrentSession from "@helpers/getCurrentSession";
-import { UNLEASH_API_TOKEN } from "@hey/data/constants";
+import { UNLEASH_API_TOKEN, UNLEASH_API_URL } from "@hey/data/constants";
 import { FlagProvider } from "@unleash/proxy-client-react";
 import type { FC, ReactNode } from "react";
 
@@ -18,7 +18,7 @@ const FeatureFlagProvider: FC<FeatureFlagProviderProps> = ({ children }) => {
         clientKey: UNLEASH_API_TOKEN,
         context: { sessionId: authenticationId, userId: address },
         refreshInterval: 15,
-        url: "https://unleash-v3.up.railway.app/api/frontend"
+        url: UNLEASH_API_URL
       }}
     >
       {children}

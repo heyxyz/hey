@@ -1,11 +1,11 @@
-import { UNLEASH_API_TOKEN } from "@hey/data/constants";
+import { UNLEASH_API_TOKEN, UNLEASH_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import parseJwt from "@hey/helpers/parseJwt";
 import axios from "axios";
 import type { NextFunction, Request, Response } from "express";
 import catchedError from "../catchedError";
-import { HEY_USER_AGENT, UNLEASH_API_URL } from "../constants";
+import { HEY_USER_AGENT } from "../constants";
 
 /**
  * Middleware to validate if the account is staff

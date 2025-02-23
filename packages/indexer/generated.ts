@@ -1209,6 +1209,8 @@ export type CreateAccountWithUsernameRequest = {
   assignNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
   /** The processing params for the namespace create rules. */
   createNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
+  /** Enable signless on creation adding the lens API key to the account manager */
+  enableSignless?: Scalars['Boolean']['input'];
   /** The account metadata uri */
   metadataUri: Scalars['URI']['input'];
   /** The processing params for the namespace account unassign rules. */
@@ -7490,12 +7492,14 @@ export enum TransactionOperation {
   AccountActionEnabled = 'ACCOUNT_ACTION_ENABLED',
   AccountActionExecuted = 'ACCOUNT_ACTION_EXECUTED',
   AccountActionReconfigured = 'ACCOUNT_ACTION_RECONFIGURED',
+  AccountBlocked = 'ACCOUNT_BLOCKED',
   AccountFactoryDeployment = 'ACCOUNT_FACTORY_DEPLOYMENT',
   AccountManagerAdded = 'ACCOUNT_MANAGER_ADDED',
   AccountManagerRemoved = 'ACCOUNT_MANAGER_REMOVED',
   AccountManagerUpdated = 'ACCOUNT_MANAGER_UPDATED',
   AccountMetadataUriSet = 'ACCOUNT_METADATA_URI_SET',
   AccountOwnerTransferred = 'ACCOUNT_OWNER_TRANSFERRED',
+  AccountUnblocked = 'ACCOUNT_UNBLOCKED',
   ActionMetadataUriSet = 'ACTION_METADATA_URI_SET',
   AppAccessControlAdded = 'APP_ACCESS_CONTROL_ADDED',
   AppAccessControlUpdated = 'APP_ACCESS_CONTROL_UPDATED',

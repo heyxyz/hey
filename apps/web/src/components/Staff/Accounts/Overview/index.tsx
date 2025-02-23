@@ -32,6 +32,7 @@ const Overview: NextPage = () => {
     skip: !address || !isReady,
     variables: { request: { address: address } }
   });
+
   const account = data?.account as Account;
 
   if (!currentAccount || !isStaff) {
