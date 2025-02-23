@@ -37,6 +37,7 @@ export const post = [
     try {
       logger.info(`Verification request received for ${operation}`);
 
+      // TODO: Add redis cache
       const [signature, accountPermission] = await Promise.all([
         heyWalletClient.signTypedData({
           domain,

@@ -18,6 +18,7 @@ export const post = [
     try {
       logger.info("Authorization request received");
 
+      // TODO: Add redis cache
       const accountPermission = await prisma.accountPermission.findFirst({
         where: {
           permissionId: PermissionId.SoftSuspended,
