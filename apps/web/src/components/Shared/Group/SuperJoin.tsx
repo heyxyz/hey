@@ -20,14 +20,13 @@ const SuperJoin: FC = () => {
   const { assetContract, assetSymbol, amount } = getSimplePaymentDetails(
     superJoiningGroup?.rules as GroupRules
   );
-  const requiresPayment = !!assetContract && !!assetSymbol && !!amount;
   const requiresMembershipApproval = getMembershipApprovalDetails(
     superJoiningGroup?.rules as GroupRules
   );
   const { data: balance, isLoading: balanceLoading } = useBalance({
     address: currentAccount?.address as Address,
     token: assetContract as Address,
-    query: { enabled: requiresPayment, refetchInterval: 2000 }
+    query: { enabled: !!assetContract, refetchInterval: 2000 }
   });
 
   if (balanceLoading) {
@@ -40,22 +39,20 @@ const SuperJoin: FC = () => {
     <div className="m-5 space-y-5">
       <div className="space-y-4">
         <div className="space-y-2">
-          {requiresPayment && (
-            <div className="ld-text-gray-500 flex items-center gap-2 text-sm">
-              {hasEnoughBalance ? (
-                <CheckCircleIcon className="size-4 text-green-500" />
-              ) : (
-                <XCircleIcon className="size-4 text-red-500" />
-              )}
-              <span>
-                You need to pay{" "}
-                <b>
-                  {amount} {assetSymbol}
-                </b>{" "}
-                to join this group.
-              </span>
-            </div>
-          )}
+          <div className="ld-text-gray-500 flex items-center gap-2 text-sm">
+            {hasEnoughBalance ? (
+              <CheckCircleIcon className="size-4 text-green-500" />
+            ) : (
+              <XCircleIcon className="size-4 text-red-500" />
+            )}
+            <span>
+              You need to pay{" "}
+              <b>
+                {amount} {assetSymbol}
+              </b>{" "}
+              to join this group.
+            </span>
+          </div>
         </div>
         {hasEnoughBalance ? (
           <Join
