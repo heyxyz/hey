@@ -76,7 +76,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
     errorToast(error);
   };
 
-  const cryptoRate = Number(amount.toFixed(2));
+  const cryptoRate = Number(amount);
 
   const balance = balanceData
     ? Number.parseFloat(formatUnits(balanceData.value, 18)).toFixed(3)
