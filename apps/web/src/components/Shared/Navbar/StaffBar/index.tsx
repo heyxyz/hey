@@ -6,6 +6,7 @@ import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
+import LensChain from "./LensChain";
 import Performance from "./Performance";
 
 interface BadgeProps {
@@ -43,6 +44,7 @@ const StaffBar: FC = () => {
             </span>
           </Badge>
         </div>
+        <LensChain />
       </div>
       <Link
         aria-label="Staff Dashboard"
