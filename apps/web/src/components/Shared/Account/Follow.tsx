@@ -49,7 +49,7 @@ const Follow: FC<FollowProps> = ({
     updateCache();
     setIsLoading(false);
     toast.success("Followed");
-    onFollow();
+    onFollow?.();
   };
 
   const onError = (error: any) => {
