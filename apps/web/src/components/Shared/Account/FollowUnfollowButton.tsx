@@ -2,7 +2,7 @@ import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Account } from "@hey/indexer";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import Follow from "./Follow";
+import FollowWithRulesCheck from "./FollowWithRulesCheck";
 import Unfollow from "./Unfollow";
 
 interface FollowUnfollowButtonProps {
@@ -34,7 +34,7 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
     <div className="contents" onClick={stopEventPropagation}>
       {!hideFollowButton &&
         (account.operations?.isFollowedByMe ? null : (
-          <Follow
+          <FollowWithRulesCheck
             buttonClassName={buttonClassName}
             account={account}
             small={small}

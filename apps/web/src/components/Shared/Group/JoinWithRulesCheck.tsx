@@ -28,12 +28,12 @@ const JoinWithRulesCheck: FC<JoinWithRulesCheckProps> = ({
   if (requiredSimplePayment) {
     return (
       <Button
-        aria-label="Join"
+        aria-label="Super Join"
         onClick={() => setShowJoinGroupModal(true, group)}
         outline
         size={small ? "sm" : "md"}
       >
-        Join
+        Super Join
       </Button>
     );
   }
