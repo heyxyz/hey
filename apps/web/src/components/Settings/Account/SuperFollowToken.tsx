@@ -5,12 +5,13 @@ import { Errors } from "@hey/data/errors";
 import {
   type Account,
   AccountFollowRuleType,
-  type TokenStandard,
+  TokenStandard,
   useMeLazyQuery,
   useTransactionStatusLazyQuery,
   useUpdateAccountFollowRulesMutation
 } from "@hey/indexer";
 import { Button, Card, CardHeader, Input } from "@hey/ui";
+import { useRouter } from "next/router";
 import { type FC, type RefObject, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
@@ -19,6 +20,7 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const SuperFollowToken: FC = () => {
+  const { reload } = useRouter();
   const { currentAccount, setCurrentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
@@ -29,8 +31,10 @@ const SuperFollowToken: FC = () => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
-  const [getTransactionStatus] = useTransactionStatusLazyQuery();
-  const [getMeDetails] = useMeLazyQuery();
+  const [getTransactionStatus] = useTransactionStatusLazyQuery({
+    fetchPolicy: "no-cache"
+  });
+  const [getMeDetails] = useMeLazyQuery({ fetchPolicy: "no-cache" });
 
   const account = currentAccount as Account;
   const tokenGatedRule = [
@@ -68,12 +72,12 @@ const SuperFollowToken: FC = () => {
         if (
           data?.transactionStatus?.__typename === "FinishedTransactionStatus"
         ) {
-          getMeDetails({ fetchPolicy: "no-cache" }).then(({ data: meData }) => {
+          getMeDetails().then(({ data: meData }) => {
             setCurrentAccount({
               currentAccount: meData?.me.loggedInAs.account as Account,
               isSignlessEnabled: meData?.me.isSignless || false
             });
-            setIsLoading(false);
+            reload();
           });
         }
       }
@@ -144,19 +148,18 @@ const SuperFollowToken: FC = () => {
       />
       <div className="m-5 flex flex-col space-y-4">
         <Input
-          label="Token"
+          label={
+            <div className="flex items-center">
+              <span>Token -</span>
+              <div className="ld-text-gray-500 ml-1 text-sm">
+                {standard ||
+                  (fetchingStandard ? "Fetching..." : "Please select a token")}
+              </div>
+            </div>
+          }
           placeholder="0x123..."
           value={token || ""}
           onChange={(e) => setToken(e.target.value)}
-        />
-        <Input
-          label="Token Type"
-          placeholder="ERC20"
-          value={
-            standard ||
-            (fetchingStandard ? "Fetching..." : "Please select a token")
-          }
-          disabled
         />
         <Input
           label="Amount"
@@ -178,7 +181,12 @@ const SuperFollowToken: FC = () => {
             </Button>
           )}
           <Button
-            disabled={isLoading || !token || !standard || !amount}
+            disabled={
+              isLoading ||
+              !token ||
+              !amount ||
+              !Object.values(TokenStandard).includes(standard as TokenStandard)
+            }
             onClick={() => handleUpdateRule(false)}
           >
             Update

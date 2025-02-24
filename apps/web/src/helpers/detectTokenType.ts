@@ -1,7 +1,13 @@
 import { LENS_TESTNET_RPCS } from "@hey/data/rpcs";
 import { TokenStandard } from "@hey/indexer";
 import { chains } from "@lens-network/sdk/viem";
-import { createPublicClient, fallback, getContract, http } from "viem";
+import {
+  createPublicClient,
+  fallback,
+  getContract,
+  http,
+  isAddress
+} from "viem";
 
 const client = createPublicClient({
   chain: chains.testnet,
@@ -79,6 +85,7 @@ const isERC1155 = async (address: `0x${string}`) => {
 };
 
 const detectTokenType = async (address: `0x${string}`) => {
+  if (!isAddress(address)) return "Invalid address";
   if (!(await isContract(address))) return "Not a contract";
   if (await isERC20(address)) return TokenStandard.Erc20;
   if (await isERC721(address)) return TokenStandard.Erc721;
