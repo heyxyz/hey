@@ -46,7 +46,7 @@ const SuperFollow: FC = () => {
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
         <H5>
-          Super follow{" "}
+          Pay to follow{" "}
           <Slug slug={getAccount(superFollowingAccount).usernameWithPrefix} />
         </H5>
         <div className="ld-text-gray-500">

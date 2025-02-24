@@ -1,4 +1,4 @@
-import { getSimplePaymentDetails } from "@helpers/rules";
+import { getSimplePaymentDetails, getTokenGatedDetails } from "@helpers/rules";
 import type { Account } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
@@ -22,8 +22,11 @@ const FollowWithRulesCheck: FC<FollowWithRulesCheckProps> = ({
   const { assetContract: requiredSimplePayment } = getSimplePaymentDetails(
     account.rules
   );
+  const { assetContract: requiredTokenGatedPayment } = getTokenGatedDetails(
+    account.rules
+  );
 
-  if (requiredSimplePayment) {
+  if (requiredSimplePayment || requiredTokenGatedPayment) {
     return (
       <Button
         aria-label="Super Follow"

@@ -49,7 +49,7 @@ export const getSimplePaymentDetails = (
 ): AssetDetails =>
   extractPaymentDetails(rules.required) || extractPaymentDetails(rules.anyOf);
 
-const extractTokenDetails = (
+const extractTokenGatedDetails = (
   rules: GroupRule[] | AccountFollowRule[]
 ): AssetDetails => {
   for (const rule of rules) {
@@ -67,7 +67,8 @@ const extractTokenDetails = (
   return { assetContract: null, assetSymbol: null, amount: null };
 };
 
-export const getTokenDetails = (
+export const getTokenGatedDetails = (
   rules: GroupRules | AccountFollowRules
 ): AssetDetails =>
-  extractTokenDetails(rules.required) || extractTokenDetails(rules.anyOf);
+  extractTokenGatedDetails(rules.required) ||
+  extractTokenGatedDetails(rules.anyOf);

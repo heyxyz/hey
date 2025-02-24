@@ -1,6 +1,6 @@
 import detectTokenType from "@helpers/detectTokenType";
 import errorToast from "@helpers/errorToast";
-import { getTokenDetails } from "@helpers/rules";
+import { getTokenGatedDetails } from "@helpers/rules";
 import { Errors } from "@hey/data/errors";
 import {
   type Account,
@@ -41,7 +41,7 @@ const SuperFollowToken: FC = () => {
     ...account.rules.required,
     ...account.rules.anyOf
   ].find((rule) => rule.type === AccountFollowRuleType.TokenGated);
-  const { assetContract, amount: tokenGatedAmount } = getTokenDetails(
+  const { assetContract, amount: tokenGatedAmount } = getTokenGatedDetails(
     account.rules
   );
 
