@@ -37,7 +37,6 @@ export const STORAGE_NODE_URL = "https://storage-api.testnet.lens.dev";
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/cover.png`;
 export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
-export const HEY_IMAGEKIT_URL = "https://ik.imagekit.io/lensterimg";
 export const BLOCK_EXPLORER_URL = IS_MAINNET
   ? "https://block-explorer.testnet.lens.dev"
   : "https://block-explorer.testnet.lens.dev";

@@ -3,7 +3,6 @@ import type { OG } from "@hey/types/misc";
 import axios from "axios";
 import { parseHTML } from "linkedom";
 import { HEY_USER_AGENT } from "../constants";
-import getProxyUrl from "./getProxyUrl";
 import generateIframe from "./meta/generateIframe";
 import getDescription from "./meta/getDescription";
 import getEmbedUrl from "./meta/getEmbedUrl";
@@ -24,7 +23,7 @@ const getMetadata = async (url: string): Promise<null | OG> => {
       description: getDescription(document),
       favicon: getFavicon(url),
       html: generateIframe(getEmbedUrl(document), url),
-      image: getProxyUrl(image),
+      image: image,
       lastIndexedAt: new Date().toISOString(),
       site: getSite(document),
       title: getTitle(document),
