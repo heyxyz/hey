@@ -1,7 +1,7 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AnyPost, TimelineItem } from "@hey/indexer";
+import type { AnyPost, PostGroupInfo, TimelineItem } from "@hey/indexer";
 import type { FC } from "react";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import PostMenu from "./Actions/Menu";
@@ -34,6 +34,7 @@ const PostHeader: FC<PostHeaderProps> = ({
     >
       <PostAccount
         account={account}
+        group={targetPost.feed?.group as PostGroupInfo}
         postSlug={targetPost.slug}
         timestamp={timestamp}
       />

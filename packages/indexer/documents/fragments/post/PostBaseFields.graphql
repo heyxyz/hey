@@ -4,6 +4,7 @@ fragment PostBaseFields on Post {
   isDeleted
   feed {
     group {
+      address
       metadata {
         name
         icon
