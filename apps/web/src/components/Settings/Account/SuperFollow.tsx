@@ -81,6 +81,9 @@ const SuperFollow: FC = () => {
           ...(remove
             ? { toRemove: [simplePaymentRule?.id] }
             : {
+                ...(simplePaymentRule && {
+                  toRemove: [simplePaymentRule?.id]
+                }),
                 toAdd: {
                   required: [
                     {

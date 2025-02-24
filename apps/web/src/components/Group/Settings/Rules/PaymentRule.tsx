@@ -69,6 +69,9 @@ const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
           ...(remove
             ? { toRemove: [simplePaymentRule?.id] }
             : {
+                ...(simplePaymentRule && {
+                  toRemove: [simplePaymentRule?.id]
+                }),
                 toAdd: {
                   required: [
                     {
