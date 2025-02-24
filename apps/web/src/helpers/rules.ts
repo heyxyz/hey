@@ -53,7 +53,7 @@ const extractTokenDetails = (
   rules: GroupRule[] | AccountFollowRule[]
 ): AssetDetails => {
   for (const rule of rules) {
-    if (rule.type === "SIMPLE_PAYMENT") {
+    if (rule.type === "TOKEN_GATED") {
       return {
         assetContract:
           getAnyKeyValue(rule.config, "assetContract")?.address || null,

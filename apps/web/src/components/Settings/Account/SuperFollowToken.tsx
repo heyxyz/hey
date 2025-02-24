@@ -1,15 +1,16 @@
+import detectTokenType from "@helpers/detectTokenType";
 import errorToast from "@helpers/errorToast";
-import { getSimplePaymentDetails } from "@helpers/rules";
-import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { getTokenDetails } from "@helpers/rules";
 import { Errors } from "@hey/data/errors";
 import {
   type Account,
   AccountFollowRuleType,
+  type TokenStandard,
+  useMeLazyQuery,
   useTransactionStatusLazyQuery,
   useUpdateAccountFollowRulesMutation
 } from "@hey/indexer";
-import { Button, Card, CardHeader, Image, Input, Tooltip } from "@hey/ui";
-import { useRouter } from "next/router";
+import { Button, Card, CardHeader, Input } from "@hey/ui";
 import { type FC, type RefObject, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
@@ -17,29 +18,49 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
-const SuperFollow: FC = () => {
-  const { reload } = useRouter();
-  const { currentAccount } = useAccountStore();
+const SuperFollowToken: FC = () => {
+  const { currentAccount, setCurrentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
+  const [fetchingStandard, setFetchingStandard] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+  const [standard, setStandard] = useState<string | null>(null);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
   const [getTransactionStatus] = useTransactionStatusLazyQuery();
+  const [getMeDetails] = useMeLazyQuery();
 
   const account = currentAccount as Account;
-  const simplePaymentRule = [
+  const tokenGatedRule = [
     ...account.rules.required,
     ...account.rules.anyOf
-  ].find((rule) => rule.type === AccountFollowRuleType.SimplePayment);
-  const { amount: simplePaymentAmount } = getSimplePaymentDetails(
+  ].find((rule) => rule.type === AccountFollowRuleType.TokenGated);
+  const { assetContract, amount: tokenGatedAmount } = getTokenDetails(
     account.rules
   );
 
+  const getTokenType = async (assetContract: string) => {
+    setFetchingStandard(true);
+    const tokenType = await detectTokenType(assetContract as `0x${string}`);
+    setStandard(tokenType);
+    setFetchingStandard(false);
+  };
+
   useEffect(() => {
-    setAmount(simplePaymentAmount || 0);
-  }, [simplePaymentAmount]);
+    if (tokenGatedAmount && assetContract) {
+      setToken(assetContract);
+      setAmount(tokenGatedAmount || 0);
+      getTokenType(assetContract);
+    }
+  }, [tokenGatedAmount, assetContract]);
+
+  useEffect(() => {
+    if (token) {
+      getTokenType(token);
+    }
+  }, [token]);
 
   const onCompleted = (hash: string) => {
     getTransactionStatus({ variables: { request: { txHash: hash } } }).then(
@@ -47,8 +68,13 @@ const SuperFollow: FC = () => {
         if (
           data?.transactionStatus?.__typename === "FinishedTransactionStatus"
         ) {
-          setIsLoading(false);
-          reload();
+          getMeDetails({ fetchPolicy: "no-cache" }).then(({ data: meData }) => {
+            setCurrentAccount({
+              currentAccount: meData?.me.loggedInAs.account as Account,
+              isSignlessEnabled: meData?.me.isSignless || false
+            });
+            setIsLoading(false);
+          });
         }
       }
     );
@@ -86,20 +112,20 @@ const SuperFollow: FC = () => {
       variables: {
         request: {
           ...(remove
-            ? { toRemove: [simplePaymentRule?.id] }
+            ? { toRemove: [tokenGatedRule?.id] }
             : {
-                ...(simplePaymentRule && {
-                  toRemove: [simplePaymentRule?.id]
+                ...(tokenGatedRule && {
+                  toRemove: [tokenGatedRule?.id]
                 }),
                 toAdd: {
                   required: [
                     {
-                      simplePaymentRule: {
-                        cost: {
-                          currency: DEFAULT_COLLECT_TOKEN,
+                      tokenGatedRule: {
+                        token: {
+                          currency: token,
+                          standard: standard as TokenStandard,
                           value: amount.toString()
-                        },
-                        recipient: account.address
+                        }
                       }
                     }
                   ]
@@ -113,22 +139,28 @@ const SuperFollow: FC = () => {
   return (
     <Card>
       <CardHeader
-        body="You can set a payment rule to super follow users."
-        title="Super follow"
+        body="You can set a token gated rule to super follow users."
+        title="Super follow - Token Gated"
       />
-      <div className="m-5 space-y-4">
+      <div className="m-5 flex flex-col space-y-4">
+        <Input
+          label="Token"
+          placeholder="0x123..."
+          value={token || ""}
+          onChange={(e) => setToken(e.target.value)}
+        />
+        <Input
+          label="Token Type"
+          placeholder="ERC20"
+          value={
+            standard ||
+            (fetchingStandard ? "Fetching..." : "Please select a token")
+          }
+          disabled
+        />
         <Input
           label="Amount"
           placeholder="1"
-          prefix={
-            <Tooltip content="Payable in GHO" placement="top">
-              <Image
-                className="size-5"
-                src={`${STATIC_IMAGES_URL}/tokens/gho.svg`}
-                alt="GHO"
-              />
-            </Tooltip>
-          }
           className="no-spinner"
           ref={inputRef}
           type="number"
@@ -136,7 +168,7 @@ const SuperFollow: FC = () => {
           onChange={(e) => setAmount(Number(e.target.value))}
         />
         <div className="flex justify-end space-x-2">
-          {simplePaymentRule && (
+          {tokenGatedRule && (
             <Button
               variant="danger"
               disabled={isLoading}
@@ -145,7 +177,10 @@ const SuperFollow: FC = () => {
               Remove
             </Button>
           )}
-          <Button disabled={isLoading} onClick={() => handleUpdateRule(false)}>
+          <Button
+            disabled={isLoading || !token || !standard || !amount}
+            onClick={() => handleUpdateRule(false)}
+          >
             Update
           </Button>
         </div>
@@ -154,4 +189,4 @@ const SuperFollow: FC = () => {
   );
 };
 
-export default SuperFollow;
+export default SuperFollowToken;
