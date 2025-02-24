@@ -5,9 +5,11 @@ import { Errors } from "@hey/data/errors";
 import {
   type Group,
   GroupRuleType,
+  useTransactionStatusLazyQuery,
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
 import { Button, Card, CardHeader, Image, Input, Tooltip } from "@hey/ui";
+import { useRouter } from "next/router";
 import { type FC, type RefObject, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
@@ -19,12 +21,14 @@ interface SuperJoinProps {
 }
 
 const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
+  const { reload } = useRouter();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
+  const [getTransactionStatus] = useTransactionStatusLazyQuery();
 
   const simplePaymentRule = [
     ...group.rules.required,
@@ -36,9 +40,17 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
     setAmount(simplePaymentAmount || 0);
   }, [simplePaymentAmount]);
 
-  const onCompleted = () => {
-    setIsLoading(false);
-    toast.success("Payment rule updated");
+  const onCompleted = (hash: string) => {
+    getTransactionStatus({ variables: { request: { txHash: hash } } }).then(
+      ({ data }) => {
+        if (
+          data?.transactionStatus?.__typename === "FinishedTransactionStatus"
+        ) {
+          setIsLoading(false);
+          reload();
+        }
+      }
+    );
   };
 
   const onError = (error: any) => {

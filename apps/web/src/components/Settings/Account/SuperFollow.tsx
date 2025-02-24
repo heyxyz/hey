@@ -5,6 +5,7 @@ import { Errors } from "@hey/data/errors";
 import {
   type Account,
   AccountFollowRuleType,
+  useTransactionStatusLazyQuery,
   useUpdateAccountFollowRulesMutation
 } from "@hey/indexer";
 import { Button, Card, CardHeader, Image, Input, Tooltip } from "@hey/ui";
@@ -25,6 +26,7 @@ const SuperFollow: FC = () => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
+  const [getTransactionStatus] = useTransactionStatusLazyQuery();
 
   const account = currentAccount as Account;
   const simplePaymentRule = [
@@ -39,12 +41,17 @@ const SuperFollow: FC = () => {
     setAmount(simplePaymentAmount || 0);
   }, [simplePaymentAmount]);
 
-  const onCompleted = () => {
-    setTimeout(() => {
-      reload();
-    }, 1000);
-    setIsLoading(false);
-    toast.success("Payment rule updated");
+  const onCompleted = (hash: string) => {
+    getTransactionStatus({ variables: { request: { txHash: hash } } }).then(
+      ({ data }) => {
+        if (
+          data?.transactionStatus?.__typename === "FinishedTransactionStatus"
+        ) {
+          setIsLoading(false);
+          reload();
+        }
+      }
+    );
   };
 
   const onError = (error: any) => {
@@ -58,7 +65,7 @@ const SuperFollow: FC = () => {
         updateAccountFollowRules.__typename ===
         "UpdateAccountFollowRulesResponse"
       ) {
-        return onCompleted();
+        return onCompleted(updateAccountFollowRules.hash);
       }
 
       return await handleTransactionLifecycle({
