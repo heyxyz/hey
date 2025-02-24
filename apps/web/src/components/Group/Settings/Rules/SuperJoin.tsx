@@ -28,7 +28,9 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
-  const [getTransactionStatus] = useTransactionStatusLazyQuery();
+  const [getTransactionStatus] = useTransactionStatusLazyQuery({
+    fetchPolicy: "no-cache"
+  });
 
   const simplePaymentRule = [
     ...group.rules.required,

@@ -5,6 +5,7 @@ import { Errors } from "@hey/data/errors";
 import {
   type Account,
   AccountFollowRuleType,
+  useMeLazyQuery,
   useTransactionStatusLazyQuery,
   useUpdateAccountFollowRulesMutation
 } from "@hey/indexer";
@@ -19,14 +20,17 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const SuperFollowPayment: FC = () => {
   const { reload } = useRouter();
-  const { currentAccount } = useAccountStore();
+  const { currentAccount, setCurrentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
-  const [getTransactionStatus] = useTransactionStatusLazyQuery();
+  const [getTransactionStatus] = useTransactionStatusLazyQuery({
+    fetchPolicy: "no-cache"
+  });
+  const [getMeDetails] = useMeLazyQuery({ fetchPolicy: "no-cache" });
 
   const account = currentAccount as Account;
   const simplePaymentRule = [
@@ -47,8 +51,13 @@ const SuperFollowPayment: FC = () => {
         if (
           data?.transactionStatus?.__typename === "FinishedTransactionStatus"
         ) {
-          setIsLoading(false);
-          reload();
+          getMeDetails().then(({ data: meData }) => {
+            setCurrentAccount({
+              currentAccount: meData?.me.loggedInAs.account as Account,
+              isSignlessEnabled: meData?.me.isSignless || false
+            });
+            reload();
+          });
         }
       }
     );
