@@ -4,8 +4,4 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   isFollowingMe
   isMutedByMe
   isBlockedByMe
-  hasBlockedMe
-  canBlock
-  canUnblock
-  hasReported
 }

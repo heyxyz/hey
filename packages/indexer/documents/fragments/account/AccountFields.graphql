@@ -11,13 +11,13 @@ fragment AccountFields on Account {
       ...AccountFollowRuleFields
     }
   }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
   metadata {
     ...AccountMetadata
   }
   username(request: { autoResolve: true }) {
     ...UsernameFields
-  }
-  operations {
-    ...LoggedInAccountOperationsFields
   }
 }

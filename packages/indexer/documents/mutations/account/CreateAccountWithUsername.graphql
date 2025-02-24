@@ -5,9 +5,6 @@ mutation CreateAccountWithUsername(
     ... on CreateAccountResponse {
       hash
     }
-    ... on UsernameTaken {
-      ownedBy
-    }
     ... on SelfFundedTransactionRequest {
       ...SelfFundedTransactionRequestFields
     }
