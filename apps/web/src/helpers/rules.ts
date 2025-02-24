@@ -48,27 +48,3 @@ export const getSimplePaymentDetails = (
   rules: GroupRules | AccountFollowRules
 ): AssetDetails =>
   extractPaymentDetails(rules.required) || extractPaymentDetails(rules.anyOf);
-
-const extractTokenGatedDetails = (
-  rules: GroupRule[] | AccountFollowRule[]
-): AssetDetails => {
-  for (const rule of rules) {
-    if (rule.type === "TOKEN_GATED") {
-      return {
-        assetContract:
-          getAnyKeyValue(rule.config, "assetContract")?.address || null,
-        assetSymbol: getAnyKeyValue(rule.config, "assetSymbol")?.string || null,
-        amount:
-          Number(getAnyKeyValue(rule.config, "amount")?.bigDecimal) || null
-      };
-    }
-  }
-
-  return { assetContract: null, assetSymbol: null, amount: null };
-};
-
-export const getTokenGatedDetails = (
-  rules: GroupRules | AccountFollowRules
-): AssetDetails =>
-  extractTokenGatedDetails(rules.required) ||
-  extractTokenGatedDetails(rules.anyOf);

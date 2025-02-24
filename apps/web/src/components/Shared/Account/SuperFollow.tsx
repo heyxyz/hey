@@ -11,10 +11,10 @@ import { useSuperFollowModalStore } from "src/store/non-persisted/modal/useSuper
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Address } from "viem";
 import { useBalance } from "wagmi";
-import FundButton from "../../Fund/FundButton";
-import Loader from "../../Loader";
-import Slug from "../../Slug";
-import Follow from "../Follow";
+import FundButton from "../Fund/FundButton";
+import Loader from "../Loader";
+import Slug from "../Slug";
+import Follow from "./Follow";
 
 const SuperFollow: FC = () => {
   const { currentAccount } = useAccountStore();

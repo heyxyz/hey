@@ -6,8 +6,7 @@ import type { NextPage } from "next";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import RateLimits from "./RateLimits";
-import SuperFollowPayment from "./SuperFollowPayment";
-import SuperFollowToken from "./SuperFollowToken";
+import SuperFollow from "./SuperFollow";
 import Verification from "./Verification";
 
 const AccountSettings: NextPage = () => {
@@ -24,8 +23,7 @@ const AccountSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <SuperFollowPayment />
-        <SuperFollowToken />
+        <SuperFollow />
         <RateLimits />
         <Verification />
       </GridItemEight>

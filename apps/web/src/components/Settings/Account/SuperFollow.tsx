@@ -18,7 +18,7 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
-const SuperFollowPayment: FC = () => {
+const SuperFollow: FC = () => {
   const { reload } = useRouter();
   const { currentAccount, setCurrentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
@@ -163,4 +163,4 @@ const SuperFollowPayment: FC = () => {
   );
 };
 
-export default SuperFollowPayment;
+export default SuperFollow;
