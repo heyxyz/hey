@@ -1,16 +1,16 @@
 mutation Block($request: BlockRequest!) {
   block(request: $request) {
-    ... on BlockResponse {
+    ... on AccountBlockedResponse {
       hash
-    }
-    ... on BlockError {
-      error
     }
     ... on SelfFundedTransactionRequest {
       ...SelfFundedTransactionRequestFields
     }
     ... on SponsoredTransactionRequest {
       ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
     }
   }
 }

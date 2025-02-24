@@ -2,6 +2,14 @@ fragment PostBaseFields on Post {
   id
   slug
   isDeleted
+  feed {
+    group {
+      metadata {
+        name
+        icon
+      }
+    }
+  }
   stats {
     ...PostStatsFields
   }

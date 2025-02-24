@@ -1,16 +1,16 @@
 mutation Unblock($request: UnblockRequest!) {
   unblock(request: $request) {
-    ... on UnblockResponse {
+    ... on AccountUnblockedResponse {
       hash
-    }
-    ... on UnblockError {
-      error
     }
     ... on SelfFundedTransactionRequest {
       ...SelfFundedTransactionRequestFields
     }
     ... on SponsoredTransactionRequest {
       ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
     }
   }
 }

@@ -60,7 +60,7 @@ const BlockOrUnblockAccount: FC = () => {
 
   const [block] = useBlockMutation({
     onCompleted: async ({ block }) => {
-      if (block.__typename === "BlockResponse") {
+      if (block.__typename === "AccountBlockedResponse") {
         return onCompleted();
       }
 
@@ -75,7 +75,7 @@ const BlockOrUnblockAccount: FC = () => {
 
   const [unblock] = useUnblockMutation({
     onCompleted: async ({ unblock }) => {
-      if (unblock.__typename === "UnblockResponse") {
+      if (unblock.__typename === "AccountUnblockedResponse") {
         return onCompleted();
       }
 
