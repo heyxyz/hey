@@ -75,7 +75,7 @@ const SuperFollow: FC = () => {
         {hasEnoughBalance ? (
           <Follow
             account={superFollowingAccount as Account}
-            buttonClassName=""
+            buttonClassName="w-full"
             small={false}
             title="Super Follow"
             onFollow={() =>
@@ -83,7 +83,7 @@ const SuperFollow: FC = () => {
             }
           />
         ) : (
-          <FundButton />
+          <FundButton className="w-full" />
         )}
       </div>
     </div>

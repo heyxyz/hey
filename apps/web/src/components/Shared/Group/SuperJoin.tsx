@@ -2,9 +2,12 @@ import {
   getMembershipApprovalDetails,
   getSimplePaymentDetails
 } from "@helpers/group";
-import { XCircleIcon } from "@heroicons/react/24/outline";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { APP_NAME } from "@hey/data/constants";
+import { tokens } from "@hey/data/tokens";
+import getTokenImage from "@hey/helpers/getTokenImage";
 import type { Group, GroupRules } from "@hey/indexer";
+import { H3, H5 } from "@hey/ui";
 import type { FC } from "react";
 import { useSuperJoinModalStore } from "src/store/non-persisted/modal/useSuperJoinModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -23,39 +26,55 @@ const SuperJoin: FC = () => {
   const requiresMembershipApproval = getMembershipApprovalDetails(
     superJoiningGroup?.rules as GroupRules
   );
+  const enabledTokens = tokens.map((t) => t.symbol);
+  const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
+
   const { data: balance, isLoading: balanceLoading } = useBalance({
     address: currentAccount?.address as Address,
     token: assetContract as Address,
     query: { enabled: !!assetContract, refetchInterval: 2000 }
   });
 
+  if (!assetContract || !assetSymbol || !amount) {
+    return null;
+  }
+
   if (balanceLoading) {
-    return <Loader message="Loading balance..." className="my-10" />;
+    return <Loader message="Loading Super join" className="my-10" />;
   }
 
   const hasEnoughBalance = balance?.value && balance.value >= (amount || 0);
 
   return (
-    <div className="m-5 space-y-5">
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <div className="ld-text-gray-500 flex items-center gap-2 text-sm">
-            {hasEnoughBalance ? (
-              <CheckCircleIcon className="size-4 text-green-500" />
-            ) : (
-              <XCircleIcon className="size-4 text-red-500" />
-            )}
-            <span>
-              You need to pay{" "}
-              <b>
-                {amount} {assetSymbol}
-              </b>{" "}
-              to join this group.
-            </span>
-          </div>
+    <div className="p-5">
+      <div className="space-y-1.5 pb-2">
+        <H5>Super Join</H5>
+        <div className="ld-text-gray-500">
+          Support your favorite group on {APP_NAME}.
         </div>
+      </div>
+      <div className="flex items-center space-x-1.5 py-2">
+        {isTokenEnabled ? (
+          <img
+            alt={assetSymbol}
+            className="size-7"
+            height={28}
+            src={getTokenImage(assetSymbol)}
+            title={assetSymbol}
+            width={28}
+          />
+        ) : (
+          <CurrencyDollarIcon className="size-7" />
+        )}
+        <span className="space-x-1">
+          <H3 as="span">{amount}</H3>
+          <span className="text-xs">{assetSymbol}</span>
+        </span>
+      </div>
+      <div className="mt-5">
         {hasEnoughBalance ? (
           <Join
+            className="w-full"
             group={superJoiningGroup as Group}
             setJoined={() => {
               setShowSuperJoinModal(false, superJoiningGroup);
@@ -66,7 +85,7 @@ const SuperJoin: FC = () => {
             }
           />
         ) : (
-          <FundButton />
+          <FundButton className="w-full" />
         )}
       </div>
     </div>
