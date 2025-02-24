@@ -187,7 +187,7 @@ const AccountSettingsForm: FC = () => {
       >
         <Input
           disabled
-          label="Account Id"
+          label="Account Address"
           type="text"
           value={currentAccount?.address}
         />
