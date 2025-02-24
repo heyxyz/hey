@@ -14,11 +14,11 @@ import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInp
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 
-interface PaymentRuleProps {
+interface SuperJoinProps {
   group: Group;
 }
 
-const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
+const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(0);
@@ -135,4 +135,4 @@ const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
   );
 };
 
-export default PaymentRule;
+export default SuperJoin;
