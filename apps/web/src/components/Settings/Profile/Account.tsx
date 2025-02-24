@@ -6,7 +6,11 @@ import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import trimify from "@hey/helpers/trimify";
-import { useSetAccountMetadataMutation } from "@hey/indexer";
+import {
+  type Account,
+  useMeLazyQuery,
+  useSetAccountMetadataMutation
+} from "@hey/indexer";
 import { Button, Card, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import type {
   AccountOptions,
@@ -43,7 +47,7 @@ const validationSchema = object({
 });
 
 const AccountSettingsForm: FC = () => {
-  const { currentAccount } = useAccountStore();
+  const { currentAccount, setCurrentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isLoading, setIsLoading] = useState(false);
   const [pfpUrl, setPfpUrl] = useState<string | undefined>(
@@ -53,8 +57,17 @@ const AccountSettingsForm: FC = () => {
     currentAccount?.metadata?.coverPicture
   );
   const handleTransactionLifecycle = useTransactionLifecycle();
+  const [getCurrentAccountDetails] = useMeLazyQuery({
+    fetchPolicy: "no-cache"
+  });
 
   const onCompleted = () => {
+    getCurrentAccountDetails().then(({ data }) => {
+      setCurrentAccount({
+        currentAccount: data?.me.loggedInAs.account as Account,
+        isSignlessEnabled: data?.me.isSignless || false
+      });
+    });
     setIsLoading(false);
     toast.success("Account updated");
   };

@@ -30,7 +30,9 @@ const SuperFollow: FC = () => {
   const [getTransactionStatus] = useTransactionStatusLazyQuery({
     fetchPolicy: "no-cache"
   });
-  const [getMeDetails] = useMeLazyQuery({ fetchPolicy: "no-cache" });
+  const [getCurrentAccountDetails] = useMeLazyQuery({
+    fetchPolicy: "no-cache"
+  });
 
   const account = currentAccount as Account;
   const simplePaymentRule = [
@@ -51,10 +53,10 @@ const SuperFollow: FC = () => {
         if (
           data?.transactionStatus?.__typename === "FinishedTransactionStatus"
         ) {
-          getMeDetails().then(({ data: meData }) => {
+          getCurrentAccountDetails().then(({ data }) => {
             setCurrentAccount({
-              currentAccount: meData?.me.loggedInAs.account as Account,
-              isSignlessEnabled: meData?.me.isSignless || false
+              currentAccount: data?.me.loggedInAs.account as Account,
+              isSignlessEnabled: data?.me.isSignless || false
             });
             reload();
           });
