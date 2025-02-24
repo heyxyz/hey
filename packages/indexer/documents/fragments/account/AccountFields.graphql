@@ -1,7 +1,6 @@
 fragment AccountFields on Account {
   owner
   address
-  score
   createdAt
   rules {
     anyOf {

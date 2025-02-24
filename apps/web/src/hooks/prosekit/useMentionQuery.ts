@@ -12,7 +12,6 @@ export type MentionAccount = {
   address: string;
   name: string;
   picture: string;
-  score: number;
 };
 
 const useMentionQuery = (query: string): MentionAccount[] => {
@@ -39,24 +38,15 @@ const useMentionQuery = (query: string): MentionAccount[] => {
           username: getAccount(account).username,
           address: account.address,
           name: getAccount(account).name,
-          picture: getAvatar(account),
-          score: account.score || 0
+          picture: getAvatar(account)
         })
       );
 
       setResults(
         accountsResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT).sort((a, b) => {
-          // Convert boolean to number: true -> 1, false -> 0
           const verifiedA = isVerified(a.address) ? 1 : 0;
           const verifiedB = isVerified(b.address) ? 1 : 0;
-
-          // Primary sort by verification status (descending: verified first)
-          if (verifiedA !== verifiedB) {
-            return verifiedB - verifiedA;
-          }
-
-          // Secondary sort by score (descending)
-          return b.score - a.score;
+          return verifiedB - verifiedA;
         })
       );
     });
