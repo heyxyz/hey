@@ -1,3 +1,4 @@
+import { LENS_NAMESPACE } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
 import {
   defineBaseCommands,
@@ -65,7 +66,7 @@ const defineMentionSpec = () => {
         attrs.kind === "account"
           ? [
               ["span", "@"],
-              ["span", { class: "hidden" }, "lens/"],
+              ["span", { class: "hidden" }, LENS_NAMESPACE],
               ["span", value]
             ]
           : [["span", value]];

@@ -59,3 +59,5 @@ export const ATTACHMENT = "tr:w-1000";
 export const KNOWN_ATTRIBUTES = {
   HIDE_OEMBED: "hideOembed"
 };
+
+export const LENS_NAMESPACE = "lens/";
