@@ -45,7 +45,6 @@ const Unfollow: FC<UnfollowProps> = ({
   const onCompleted = () => {
     updateCache();
     setIsLoading(false);
-    toast.success("Unfollowed");
   };
 
   const onError = (error: any) => {
