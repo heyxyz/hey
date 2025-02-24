@@ -2,7 +2,6 @@ fragment LoggedInPostOperationsFields on LoggedInPostOperations {
   id
   hasBookmarked
   hasReacted
-  hasReported
   hasSimpleCollected
   hasTipped
   isNotInterested
