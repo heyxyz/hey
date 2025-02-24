@@ -1,5 +1,5 @@
 import errorToast from "@helpers/errorToast";
-import { getSimplePaymentDetails } from "@helpers/group";
+import { getSimplePaymentDetails } from "@helpers/rules";
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import {

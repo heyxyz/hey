@@ -1,4 +1,4 @@
-import { getSimplePaymentDetails } from "@helpers/group";
+import { getSimplePaymentDetails } from "@helpers/rules";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
 import { tokens } from "@hey/data/tokens";

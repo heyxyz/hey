@@ -1,7 +1,7 @@
 import {
   getMembershipApprovalDetails,
   getSimplePaymentDetails
-} from "@helpers/group";
+} from "@helpers/rules";
 import type { Group } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
