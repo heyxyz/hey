@@ -1,8 +1,7 @@
-import Source from "@components/Post/Source";
 import Verified from "@components/Shared/Account/Icons/Verified";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
-import type { Account, App, Maybe } from "@hey/indexer";
+import type { Account } from "@hey/indexer";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
@@ -12,14 +11,12 @@ import Slug from "../Shared/Slug";
 interface PostAccountProps {
   account: Account;
   postSlug: string;
-  app?: Maybe<App>;
   timestamp: Date;
 }
 
 const PostAccount: FC<PostAccountProps> = ({
   account,
   postSlug,
-  app,
   timestamp
 }) => {
   const WrappedLink = ({ children }: { children: ReactNode }) => (
@@ -57,7 +54,6 @@ const PostAccount: FC<PostAccountProps> = ({
           </Link>
         </span>
       ) : null}
-      {app ? <Source app={app} /> : null}
     </div>
   );
 };

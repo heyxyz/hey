@@ -22,9 +22,6 @@ fragment PostBaseFields on Post {
   metadata {
     ...PostMetadataFields
   }
-  app {
-    ...AppFields
-  }
   mentions {
     ...AccountMentionFields
   }

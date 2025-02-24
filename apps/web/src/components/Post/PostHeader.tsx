@@ -35,7 +35,6 @@ const PostHeader: FC<PostHeaderProps> = ({
       <PostAccount
         account={account}
         postSlug={targetPost.slug}
-        app={targetPost.app}
         timestamp={timestamp}
       />
       {!post.isDeleted && !quoted ? (
