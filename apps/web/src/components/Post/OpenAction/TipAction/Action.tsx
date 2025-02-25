@@ -33,7 +33,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const { currentAccount } = useAccountStore();
   const { setShowAuthModal } = useAuthModalStore();
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState(2);
   const [other, setOther] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -65,14 +65,14 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   };
 
   const onCompleted = () => {
-    setIsLoading(false);
+    setLoading(false);
     closePopover();
     updateCache();
     toast.success(`Tipped ${amount} ${symbol}`);
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
@@ -113,7 +113,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
       return toast.error(Errors.Suspended);
     }
 
-    setIsLoading(true);
+    setLoading(true);
 
     return executePostAction({
       variables: {
@@ -130,7 +130,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
     });
   };
 
-  const amountDisabled = isLoading || !currentAccount;
+  const amountDisabled = loading || !currentAccount;
 
   if (!currentAccount) {
     return (
@@ -214,7 +214,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           />
         </div>
       ) : null}
-      {isLoading || balanceLoading ? (
+      {loading || balanceLoading ? (
         <Button
           className={cn("flex justify-center", submitButtonClassName)}
           disabled
@@ -223,7 +223,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
       ) : canTip ? (
         <Button
           className={submitButtonClassName}
-          disabled={!amount || isLoading || !canTip}
+          disabled={!amount || loading || !canTip}
           onClick={handleTip}
         >
           <b>Tip ${amount}</b>
