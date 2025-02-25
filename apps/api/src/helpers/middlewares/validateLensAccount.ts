@@ -6,7 +6,9 @@ import catchedError from "../catchedError";
 
 const jwksUri = `${LENS_API_URL.replace("/graphql", "")}/.well-known/jwks.json`;
 // Cache the JWKS for 12 hours
-const JWKS = createRemoteJWKSet(new URL(jwksUri), { cacheMaxAge: 60 * 60 * 12 });
+const JWKS = createRemoteJWKSet(new URL(jwksUri), {
+  cacheMaxAge: 60 * 60 * 12
+});
 
 /**
  * Middleware to validate Lens account
