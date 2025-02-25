@@ -18,6 +18,9 @@ RUN pnpm install --frozen-lockfile
 # Prune dev dependencies to reduce image size
 RUN pnpm prune --prod
 
+# Ensure app and node_modules are owned by non-root user
+RUN chown -R 1001:1001 /app
+
 # Runner stage
 FROM base AS runner
 WORKDIR /app
@@ -29,13 +32,12 @@ RUN npm install -g pnpm
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 app
 
-# Ensure correct ownership of the app directory
+# Ensure the app directory and node_modules are accessible by the non-root user
+COPY --from=installer /app /app
 RUN chown -R 1001:1001 /app
 
+# Switch to non-root user
 USER app
-
-# Copy built application and production dependencies from builder stage
-COPY --from=installer /app .
 
 # Expose the port
 EXPOSE 4784
