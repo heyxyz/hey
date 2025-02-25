@@ -34,7 +34,7 @@ interface GroupSettingsFormProps {
 const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [pfpUrl, setPfpUrl] = useState<string | undefined>(
     group.metadata?.icon
   );
@@ -44,12 +44,12 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
   const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = () => {
-    setIsLoading(false);
+    setLoading(false);
     toast.success("Group updated");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
@@ -86,7 +86,7 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
     }
 
     try {
-      setIsLoading(true);
+      setLoading(true);
 
       const metadata = groupMetadata({
         name: data.name,
@@ -124,7 +124,7 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
         <Button
           className="ml-auto"
           disabled={
-            isLoading || (!form.formState.isDirty && !coverUrl && !pfpUrl)
+            loading || (!form.formState.isDirty && !coverUrl && !pfpUrl)
           }
           type="submit"
         >

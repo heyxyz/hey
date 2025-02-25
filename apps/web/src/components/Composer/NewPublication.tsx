@@ -87,7 +87,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   const { reset: resetAttributes } = usePostAttributesStore();
 
   // States
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [postContentError, setPostContentError] = useState("");
   const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
@@ -102,7 +102,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
 
   const reset = () => {
     editor?.setMarkdown("");
-    setIsLoading(false);
+    setLoading(false);
     setPostContent("");
     setShowLiveVideoEditor(false);
     resetLiveVideoConfig();
@@ -117,7 +117,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
   };
 
   const onError = (error?: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
@@ -169,19 +169,19 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
     }
 
     try {
-      setIsLoading(true);
+      setLoading(true);
       if (hasAudio) {
         setPostContentError("");
         const parsedData = AudioPostSchema.safeParse(audioPost);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
-          setIsLoading(false);
+          setLoading(false);
           return setPostContentError(issue.message);
         }
       }
 
       if (postContent.length === 0 && attachments.length === 0) {
-        setIsLoading(false);
+        setLoading(false);
         return setPostContentError(
           `${
             isComment ? "Comment" : isQuote ? "Quote" : "Post"
@@ -272,7 +272,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
         <div className="mt-2 ml-auto sm:mt-0">
           <Button
             disabled={
-              isLoading ||
+              loading ||
               isUploading ||
               videoThumbnail.uploading ||
               exceededMentionsLimit
