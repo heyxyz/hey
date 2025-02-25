@@ -1,12 +1,13 @@
 import MetaTags from "@components/Common/MetaTags";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import { Card, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import Custom404 from "src/pages/404";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import StaffSidebar from "../Sidebar";
+import Sponsorship from "./Sponsorship";
 
 const Overview: NextPage = () => {
   const { currentAccount } = useAccountStore();
@@ -23,7 +24,7 @@ const Overview: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Card className="p-5">Soon...</Card>
+        <Sponsorship />
       </GridItemEight>
     </GridLayout>
   );

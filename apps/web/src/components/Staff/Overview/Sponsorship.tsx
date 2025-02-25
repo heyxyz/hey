@@ -4,7 +4,7 @@ import { useSponsorshipQuery } from "@hey/indexer";
 import { Card, CardHeader, ErrorMessage, NumberedStat } from "@hey/ui";
 import type { FC } from "react";
 
-const Overview: FC = () => {
+const Sponsorship: FC = () => {
   const { data, loading, error } = useSponsorshipQuery({
     variables: { request: { address: HEY_SPONSOR } },
     pollInterval: 5000
@@ -38,4 +38,4 @@ const Overview: FC = () => {
   );
 };
 
-export default Overview;
+export default Sponsorship;
