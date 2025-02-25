@@ -6,22 +6,24 @@ import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { heyWalletClient } from "src/helpers/heyWalletClient";
 import { noBody } from "src/helpers/responses";
-import type { Address } from "viem";
+import { type Address, checksumAddress } from "viem";
+
+const types = {
+  SourceStamp: [
+    { name: "source", type: "address" },
+    { name: "originalMsgSender", type: "address" },
+    { name: "validator", type: "address" },
+    { name: "nonce", type: "uint256" },
+    { name: "deadline", type: "uint256" }
+  ]
+};
 
 const domain = {
   name: "Lens Source",
   version: "1",
   chainId: 37111,
-  verifyingContract: HEY_APP as Address
-} as const;
-
-const types = {
-  SourceStamp: [
-    { name: "source", type: "address" },
-    { name: "nonce", type: "uint256" },
-    { name: "deadline", type: "uint256" }
-  ]
-} as const;
+  verifyingContract: checksumAddress(HEY_APP as Address)
+};
 
 export const post = [
   async (req: Request, res: Response) => {
@@ -31,8 +33,21 @@ export const post = [
       return noBody(res);
     }
 
-    const source = HEY_APP as Address;
-    const { nonce, deadline, account, operation } = body;
+    const { nonce, deadline, account, operation, validator } = body;
+
+    const missingFields = [
+      "deadline",
+      "nonce",
+      "operation",
+      "account",
+      "validator"
+    ].filter((field) => !body[field]);
+    if (missingFields.length > 0) {
+      return res.json({
+        allowed: false,
+        reason: `Missing ${missingFields.join(", ")} field(s)`
+      });
+    }
 
     try {
       logger.info(`Verification request received for ${operation}`);
@@ -40,10 +55,16 @@ export const post = [
       // TODO: Add redis cache
       const [signature, accountPermission] = await Promise.all([
         heyWalletClient.signTypedData({
-          domain,
-          types,
           primaryType: "SourceStamp",
-          message: { source, nonce, deadline }
+          types,
+          domain,
+          message: {
+            source: checksumAddress(HEY_APP as Address),
+            originalMsgSender: checksumAddress(account),
+            validator: checksumAddress(validator),
+            nonce: nonce,
+            deadline: deadline
+          }
         }),
         prisma.accountPermission.findFirst({
           where: {
