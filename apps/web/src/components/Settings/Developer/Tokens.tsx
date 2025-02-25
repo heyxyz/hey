@@ -11,13 +11,13 @@ import { useAccount, useSignMessage } from "wagmi";
 const Tokens: FC = () => {
   const { accessToken, idToken, refreshToken } = hydrateAuthTokens();
   const [builderToken, setBuilderToken] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -27,7 +27,7 @@ const Tokens: FC = () => {
 
   const handleGenerateBuilderToken = async () => {
     try {
-      setLoading(true);
+      setIsSubmitting(true);
       await handleWrongNetwork();
 
       const challenge = await loadChallenge({
@@ -54,7 +54,7 @@ const Tokens: FC = () => {
     } catch (error) {
       errorToast(error);
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -102,8 +102,8 @@ const Tokens: FC = () => {
       <Card>
         <CardHeader title="Your temporary builder token" />
         <div className="m-5">
-          <Button onClick={handleGenerateBuilderToken} disabled={loading}>
-            Generate builder token
+          <Button onClick={handleGenerateBuilderToken} disabled={isSubmitting}>
+            {isSubmitting ? "Generating..." : "Generate builder token"}
           </Button>
           {builderToken && (
             <button

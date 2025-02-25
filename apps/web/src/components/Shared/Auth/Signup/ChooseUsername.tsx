@@ -6,7 +6,7 @@ import {
   FaceFrownIcon,
   FaceSmileIcon
 } from "@heroicons/react/24/outline";
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, HEY_APP } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import {
@@ -88,7 +88,9 @@ const ChooseUsername: FC = () => {
       await handleWrongNetwork();
 
       const challenge = await loadChallenge({
-        variables: { request: { onboardingUser: { wallet: address } } }
+        variables: {
+          request: { onboardingUser: { app: HEY_APP, wallet: address } }
+        }
       });
 
       if (!challenge?.data?.challenge?.text) {
