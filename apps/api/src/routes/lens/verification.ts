@@ -8,7 +8,7 @@ import { heyWalletClient } from "src/helpers/heyWalletClient";
 import { noBody } from "src/helpers/responses";
 import { type Address, checksumAddress } from "viem";
 
-const types = {
+const TYPES = {
   SourceStamp: [
     { name: "source", type: "address" },
     { name: "originalMsgSender", type: "address" },
@@ -18,7 +18,7 @@ const types = {
   ]
 };
 
-const domain = {
+const DOMAIN = {
   name: "Lens Source",
   version: "1",
   chainId: 37111,
@@ -56,14 +56,14 @@ export const post = [
       const [signature, accountPermission] = await Promise.all([
         heyWalletClient.signTypedData({
           primaryType: "SourceStamp",
-          types,
-          domain,
+          types: TYPES,
+          domain: DOMAIN,
           message: {
             source: checksumAddress(HEY_APP as Address),
             originalMsgSender: checksumAddress(account),
             validator: checksumAddress(validator),
-            nonce: nonce,
-            deadline: deadline
+            nonce,
+            deadline
           }
         }),
         prisma.accountPermission.findFirst({
@@ -74,7 +74,7 @@ export const post = [
         })
       ]);
 
-      logger.info(`Verification request fullfilled for ${operation}`);
+      logger.info(`Verification request fulfilled for operation: ${operation}`);
 
       if (accountPermission?.enabled) {
         return res.status(200).json({
