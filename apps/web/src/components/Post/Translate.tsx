@@ -16,7 +16,7 @@ interface TranslateProps {
 const Translate: FC<TranslateProps> = ({ post }) => {
   const enabled = useFlag("translation");
   const [translation, setTranslation] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   if (!enabled) {
     return null;
@@ -34,14 +34,14 @@ const Translate: FC<TranslateProps> = ({ post }) => {
 
   const handleFetchTranslation = async () => {
     setTranslation("");
-    setIsLoading(true);
+    setLoading(true);
     try {
       const result = await fetchTranslation();
       setTranslation(result.translated);
     } catch {
       toast.error("Error fetching translation");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -63,10 +63,10 @@ const Translate: FC<TranslateProps> = ({ post }) => {
       <button
         className="mt-2 text-sm underline"
         onClick={handleFetchTranslation}
-        disabled={isLoading}
+        disabled={loading}
         type="button"
       >
-        {isLoading ? "Translating..." : "Translate post"}
+        {loading ? "Translating..." : "Translate post"}
       </button>
       <Markup className="markup linkify full-page-post-markup mt-3 break-words">
         {translation}

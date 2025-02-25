@@ -20,7 +20,7 @@ interface ShareMenuProps {
 }
 
 const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const hasReposted =
     targetPost.operations?.hasReposted.optimistic ||
@@ -57,7 +57,7 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
           )}
           onClick={stopEventPropagation}
         >
-          {isLoading ? (
+          {loading ? (
             <Spinner
               className="mr-0.5"
               size="xs"
@@ -84,16 +84,16 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
           >
             {canRepost && (
               <Repost
-                isLoading={isLoading}
+                loading={loading}
                 post={targetPost}
-                setIsLoading={setIsLoading}
+                setLoading={setLoading}
               />
             )}
             {hasReposted && targetPost.id !== post.id && (
               <UndoRepost
-                isLoading={isLoading}
+                loading={loading}
                 post={post}
-                setIsLoading={setIsLoading}
+                setLoading={setLoading}
               />
             )}
             {canQuote && <Quote post={targetPost} />}
