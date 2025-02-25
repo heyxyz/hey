@@ -1,7 +1,8 @@
 import Loader from "@components/Shared/Loader";
-import { HEY_SPONSOR } from "@hey/data/constants";
+import { BLOCK_EXPLORER_URL, HEY_SPONSOR } from "@hey/data/constants";
 import { useSponsorshipQuery } from "@hey/indexer";
 import { Card, CardHeader, ErrorMessage, NumberedStat } from "@hey/ui";
+import Link from "next/link";
 import type { FC } from "react";
 
 const Sponsorship: FC = () => {
@@ -20,6 +21,14 @@ const Sponsorship: FC = () => {
           <ErrorMessage error={error} title="Failed to load sponsorship" />
         ) : (
           <div className="space-y-5">
+            <div className="linkify font-bold">
+              <Link
+                href={`${BLOCK_EXPLORER_URL}/address/${data?.sponsorship?.address}`}
+                target="_blank"
+              >
+                Open Sponsorship Contract in Explorer
+              </Link>
+            </div>
             <NumberedStat
               count={data?.sponsorship?.balance}
               name="Balance"
