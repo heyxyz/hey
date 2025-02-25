@@ -20,7 +20,7 @@ interface CoverUploadProps {
 }
 
 const CoverUpload: FC<CoverUploadProps> = ({ src, setSrc }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [pictureSrc, setPictureSrc] = useState(src);
   const [showPictureCropModal, setShowPictureCropModal] = useState(false);
   const [croppedPictureAreaPixels, setPictureCroppedAreaPixels] =
@@ -29,7 +29,7 @@ const CoverUpload: FC<CoverUploadProps> = ({ src, setSrc }) => {
   const [uploadingPicture, setUploadingPicture] = useState(false);
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
@@ -92,7 +92,7 @@ const CoverUpload: FC<CoverUploadProps> = ({ src, setSrc }) => {
       </div>
       <Modal
         onClose={
-          isLoading
+          loading
             ? undefined
             : () => {
                 setPictureSrc("");
