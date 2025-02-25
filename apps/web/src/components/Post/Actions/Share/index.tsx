@@ -91,8 +91,8 @@ const ShareMenu: FC<ShareMenuProps> = ({ post, showCount }) => {
             )}
             {hasReposted && targetPost.id !== post.id && (
               <UndoRepost
-                isSubmitting={isSubmitting}
                 post={post}
+                isSubmitting={isSubmitting}
                 setIsSubmitting={setIsSubmitting}
               />
             )}

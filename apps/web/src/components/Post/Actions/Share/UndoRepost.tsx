@@ -12,14 +12,14 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface UndoRepostProps {
-  isSubmitting: boolean;
   post: AnyPost;
+  isSubmitting: boolean;
   setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 }
 
 const UndoRepost: FC<UndoRepostProps> = ({
-  isSubmitting,
   post,
+  isSubmitting,
   setIsSubmitting
 }) => {
   const { currentAccount } = useAccountStore();
