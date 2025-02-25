@@ -16,7 +16,7 @@ export const post = [
     const { account } = body;
 
     try {
-      logger.info("Authorization request received");
+      logger.info(`Authorization request received for ${account}`);
 
       // TODO: Add redis cache
       const accountPermission = await prisma.accountPermission.findFirst({
@@ -26,7 +26,7 @@ export const post = [
         }
       });
 
-      logger.info("Authorization request fullfilled");
+      logger.info(`Authorization request fullfilled for ${account}`);
 
       if (accountPermission?.enabled) {
         return res.status(200).json({
