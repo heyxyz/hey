@@ -3,9 +3,9 @@ import imageKit from "./imageKit";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
 /**
- * Returns the avatar image URL for a given profile or group.
+ * Returns the avatar image URL for a given account or group.
  *
- * @param entity The profile or group object.
+ * @param entity The account or group object.
  * @param namedTransform The named transform to use.
  * @returns The avatar image URL.
  */

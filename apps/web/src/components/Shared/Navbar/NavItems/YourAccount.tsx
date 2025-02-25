@@ -15,7 +15,7 @@ const YourAccount: FC<YourAccountProps> = ({ className = "" }) => {
       )}
     >
       <UserIcon className="size-4" />
-      <div>Your profile</div>
+      <div>Your account</div>
     </div>
   );
 };

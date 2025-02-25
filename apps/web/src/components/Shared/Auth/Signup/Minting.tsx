@@ -22,7 +22,7 @@ const Minting: FC = () => {
 
   return (
     <div className="m-8 flex flex-col items-center justify-center">
-      <H4>We are preparing your profile!</H4>
+      <H4>We are preparing your account!</H4>
       <div className="ld-text-gray-500 mt-3 text-center font-semibold">
         This will take a few seconds to a few minutes. Please be patient.
       </div>

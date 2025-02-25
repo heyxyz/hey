@@ -39,7 +39,7 @@ const Success: FC = () => {
 
   return (
     <div className="m-8 flex flex-col items-center justify-center">
-      <H4>Waaa-hey! You got your profile!</H4>
+      <H4>Waaa-hey! You got your account!</H4>
       <div className="ld-text-gray-500 mt-3 text-center font-semibold">
         Welcome to decentralised social where everything is sooooooooooooo much
         better! 🎉

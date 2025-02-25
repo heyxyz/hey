@@ -19,11 +19,11 @@ const Suspended: FC = () => {
           <div className="flex items-center space-x-2 text-gray-700">
             <NoSymbolIcon className="size-5" />
             <div className="font-bold text-base sm:text-lg">
-              Your profile has been suspended by {APP_NAME}.
+              Your account has been suspended by {APP_NAME}.
             </div>
           </div>
           <div className="text-gray-500 text-sm">
-            Because of that, your profile may limit your ability to interact
+            Because of that, your account may limit your ability to interact
             with {APP_NAME} and other users.{" "}
             <Link href="/support">Contact us</Link> if you think this is a
             mistake.

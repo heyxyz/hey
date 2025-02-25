@@ -54,7 +54,7 @@ const BottomNavigation = () => {
         </Link>
         {currentAccount && (
           <Link
-            aria-label="Your profile"
+            aria-label="Your account"
             className="mx-auto my-3"
             href={getAccount(currentAccount).link}
           >

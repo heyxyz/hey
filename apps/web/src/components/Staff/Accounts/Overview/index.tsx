@@ -59,7 +59,7 @@ const Overview: NextPage = () => {
             <EmptyState
               hideCard
               icon={<UserIcon className="size-8" />}
-              message="No profile found"
+              message="No account found"
             />
           )}
         </Card>
