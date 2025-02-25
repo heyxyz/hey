@@ -24,17 +24,17 @@ const CoverImage: FC<CoverImageProps> = ({
   isNew = false,
   setCover
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
   const onChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
       try {
-        setIsLoading(true);
+        setLoading(true);
         const file = event.target.files[0];
         const attachment = await uploadFileToStorageNode(file);
         setCover(
@@ -73,11 +73,11 @@ const CoverImage: FC<CoverImageProps> = ({
       {isNew && (
         <label
           className={cn(
-            { invisible: cover, visible: isLoading && !cover },
+            { invisible: cover, visible: loading && !cover },
             "absolute top-0 grid size-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible md:size-40 dark:bg-gray-900"
           )}
         >
-          {isLoading && !cover ? (
+          {loading && !cover ? (
             <Spinner size="sm" />
           ) : (
             <div className="flex flex-col items-center text-black text-sm opacity-60 dark:text-white">
