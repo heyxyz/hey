@@ -26,7 +26,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 const DeleteSettings: FC = () => {
   const { currentAccount } = useAccountStore();
   const [showWarningModal, setShowWarningModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const handleDelete = async () => {
@@ -34,9 +34,9 @@ const DeleteSettings: FC = () => {
       return toast.error(Errors.SignWallet);
     }
 
-    setLoading(true);
+    setIsSubmitting(true);
     await handleWrongNetwork();
-    setLoading(false);
+    setIsSubmitting(false);
     return toast.success("Feature not implemented yet");
   };
 
@@ -83,9 +83,9 @@ const DeleteSettings: FC = () => {
           </p>
         </div>
         <Button
-          disabled={loading}
+          disabled={isSubmitting}
           icon={
-            loading ? (
+            isSubmitting ? (
               <Spinner size="xs" variant="danger" />
             ) : (
               <TrashIcon className="size-5" />
@@ -94,7 +94,7 @@ const DeleteSettings: FC = () => {
           onClick={() => setShowWarningModal(true)}
           variant="danger"
         >
-          {loading ? "Deleting..." : "Delete your account"}
+          {isSubmitting ? "Deleting..." : "Delete your account"}
         </Button>
       </div>
       <Modal
