@@ -16,18 +16,18 @@ interface RecentAccountsProps {
 const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
   const { push } = useRouter();
   const {
-    addProfile: addToRecentProfiles,
-    clearProfile,
-    clearProfiles,
-    profiles: recentProfiles
+    addAccount,
+    clearAccount,
+    clearAccounts,
+    accounts: recentAccounts
   } = useSearchStore();
 
   const { data, loading } = useAccountsBulkQuery({
-    skip: recentProfiles.length === 0,
-    variables: { request: { addresses: recentProfiles } }
+    skip: recentAccounts.length === 0,
+    variables: { request: { addresses: recentAccounts } }
   });
 
-  if (recentProfiles.length === 0) {
+  if (recentAccounts.length === 0) {
     return null;
   }
 
@@ -41,7 +41,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
         <div>
           <div className="flex items-center justify-between px-4 pt-1 pb-2">
             <b>Recent</b>
-            <button onClick={clearProfiles} type="button">
+            <button onClick={clearAccounts} type="button">
               <H6 className="ld-text-gray-500">Clear all</H6>
             </button>
           </div>
@@ -50,7 +50,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
               className="flex cursor-pointer items-center space-x-3 truncate px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
               key={account.address}
               onClick={() => {
-                addToRecentProfiles(account.address);
+                addAccount(account.address);
                 push(getAccount(account as Account).link);
                 onAccountClick();
               }}
@@ -67,7 +67,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
               <button
                 onClick={(event) => {
                   stopEventPropagation(event);
-                  clearProfile(account.address);
+                  clearAccount(account.address);
                 }}
                 type="reset"
               >

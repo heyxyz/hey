@@ -23,7 +23,7 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
   const { pathname, push, query } = useRouter();
-  const { addProfile: addToRecentProfiles } = useSearchStore();
+  const { addAccount } = useSearchStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -110,7 +110,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     key={account.address}
                     onClick={() => {
-                      addToRecentProfiles(account.address);
+                      addAccount(account.address);
                       push(getAccount(account).link);
                       handleReset();
                     }}
