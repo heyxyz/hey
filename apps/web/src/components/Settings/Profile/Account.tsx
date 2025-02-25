@@ -49,7 +49,7 @@ const validationSchema = object({
 const AccountSettingsForm: FC = () => {
   const { currentAccount, setCurrentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [pfpUrl, setPfpUrl] = useState<string | undefined>(
     currentAccount?.metadata?.picture
   );
@@ -68,12 +68,12 @@ const AccountSettingsForm: FC = () => {
         isSignlessEnabled: data?.me.isSignless || false
       });
     });
-    setLoading(false);
+    setIsSubmitting(false);
     toast.success("Account updated");
   };
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -126,7 +126,7 @@ const AccountSettingsForm: FC = () => {
     }
 
     try {
-      setLoading(true);
+      setIsSubmitting(true);
       const otherAttributes =
         currentAccount.metadata?.attributes
           ?.filter(
@@ -239,7 +239,7 @@ const AccountSettingsForm: FC = () => {
         <Button
           className="ml-auto"
           disabled={
-            loading || (!form.formState.isDirty && !coverUrl && !pfpUrl)
+            isSubmitting || (!form.formState.isDirty && !coverUrl && !pfpUrl)
           }
           type="submit"
         >
