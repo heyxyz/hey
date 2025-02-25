@@ -83,6 +83,18 @@ export const post = [
         });
       }
 
+      Promise.resolve().then(() =>
+        prisma.verificationOperationCount
+          .upsert({
+            where: { operation },
+            update: { count: { increment: 1 } },
+            create: { operation, count: 1 }
+          })
+          .catch((err: any) =>
+            logger.error(`Failed to update operation count: ${err.message}`)
+          )
+      );
+
       return res.status(200).json({ allowed: true, signature });
     } catch (error) {
       return catchedError(res, error);
