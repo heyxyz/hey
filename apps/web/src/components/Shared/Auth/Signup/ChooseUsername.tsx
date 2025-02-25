@@ -52,13 +52,13 @@ const ChooseUsername: FC = () => {
     setOnboardingToken
   } = useSignupStore();
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
   const form = useZodForm({ mode: "onChange", schema: validationSchema });
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -84,7 +84,7 @@ const ChooseUsername: FC = () => {
     username
   }: z.infer<typeof validationSchema>) => {
     try {
-      setLoading(true);
+      setIsSubmitting(true);
       await handleWrongNetwork();
 
       const challenge = await loadChallenge({
@@ -135,11 +135,11 @@ const ChooseUsername: FC = () => {
     } catch (error) {
       errorToast(error);
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
-  const disabled = !canCheck || !isAvailable || loading || isInvalid;
+  const disabled = !canCheck || !isAvailable || isSubmitting || isInvalid;
 
   return (
     <div className="space-y-5">
