@@ -84,17 +84,17 @@ const Terms: NextPage = () => {
                 </p>
                 <p className="leading-7">
                   We reserve the right - but are not obligated to - limit the
-                  provision of Profiles or Services to any person, geographic
+                  provision of Accounts or Services to any person, geographic
                   region or jurisdiction. We may exercise this right on a
                   case-by-case basis in our sole discretion.
                 </p>
                 <ul className="list-inside list-disc space-y-3">
                   <li className="leading-7">
-                    Your profile your responsibility.
+                    Your account your responsibility.
                   </li>
                   <li className="leading-7">
                     You are responsible for securing the wallet that contains
-                    your profiles.
+                    your accounts.
                   </li>
                   <li className="leading-7">
                     You bear sole responsibility for evaluating the Site and
@@ -258,11 +258,11 @@ const Terms: NextPage = () => {
               <div className="space-y-5">
                 <p className="leading-7">
                   <b>No Refunds on Successful Minting:</b> We do not offer
-                  refunds once profile minting is successful. All transactions
+                  refunds once account minting is successful. All transactions
                   completed successfully are final and not subject to refunds.
                 </p>
                 <p className="linkify leading-7">
-                  <b>Refunds for Failed Minting:</b> In the event that profile
+                  <b>Refunds for Failed Minting:</b> In the event that account
                   minting fails, customers are eligible to request a refund. To
                   request a refund, please visit our{" "}
                   <Link href="/support">support center</Link>.
@@ -270,7 +270,7 @@ const Terms: NextPage = () => {
                 <p className="leading-7">
                   This policy is concise and designed to be clear and
                   straightforward, ensuring that our customers understand our
-                  refund terms related to profile minting activities.
+                  refund terms related to account minting activities.
                 </p>
               </div>
               {/* 10.Refund Policy */}

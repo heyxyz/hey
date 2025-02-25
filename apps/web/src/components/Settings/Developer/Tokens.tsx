@@ -43,7 +43,7 @@ const Tokens: FC = () => {
         message: challenge?.data?.challenge?.text
       });
 
-      // Auth profile and set cookies
+      // Auth account and set cookies
       const auth = await authenticate({
         variables: { request: { id: challenge.data.challenge.id, signature } }
       });

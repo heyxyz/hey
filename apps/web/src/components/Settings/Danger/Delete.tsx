@@ -44,7 +44,7 @@ const DeleteSettings: FC = () => {
     <Card>
       <CardHeader
         body={`This will permanently delete your Account on the Lens Protocol. You will not be able to use any apps built on Lens, including ${APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back.`}
-        title={<div className="text-red-500">Delete Lens profile</div>}
+        title={<div className="text-red-500">Delete Lens account</div>}
       />
       <div className="m-5 space-y-5">
         <SingleAccount
@@ -53,7 +53,7 @@ const DeleteSettings: FC = () => {
           account={currentAccount as Account}
         />
         <div className="space-y-3">
-          <H5 className="text-red-500">Delete Lens profile</H5>
+          <H5 className="text-red-500">Delete Lens account</H5>
           <p>
             This will permanently delete your Account NFT on the Lens Protocol.
             You will not be able to use any apps built on Lens, including{" "}
@@ -64,7 +64,7 @@ const DeleteSettings: FC = () => {
         <H5>What else you should know</H5>
         <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
           <p className="pb-3">
-            You cannot restore your Lens profile if it was accidentally or
+            You cannot restore your Lens account if it was accidentally or
             wrongfully deleted.
           </p>
           <p className="py-3">

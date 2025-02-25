@@ -84,7 +84,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
 
     if (!account) {
       return (
-        <div className="flex h-12 items-center px-3">No profile found</div>
+        <div className="flex h-12 items-center px-3">No account found</div>
       );
     }
 

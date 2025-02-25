@@ -59,7 +59,7 @@ const DeletePost: FC = () => {
   return (
     <Alert
       confirmText="Delete"
-      description="This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
+      description="This can't be undone and it will be removed from your account, the timeline of any accounts that follow you, and from search results."
       isDestructive
       isPerformingAction={loading}
       onClose={() => setShowPostDeleteAlert(false, null)}

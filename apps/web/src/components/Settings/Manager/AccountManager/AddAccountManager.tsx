@@ -94,8 +94,8 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
           setOn={setCanExecuteTransactions}
         />
         <ToggleWithHelper
-          description="The manager can update your profile"
-          heading="Enable Profile Updates"
+          description="The manager can update your account"
+          heading="Enable Account Updates"
           on={canSetMetadataUri}
           setOn={setCanSetMetadataUri}
         />

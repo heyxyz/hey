@@ -109,7 +109,7 @@ const List: FC = () => {
 
   if (error) {
     return (
-      <ErrorMessage error={error} title="Failed to load profile managers" />
+      <ErrorMessage error={error} title="Failed to load account managers" />
     );
   }
 
@@ -118,7 +118,7 @@ const List: FC = () => {
       <EmptyState
         hideCard
         icon={<UserCircleIcon className="size-8" />}
-        message="No profile managers added!"
+        message="No account managers added!"
       />
     );
   }

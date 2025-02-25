@@ -21,7 +21,7 @@ const SignupCard: FC = () => {
         src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
       />
       <div className="space-y-3 text-center">
-        <div className="font-bold">Get your {APP_NAME} profile now!</div>
+        <div className="font-bold">Get your {APP_NAME} account now!</div>
         <div>
           <Button onClick={handleSignupClick} size="lg">
             Signup now

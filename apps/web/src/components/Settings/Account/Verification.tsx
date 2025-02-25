@@ -87,7 +87,7 @@ const Verification: FC = () => {
               toast.success("Verification request sent to staff!");
             }}
           >
-            Request for profile verification
+            Request for account verification
           </Button>
         </div>
       )}
