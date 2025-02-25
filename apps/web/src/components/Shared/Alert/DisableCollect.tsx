@@ -1,4 +1,4 @@
-import type { ApolloCache } from "@apollo/client";
+import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { type Post, useDisablePostActionMutation } from "@hey/indexer";
@@ -14,9 +14,10 @@ const DisableCollect: FC = () => {
     useDisableCollectAlertStore();
   const { isSuspended } = useAccountStatus();
   const [loading, setLoading] = useState(false);
+  const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = () => {
     cache.modify({
       fields: {
         actions: (existingActions = []) =>
@@ -31,6 +32,7 @@ const DisableCollect: FC = () => {
   const onCompleted = () => {
     setLoading(false);
     setShowDisableCollectAlert(false, null);
+    updateCache();
     toast.success("Collect action disabled");
   };
 
@@ -51,8 +53,7 @@ const DisableCollect: FC = () => {
         onError
       });
     },
-    onError,
-    update: updateCache
+    onError
   });
 
   const disableCollect = async () => {

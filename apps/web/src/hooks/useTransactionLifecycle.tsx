@@ -17,11 +17,10 @@ const useTransactionLifecycle = () => {
     onCompleted: (hash: string) => void;
     onError: (error: any) => void;
   }) => {
-    if (!data) return;
-
     try {
       if (transactionData.__typename === "SponsoredTransactionRequest") {
         await handleWrongNetwork();
+        if (!data) return;
         return onCompleted(
           await sendEip712Transaction(data, {
             account: data.account,
@@ -32,6 +31,7 @@ const useTransactionLifecycle = () => {
 
       if (transactionData.__typename === "SelfFundedTransactionRequest") {
         await handleWrongNetwork();
+        if (!data) return;
         return onCompleted(
           await sendTransaction(data, {
             account: data.account,

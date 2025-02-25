@@ -8,6 +8,7 @@ import { type AnyPost, useDeletePostMutation } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface UndoRepostProps {
@@ -19,6 +20,7 @@ interface UndoRepostProps {
 const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
   const { currentAccount } = useAccountStore();
   const { cache } = useApolloClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
 
@@ -30,16 +32,29 @@ const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
     cache.evict({ id: cache.identify(post) });
   };
 
+  const onCompleted = () => {
+    setIsLoading(false);
+    updateCache();
+    toast.success("Undone repost");
+  };
+
   const onError = (error?: any) => {
     setIsLoading(false);
     errorToast(error);
   };
 
-  const [deletePost] = useDeletePostMutation({
-    onCompleted: () => {
-      toast.success("Undone repost");
-    },
-    update: updateCache
+  const [undoRepost] = useDeletePostMutation({
+    onCompleted: async ({ deletePost }) => {
+      if (deletePost.__typename === "DeletePostResponse") {
+        return onCompleted();
+      }
+
+      return await handleTransactionLifecycle({
+        transactionData: deletePost,
+        onCompleted,
+        onError
+      });
+    }
   });
 
   const handleUndoRepost = async () => {
@@ -50,7 +65,7 @@ const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
     try {
       setIsLoading(true);
 
-      return await deletePost({
+      return await undoRepost({
         variables: { request: { post: post.id } }
       });
     } catch (error) {
