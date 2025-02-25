@@ -23,7 +23,7 @@ interface SuperJoinProps {
 const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
   const { reload } = useRouter();
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,7 +48,7 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
         if (
           data?.transactionStatus?.__typename === "FinishedTransactionStatus"
         ) {
-          setIsLoading(false);
+          setLoading(false);
           reload();
         }
       }
@@ -56,7 +56,7 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
@@ -74,7 +74,7 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
   const handleUpdateRule = async (remove: boolean) => {
     if (isSuspended) return toast.error(Errors.Suspended);
 
-    setIsLoading(true);
+    setLoading(true);
 
     return await updateGroupRules({
       variables: {
@@ -134,13 +134,13 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
           {simplePaymentRule && (
             <Button
               variant="danger"
-              disabled={isLoading}
+              disabled={loading}
               onClick={() => handleUpdateRule(true)}
             >
               Remove
             </Button>
           )}
-          <Button disabled={isLoading} onClick={() => handleUpdateRule(false)}>
+          <Button disabled={loading} onClick={() => handleUpdateRule(false)}>
             Update
           </Button>
         </div>
