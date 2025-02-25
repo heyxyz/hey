@@ -23,7 +23,7 @@ const MuteOrUnmuteAccount: FC = () => {
     showMuteOrUnmuteAlert
   } = useMuteAlertStore();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [hasMuted, setHasMuted] = useState(
     mutingOrUnmutingAccount?.operations?.isMutedByMe
   );
@@ -41,14 +41,14 @@ const MuteOrUnmuteAccount: FC = () => {
 
   const onCompleted = () => {
     updateCache();
-    setIsLoading(false);
+    setLoading(false);
     setHasMuted(!hasMuted);
     setShowMuteOrUnmuteAlert(false, null);
     toast.success(hasMuted ? "Unmuted successfully" : "Muted successfully");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
@@ -72,7 +72,7 @@ const MuteOrUnmuteAccount: FC = () => {
     }
 
     try {
-      setIsLoading(true);
+      setLoading(true);
 
       // Unmute
       if (hasMuted) {
@@ -101,7 +101,7 @@ const MuteOrUnmuteAccount: FC = () => {
         hasMuted ? "un-mute" : "mute"
       } ${getAccount(mutingOrUnmutingAccount).usernameWithPrefix}?`}
       isDestructive
-      isPerformingAction={isLoading}
+      isPerformingAction={loading}
       onClose={() => setShowMuteOrUnmuteAlert(false, null)}
       onConfirm={muteOrUnmute}
       show={showMuteOrUnmuteAlert}
