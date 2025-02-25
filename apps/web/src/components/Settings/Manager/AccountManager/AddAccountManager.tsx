@@ -23,19 +23,19 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [manager, setManager] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [canExecuteTransactions, setCanExecuteTransactions] = useState(true);
   const [canSetMetadataUri, setCanSetMetadataUri] = useState(true);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = () => {
-    setIsLoading(false);
+    setLoading(false);
     setShowAddManagerModal(false);
     toast.success("Account manager added");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
@@ -59,7 +59,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
       return toast.error(Errors.Suspended);
     }
 
-    setIsLoading(true);
+    setLoading(true);
 
     return await addAccountManager({
       variables: {
@@ -103,7 +103,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
       <div className="flex">
         <Button
           className="ml-auto"
-          disabled={isLoading || !isAddress(manager)}
+          disabled={loading || !isAddress(manager)}
           onClick={handleAddManager}
           type="submit"
         >
