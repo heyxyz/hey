@@ -22,7 +22,7 @@ const SuperFollow: FC = () => {
   const { reload } = useRouter();
   const { currentAccount, setCurrentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -66,7 +66,7 @@ const SuperFollow: FC = () => {
   };
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -91,7 +91,7 @@ const SuperFollow: FC = () => {
   const handleUpdateRule = (remove: boolean) => {
     if (isSuspended) return toast.error(Errors.Suspended);
 
-    setLoading(true);
+    setIsSubmitting(true);
 
     return updateAccountFollowRules({
       variables: {
@@ -150,13 +150,16 @@ const SuperFollow: FC = () => {
           {simplePaymentRule && (
             <Button
               variant="danger"
-              disabled={loading}
+              disabled={isSubmitting}
               onClick={() => handleUpdateRule(true)}
             >
               Remove
             </Button>
           )}
-          <Button disabled={loading} onClick={() => handleUpdateRule(false)}>
+          <Button
+            disabled={isSubmitting}
+            onClick={() => handleUpdateRule(false)}
+          >
             Update
           </Button>
         </div>
