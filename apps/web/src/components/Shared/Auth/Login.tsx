@@ -29,13 +29,13 @@ interface LoginProps {
 
 const Login: FC<LoginProps> = ({ setHasAccounts }) => {
   const { reload } = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [loggingInAccountId, setLoggingInAccountId] = useState<null | string>(
     null
   );
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -61,7 +61,7 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
   const handleSign = async (account: string) => {
     try {
       setLoggingInAccountId(account || null);
-      setLoading(true);
+      setIsSubmitting(true);
       // Get challenge
       const challenge = await loadChallenge({
         variables: {
@@ -138,7 +138,9 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
                     showUserPreview={false}
                   />
                   <Button
-                    disabled={loading && loggingInAccountId === account.address}
+                    disabled={
+                      isSubmitting && loggingInAccountId === account.address
+                    }
                     onClick={() => handleSign(account.address)}
                     outline
                   >
