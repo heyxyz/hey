@@ -33,7 +33,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const { currentAccount } = useAccountStore();
   const { setShowAuthModal } = useAuthModalStore();
   const { isSuspended } = useAccountStatus();
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(2);
   const [other, setOther] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -65,14 +65,14 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   };
 
   const onCompleted = () => {
-    setLoading(false);
+    setIsSubmitting(false);
     closePopover();
     updateCache();
     toast.success(`Tipped ${amount} ${symbol}`);
   };
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -113,7 +113,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
       return toast.error(Errors.Suspended);
     }
 
-    setLoading(true);
+    setIsSubmitting(true);
 
     return executePostAction({
       variables: {
@@ -130,7 +130,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
     });
   };
 
-  const amountDisabled = loading || !currentAccount;
+  const amountDisabled = isSubmitting || !currentAccount;
 
   if (!currentAccount) {
     return (
@@ -214,7 +214,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           />
         </div>
       ) : null}
-      {loading || balanceLoading ? (
+      {isSubmitting || balanceLoading ? (
         <Button
           className={cn("flex justify-center", submitButtonClassName)}
           disabled
@@ -223,7 +223,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
       ) : canTip ? (
         <Button
           className={submitButtonClassName}
-          disabled={!amount || loading || !canTip}
+          disabled={!amount || isSubmitting || !canTip}
           onClick={handleTip}
         >
           <b>Tip ${amount}</b>
