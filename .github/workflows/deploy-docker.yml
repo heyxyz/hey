@@ -58,14 +58,14 @@ jobs:
           tag_name: "v3"
           docker_file: ./apps/api/Dockerfile
 
-      # - name: Trigger API Deployment 🚀
-      #   uses: indiesdev/curl@v1
-      #   id: deploy
-      #   with:
-      #     url: "https://redeploy.heyxyz.workers.dev"
-      #     params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.API_RAILWAY_SERVICE_ID }}" }'
-      #     method: "GET"
-      #     timeout: 30000
+      - name: Trigger API Deployment 🚀
+        uses: indiesdev/curl@v1
+        id: deploy
+        with:
+          url: "https://redeploy.heyxyz.workers.dev"
+          params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.API_RAILWAY_SERVICE_ID }}" }'
+          method: "GET"
+          timeout: 30000
 
   cron:
     needs: check-changes
