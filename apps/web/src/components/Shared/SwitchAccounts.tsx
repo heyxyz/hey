@@ -21,13 +21,13 @@ import Loader from "./Loader";
 const SwitchAccounts: FC = () => {
   const { reload } = useRouter();
   const { currentAccount } = useAccountStore();
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [loggingInAccountId, setLoggingInAccountId] = useState<null | string>(
     null
   );
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -52,7 +52,7 @@ const SwitchAccounts: FC = () => {
   const handleSwitchAccount = async (account: string) => {
     try {
       setLoggingInAccountId(account);
-      setLoading(true);
+      setIsSubmitting(true);
 
       const auth = await switchAccount({ variables: { request: { account } } });
 
@@ -109,7 +109,7 @@ const SwitchAccounts: FC = () => {
               }
             </div>
           </span>
-          {loading &&
+          {isSubmitting &&
           accountAvailable.account.address === loggingInAccountId ? (
             <Spinner size="xs" />
           ) : currentAccount?.address === accountAvailable.account.address ? (

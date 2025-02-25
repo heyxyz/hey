@@ -34,7 +34,7 @@ const Follow: FC<FollowProps> = ({
   const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useAuthModalStore();
 
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -47,12 +47,12 @@ const Follow: FC<FollowProps> = ({
 
   const onCompleted = () => {
     updateCache();
-    setLoading(false);
+    setIsSubmitting(false);
     onFollow?.();
   };
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -84,7 +84,7 @@ const Follow: FC<FollowProps> = ({
       return toast.error(Errors.Suspended);
     }
 
-    setLoading(true);
+    setIsSubmitting(true);
 
     return await follow({
       variables: { request: { account: account.address } }
@@ -95,7 +95,7 @@ const Follow: FC<FollowProps> = ({
     <Button
       aria-label={title}
       className={buttonClassName}
-      disabled={loading}
+      disabled={isSubmitting}
       onClick={handleCreateFollow}
       outline
       size={small ? "sm" : "md"}

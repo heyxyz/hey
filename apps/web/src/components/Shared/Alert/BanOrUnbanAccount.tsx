@@ -25,7 +25,7 @@ const BanOrUnbanAccount: FC = () => {
     setShowBanOrUnbanAlert,
     showBanOrUnbanAlert
   } = useBanAlertStore();
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { isSuspended } = useAccountStatus();
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -36,13 +36,13 @@ const BanOrUnbanAccount: FC = () => {
 
   const onCompleted = () => {
     updateCache();
-    setLoading(false);
+    setIsSubmitting(false);
     setShowBanOrUnbanAlert(false, banning, null, null);
     toast.success(banning ? "Banned successfully" : "Unbanned successfully");
   };
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -86,7 +86,7 @@ const BanOrUnbanAccount: FC = () => {
     }
 
     try {
-      setLoading(true);
+      setIsSubmitting(true);
 
       // Unban
       if (banning) {
@@ -121,7 +121,7 @@ const BanOrUnbanAccount: FC = () => {
         banning ? "ban" : "un-ban"
       } ${getAccount(banningOrUnbanningAccount).usernameWithPrefix}?`}
       isDestructive
-      isPerformingAction={loading}
+      isPerformingAction={isSubmitting}
       onClose={() => setShowBanOrUnbanAlert(false, banning, null, null)}
       onConfirm={blockOrUnblock}
       show={showBanOrUnbanAlert}
