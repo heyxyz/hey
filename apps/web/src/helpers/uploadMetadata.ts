@@ -1,6 +1,5 @@
 import { Errors } from "@hey/data/errors";
 import axios from "axios";
-import toast from "react-hot-toast";
 
 /**
  * Uploads the given data to hey-metadata S3 bucket.
@@ -20,7 +19,6 @@ const uploadMetadata = async (data: any): Promise<string> => {
 
     return uri;
   } catch {
-    toast.error(Errors.SomethingWentWrong);
     throw new Error(Errors.SomethingWentWrong);
   }
 };
