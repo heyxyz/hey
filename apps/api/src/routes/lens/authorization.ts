@@ -32,14 +32,16 @@ export const post = [
         return res.status(200).json({
           allowed: true,
           sponsored: false,
-          appVerificationEndpoint: "https://bigint.ngrok.app/lens/verification"
+          appVerificationEndpoint:
+            "https://hey-api-v3-mainnet.up.railway.app/lens/verification"
         });
       }
 
       return res.status(200).json({
         allowed: true,
         sponsored: true,
-        appVerificationEndpoint: "https://bigint.ngrok.app/lens/verification"
+        appVerificationEndpoint:
+          "https://hey-api-v3-mainnet.up.railway.app/lens/verification"
       });
     } catch (error) {
       return catchedError(res, error);
