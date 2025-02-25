@@ -21,17 +21,21 @@ import Loader from "./Loader";
 const SwitchAccounts: FC = () => {
   const { reload } = useRouter();
   const { currentAccount } = useAccountStore();
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [loggingInAccountId, setLoggingInAccountId] = useState<null | string>(
     null
   );
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
-  const { data, error, loading } = useAccountsAvailableQuery({
+  const {
+    data,
+    error,
+    loading: accountsAvailableLoading
+  } = useAccountsAvailableQuery({
     variables: {
       lastLoggedInAccountRequest: { address: currentAccount?.owner },
       accountsAvailableRequest: { managedBy: currentAccount?.owner }
@@ -39,7 +43,7 @@ const SwitchAccounts: FC = () => {
   });
   const [switchAccount] = useSwitchAccountMutation();
 
-  if (loading) {
+  if (accountsAvailableLoading) {
     return <Loader className="my-5" message="Loading Accounts" />;
   }
 
@@ -48,7 +52,7 @@ const SwitchAccounts: FC = () => {
   const handleSwitchAccount = async (account: string) => {
     try {
       setLoggingInAccountId(account);
-      setIsLoading(true);
+      setLoading(true);
 
       const auth = await switchAccount({ variables: { request: { account } } });
 
@@ -105,7 +109,7 @@ const SwitchAccounts: FC = () => {
               }
             </div>
           </span>
-          {isLoading &&
+          {loading &&
           accountAvailable.account.address === loggingInAccountId ? (
             <Spinner size="xs" />
           ) : currentAccount?.address === accountAvailable.account.address ? (
