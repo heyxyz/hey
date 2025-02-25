@@ -25,7 +25,7 @@ const AvatarUpload: FC<AvatarUploadProps> = ({
   setSrc,
   isSmall = false
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [pictureSrc, setPictureSrc] = useState(src);
   const [showPictureCropModal, setShowPictureCropModal] = useState(false);
   const [croppedPictureAreaPixels, setCroppedPictureAreaPixels] =
@@ -34,7 +34,7 @@ const AvatarUpload: FC<AvatarUploadProps> = ({
   const [uploadingPicture, setUploadingPicture] = useState(false);
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
@@ -95,7 +95,7 @@ const AvatarUpload: FC<AvatarUploadProps> = ({
       </div>
       <Modal
         onClose={
-          isLoading
+          loading
             ? undefined
             : () => {
                 setPictureSrc("");
