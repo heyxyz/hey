@@ -89,7 +89,7 @@ export const post = [
       });
 
       type responseSchema = z.infer<typeof translatedResponseSchema>;
-      const translated = response.choices[0].message.tool_calls[0].function
+      const translated = response.choices[0].message.tool_calls?.[0].function
         .parsed_arguments as responseSchema;
 
       const finalResult = { original: postContent, ...translated };
