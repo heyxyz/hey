@@ -12,12 +12,16 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface UndoRepostProps {
-  loading: boolean;
+  isSubmitting: boolean;
   post: AnyPost;
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 }
 
-const UndoRepost: FC<UndoRepostProps> = ({ loading, post, setLoading }) => {
+const UndoRepost: FC<UndoRepostProps> = ({
+  isSubmitting,
+  post,
+  setIsSubmitting
+}) => {
   const { currentAccount } = useAccountStore();
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -33,13 +37,13 @@ const UndoRepost: FC<UndoRepostProps> = ({ loading, post, setLoading }) => {
   };
 
   const onCompleted = () => {
-    setLoading(false);
+    setIsSubmitting(false);
     updateCache();
     toast.success("Undone repost");
   };
 
   const onError = (error?: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -63,7 +67,7 @@ const UndoRepost: FC<UndoRepostProps> = ({ loading, post, setLoading }) => {
     }
 
     try {
-      setLoading(true);
+      setIsSubmitting(true);
 
       return await undoRepost({
         variables: { request: { post: post.id } }
@@ -82,7 +86,7 @@ const UndoRepost: FC<UndoRepostProps> = ({ loading, post, setLoading }) => {
           "m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-red-500 text-sm"
         )
       }
-      disabled={loading}
+      disabled={isSubmitting}
       onClick={handleUndoRepost}
     >
       <div className="flex items-center space-x-2">

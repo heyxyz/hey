@@ -17,12 +17,12 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface RepostProps {
-  loading: boolean;
+  isSubmitting: boolean;
   post: Post;
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 }
 
-const Repost: FC<RepostProps> = ({ loading, post, setLoading }) => {
+const Repost: FC<RepostProps> = ({ isSubmitting, post, setIsSubmitting }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const hasReposted =
@@ -55,14 +55,14 @@ const Repost: FC<RepostProps> = ({ loading, post, setLoading }) => {
   };
 
   const onCompleted = () => {
-    setLoading(false);
+    setIsSubmitting(false);
     increment();
     updateCache();
     toast.success("Post has been reposted!");
   };
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -90,7 +90,7 @@ const Repost: FC<RepostProps> = ({ loading, post, setLoading }) => {
       return toast.error(Errors.Suspended);
     }
 
-    setLoading(true);
+    setIsSubmitting(true);
 
     return await repost({ variables: { request: { post: post.id } } });
   };
@@ -105,7 +105,7 @@ const Repost: FC<RepostProps> = ({ loading, post, setLoading }) => {
           "m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm"
         )
       }
-      disabled={loading}
+      disabled={isSubmitting}
       onClick={handleCreateRepost}
     >
       <div className="flex items-center space-x-2">
