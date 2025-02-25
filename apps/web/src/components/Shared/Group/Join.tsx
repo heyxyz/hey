@@ -24,7 +24,7 @@ const Join: FC<JoinProps> = ({
   label = "Join"
 }) => {
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
   const updateCache = () => {
@@ -36,13 +36,13 @@ const Join: FC<JoinProps> = ({
 
   const onCompleted = () => {
     updateCache();
-    setIsLoading(false);
+    setLoading(false);
     setJoined(true);
     toast.success("Joined group");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
@@ -70,7 +70,7 @@ const Join: FC<JoinProps> = ({
       return toast.error(Errors.Suspended);
     }
 
-    setIsLoading(true);
+    setLoading(true);
 
     return await joinGroup({
       variables: { request: { group: group.address } }
@@ -81,7 +81,7 @@ const Join: FC<JoinProps> = ({
     <Button
       aria-label="Join"
       className={className}
-      disabled={isLoading}
+      disabled={loading}
       onClick={handleJoin}
       outline
       size={small ? "sm" : "md"}
