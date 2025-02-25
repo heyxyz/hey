@@ -1,3 +1,4 @@
+import { STORAGE_NODE_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import axios from "axios";
 
@@ -10,11 +11,7 @@ import axios from "axios";
  */
 const uploadMetadata = async (data: any): Promise<string> => {
   try {
-    const response = await axios.post(
-      "https://storage-api.testnet.lens.dev",
-      data
-    );
-
+    const response = await axios.post(STORAGE_NODE_URL, data);
     const { uri } = response.data[0];
 
     return uri;
