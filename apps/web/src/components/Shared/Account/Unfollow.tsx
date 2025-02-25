@@ -31,7 +31,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useAuthModalStore();
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -44,11 +44,11 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const onCompleted = () => {
     updateCache();
-    setIsLoading(false);
+    setLoading(false);
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setLoading(false);
     errorToast(error);
   };
 
@@ -80,7 +80,7 @@ const Unfollow: FC<UnfollowProps> = ({
       return toast.error(Errors.Suspended);
     }
 
-    setIsLoading(true);
+    setLoading(true);
     return await unfollow({
       variables: { request: { account: account.address } }
     });
@@ -90,7 +90,7 @@ const Unfollow: FC<UnfollowProps> = ({
     <Button
       aria-label={title}
       className={buttonClassName}
-      disabled={isLoading}
+      disabled={loading}
       onClick={handleCreateUnfollow}
       size={small ? "sm" : "md"}
     >
