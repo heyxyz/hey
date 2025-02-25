@@ -13,7 +13,7 @@ const DisableCollect: FC = () => {
   const { disablingPost, setShowDisableCollectAlert, showDisableCollectAlert } =
     useDisableCollectAlertStore();
   const { isSuspended } = useAccountStatus();
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -30,7 +30,7 @@ const DisableCollect: FC = () => {
   };
 
   const onCompleted = () => {
-    setLoading(false);
+    setIsSubmitting(false);
     setShowDisableCollectAlert(false, null);
     updateCache();
     toast.success("Collect action disabled");
@@ -38,7 +38,7 @@ const DisableCollect: FC = () => {
 
   const onError = (error: any) => {
     errorToast(error);
-    setLoading(false);
+    setIsSubmitting(false);
   };
 
   const [disablePostAction] = useDisablePostActionMutation({
@@ -61,7 +61,7 @@ const DisableCollect: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    setLoading(true);
+    setIsSubmitting(true);
 
     return await disablePostAction({
       variables: {
@@ -75,7 +75,7 @@ const DisableCollect: FC = () => {
       confirmText="Disable"
       description="This will disable the collect action for this post."
       isDestructive
-      isPerformingAction={loading}
+      isPerformingAction={isSubmitting}
       onClose={() => setShowDisableCollectAlert(false, null)}
       onConfirm={disableCollect}
       show={showDisableCollectAlert}

@@ -25,7 +25,7 @@ const BlockOrUnblockAccount: FC = () => {
     showBlockOrUnblockAlert
   } = useBlockAlertStore();
 
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingAccount?.operations?.isBlockedByMe
   );
@@ -45,7 +45,7 @@ const BlockOrUnblockAccount: FC = () => {
 
   const onCompleted = () => {
     updateCache();
-    setLoading(false);
+    setIsSubmitting(false);
     setHasBlocked(!hasBlocked);
     setShowBlockOrUnblockAlert(false, null);
     toast.success(
@@ -54,7 +54,7 @@ const BlockOrUnblockAccount: FC = () => {
   };
 
   const onError = (error: any) => {
-    setLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -98,7 +98,7 @@ const BlockOrUnblockAccount: FC = () => {
     }
 
     try {
-      setLoading(true);
+      setIsSubmitting(true);
 
       // Unblock
       if (hasBlocked) {
@@ -127,7 +127,7 @@ const BlockOrUnblockAccount: FC = () => {
         hasBlocked ? "un-block" : "block"
       } ${getAccount(blockingorUnblockingAccount).usernameWithPrefix}?`}
       isDestructive
-      isPerformingAction={loading}
+      isPerformingAction={isSubmitting}
       onClose={() => setShowBlockOrUnblockAlert(false, null)}
       onConfirm={blockOrUnblock}
       show={showBlockOrUnblockAlert}
