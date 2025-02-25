@@ -152,7 +152,7 @@ iframe {
 /* Markup styles */
 .markup > p,
 ul {
-  @apply leading-6 sm:leading-[26px];
+  @apply leading-6;
   @apply [&:not(:last-child)]:mb-2;
 }
 

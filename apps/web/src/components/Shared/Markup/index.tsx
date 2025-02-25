@@ -41,13 +41,11 @@ const Markup: FC<MarkupProps> = ({
   };
 
   return (
-    <ReactMarkdown
-      className={className}
-      components={components}
-      remarkPlugins={plugins}
-    >
-      {trimify(children)}
-    </ReactMarkdown>
+    <span className={className}>
+      <ReactMarkdown components={components} remarkPlugins={plugins}>
+        {trimify(children)}
+      </ReactMarkdown>
+    </span>
   );
 };
 
