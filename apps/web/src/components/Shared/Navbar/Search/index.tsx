@@ -38,8 +38,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
     handleReset();
   }) as MutableRefObject<HTMLDivElement>;
 
-  const [searchAccounts, { loading: searchAccountsLoading }] =
-    useAccountsLazyQuery();
+  const [searchAccounts, { loading }] = useAccountsLazyQuery();
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
@@ -102,7 +101,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
             {!debouncedSearchText && (
               <RecentAccounts onAccountClick={handleReset} />
             )}
-            {searchAccountsLoading ? (
+            {loading ? (
               <Loader className="my-3" message="Searching users" small />
             ) : (
               <>

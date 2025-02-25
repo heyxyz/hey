@@ -47,16 +47,15 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
 
-  const { data: accountsAvailable, loading: accountsAvailableLoading } =
-    useAccountsAvailableQuery({
-      onCompleted: (data) =>
-        setHasAccounts(data?.accountsAvailable.items.length > 0),
-      skip: !address,
-      variables: {
-        accountsAvailableRequest: { managedBy: address },
-        lastLoggedInAccountRequest: { address }
-      }
-    });
+  const { data, loading } = useAccountsAvailableQuery({
+    onCompleted: (data) =>
+      setHasAccounts(data?.accountsAvailable.items.length > 0),
+    skip: !address,
+    variables: {
+      accountsAvailableRequest: { managedBy: address },
+      lastLoggedInAccountRequest: { address }
+    }
+  });
 
   const handleSign = async (account: string) => {
     try {
@@ -95,8 +94,8 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
     } catch {}
   };
 
-  const allProfiles = accountsAvailable?.accountsAvailable.items || [];
-  const lastLogin = accountsAvailable?.lastLoggedInAccount;
+  const allProfiles = data?.accountsAvailable.items || [];
+  const lastLogin = data?.lastLoggedInAccount;
 
   const remainingProfiles = lastLogin
     ? allProfiles
@@ -112,7 +111,7 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain === CHAIN.id ? (
-          accountsAvailableLoading ? (
+          loading ? (
             <Card className="w-full dark:divide-gray-700" forceRounded>
               <Loader
                 className="my-4"

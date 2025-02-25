@@ -31,11 +31,7 @@ const SwitchAccounts: FC = () => {
     errorToast(error);
   };
 
-  const {
-    data,
-    error,
-    loading: accountsAvailableLoading
-  } = useAccountsAvailableQuery({
+  const { data, error, loading } = useAccountsAvailableQuery({
     variables: {
       lastLoggedInAccountRequest: { address: currentAccount?.owner },
       accountsAvailableRequest: { managedBy: currentAccount?.owner }
@@ -43,7 +39,7 @@ const SwitchAccounts: FC = () => {
   });
   const [switchAccount] = useSwitchAccountMutation();
 
-  if (accountsAvailableLoading) {
+  if (loading) {
     return <Loader className="my-5" message="Loading Accounts" />;
   }
 
