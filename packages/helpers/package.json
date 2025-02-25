@@ -16,7 +16,7 @@
     "dotenv": "^16.4.7",
     "omit-deep": "^0.3.0",
     "urlcat": "^3.1.0",
-    "viem": "^2.23.4",
+    "viem": "^2.23.5",
     "winston": "^3.16.0"
   },
   "devDependencies": {
