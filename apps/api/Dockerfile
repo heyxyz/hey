@@ -29,6 +29,9 @@ RUN npm install -g pnpm
 RUN addgroup --system --gid 1001 hey
 RUN adduser --system --uid 1001 app
 
+# Ensure correct ownership of the app directory
+RUN chown -R 1001:1001 /app
+
 USER app
 
 # Copy built application and production dependencies from builder stage
