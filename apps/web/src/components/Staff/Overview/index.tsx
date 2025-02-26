@@ -7,7 +7,6 @@ import type { NextPage } from "next";
 import Custom404 from "src/pages/404";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import StaffSidebar from "../Sidebar";
-import Operations from "./Operations";
 import Sponsorship from "./Sponsorship";
 
 const Overview: NextPage = () => {
@@ -25,7 +24,6 @@ const Overview: NextPage = () => {
         <StaffSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Operations />
         <Sponsorship />
       </GridItemEight>
     </GridLayout>

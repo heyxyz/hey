@@ -31,17 +31,6 @@ CREATE TABLE "AccountPermission" (
     CONSTRAINT "AccountPermission_pkey" PRIMARY KEY ("accountAddress","permissionId")
 );
 
--- CreateTable
-CREATE TABLE "VerificationOperationCount" (
-    "id" TEXT NOT NULL,
-    "operation" TEXT NOT NULL,
-    "count" INTEGER NOT NULL DEFAULT 0,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "VerificationOperationCount_pkey" PRIMARY KEY ("id")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "Permission_key_key" ON "Permission"("key");
 
@@ -53,9 +42,6 @@ CREATE INDEX "AccountPermission_accountAddress_idx" ON "AccountPermission"("acco
 
 -- CreateIndex
 CREATE INDEX "AccountPermission_permissionId_idx" ON "AccountPermission"("permissionId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "VerificationOperationCount_operation_key" ON "VerificationOperationCount"("operation");
 
 -- AddForeignKey
 ALTER TABLE "AccountPermission" ADD CONSTRAINT "AccountPermission_permissionId_fkey" FOREIGN KEY ("permissionId") REFERENCES "Permission"("id") ON DELETE CASCADE ON UPDATE CASCADE;
