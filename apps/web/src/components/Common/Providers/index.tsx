@@ -24,19 +24,19 @@ interface ProvidersProps {
 const Providers: FC<ProvidersProps> = ({ children }) => {
   return (
     <ErrorBoundary>
-      <Web3Provider>
-        <ApolloProvider client={lensApolloClient}>
-          <FeatureFlagProvider>
-            <OptimisticPublicationProvider />
-            <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <Web3Provider>
+          <ApolloProvider client={lensApolloClient}>
+            <FeatureFlagProvider>
+              <OptimisticPublicationProvider />
               <PreferencesProvider />
               <ThemeProvider attribute="class" defaultTheme="light">
                 <Layout>{children}</Layout>
               </ThemeProvider>
-            </QueryClientProvider>
-          </FeatureFlagProvider>
-        </ApolloProvider>
-      </Web3Provider>
+            </FeatureFlagProvider>
+          </ApolloProvider>
+        </Web3Provider>
+      </QueryClientProvider>
     </ErrorBoundary>
   );
 };
