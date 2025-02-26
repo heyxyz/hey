@@ -25,66 +25,64 @@ const DOMAIN = {
   verifyingContract: checksumAddress(HEY_APP as Address)
 };
 
-export const post = [
-  async (req: Request, res: Response) => {
-    const { body } = req;
+export const post = async (req: Request, res: Response) => {
+  const { body } = req;
 
-    if (!body) {
-      return noBody(res);
-    }
+  if (!body) {
+    return noBody(res);
+  }
 
-    const { nonce, deadline, account, operation, validator } = body;
+  const { nonce, deadline, account, operation, validator } = body;
 
-    const missingFields = [
-      "deadline",
-      "nonce",
-      "operation",
-      "account",
-      "validator"
-    ].filter((field) => !body[field]);
-    if (missingFields.length > 0) {
-      return res.json({
+  const missingFields = [
+    "deadline",
+    "nonce",
+    "operation",
+    "account",
+    "validator"
+  ].filter((field) => !body[field]);
+  if (missingFields.length > 0) {
+    return res.json({
+      allowed: false,
+      reason: `Missing ${missingFields.join(", ")} field(s)`
+    });
+  }
+
+  try {
+    logger.info(`Verification request received for ${operation}`);
+
+    const [signature, accountPermission] = await Promise.all([
+      heyWalletClient.signTypedData({
+        primaryType: "SourceStamp",
+        types: TYPES,
+        domain: DOMAIN,
+        message: {
+          source: checksumAddress(HEY_APP as Address),
+          originalMsgSender: checksumAddress(account),
+          validator: checksumAddress(validator),
+          nonce,
+          deadline
+        }
+      }),
+      prisma.accountPermission.findFirst({
+        where: {
+          permissionId: PermissionId.Suspended,
+          accountAddress: account as string
+        }
+      })
+    ]);
+
+    logger.info(`Verification request fulfilled for operation: ${operation}`);
+
+    if (accountPermission?.enabled) {
+      return res.status(200).json({
         allowed: false,
-        reason: `Missing ${missingFields.join(", ")} field(s)`
+        reason: `Account is suspended on ${APP_NAME}`
       });
     }
 
-    try {
-      logger.info(`Verification request received for ${operation}`);
-
-      const [signature, accountPermission] = await Promise.all([
-        heyWalletClient.signTypedData({
-          primaryType: "SourceStamp",
-          types: TYPES,
-          domain: DOMAIN,
-          message: {
-            source: checksumAddress(HEY_APP as Address),
-            originalMsgSender: checksumAddress(account),
-            validator: checksumAddress(validator),
-            nonce,
-            deadline
-          }
-        }),
-        prisma.accountPermission.findFirst({
-          where: {
-            permissionId: PermissionId.Suspended,
-            accountAddress: account as string
-          }
-        })
-      ]);
-
-      logger.info(`Verification request fulfilled for operation: ${operation}`);
-
-      if (accountPermission?.enabled) {
-        return res.status(200).json({
-          allowed: false,
-          reason: `Account is suspended on ${APP_NAME}`
-        });
-      }
-
-      return res.status(200).json({ allowed: true, signature });
-    } catch (error) {
-      return catchedError(res, error);
-    }
+    return res.status(200).json({ allowed: true, signature });
+  } catch (error) {
+    return catchedError(res, error);
   }
-];
+};
