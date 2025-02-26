@@ -31,6 +31,7 @@
     "axios": "^1.7.9",
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.8",
+    "connectkit": "^1.8.2",
     "dotenv": "^16.4.7",
     "esbuild": "^0.25.0",
     "next": "^15.1.7",

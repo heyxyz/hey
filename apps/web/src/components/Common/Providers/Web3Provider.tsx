@@ -1,35 +1,59 @@
-import { APP_NAME, WALLETCONNECT_PROJECT_ID } from "@hey/data/constants";
+import { heyFont } from "@helpers/fonts";
+import {
+  APP_NAME,
+  BRAND_COLOR,
+  DESCRIPTION,
+  WALLETCONNECT_PROJECT_ID
+} from "@hey/data/constants";
 import { LENS_TESTNET_RPCS } from "@hey/data/rpcs";
 import { chains } from "@lens-network/sdk/viem";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import type { FC, ReactNode } from "react";
 import { http, WagmiProvider, createConfig, fallback } from "wagmi";
-import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
 
-const connectors = [
-  injected(),
-  coinbaseWallet({ appName: APP_NAME }),
-  walletConnect({ projectId: WALLETCONNECT_PROJECT_ID })
-];
-
-const wagmiConfig = createConfig({
-  chains: [chains.testnet, chains.testnet],
-  connectors,
-  transports: {
-    [chains.testnet.id]: fallback(
-      LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: true }))
-    ),
-    [chains.testnet.id]: fallback(
-      LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: true }))
-    )
-  }
-});
+const config = createConfig(
+  getDefaultConfig({
+    chains: [chains.testnet, chains.testnet],
+    transports: {
+      [chains.testnet.id]: fallback(
+        LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: true }))
+      ),
+      [chains.testnet.id]: fallback(
+        LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: true }))
+      )
+    },
+    walletConnectProjectId: WALLETCONNECT_PROJECT_ID,
+    appName: APP_NAME,
+    appDescription: DESCRIPTION,
+    appUrl: "https://hey.xyz",
+    appIcon: "https://hey.xyz/logo.png"
+  })
+);
 
 interface Web3ProviderProps {
   children: ReactNode;
 }
 
 const Web3Provider: FC<Web3ProviderProps> = ({ children }) => {
-  return <WagmiProvider config={wagmiConfig}>{children}</WagmiProvider>;
+  return (
+    <WagmiProvider config={config}>
+      <ConnectKitProvider
+        theme="soft"
+        options={{
+          hideNoWalletCTA: true,
+          hideQuestionMarkCTA: true
+        }}
+        customTheme={{
+          "--ck-font-family": heyFont.style.fontFamily,
+          "--ck-border-radius": "12px",
+          "--ck-body-background": "#ffffff",
+          "--ck-focus-color": BRAND_COLOR
+        }}
+      >
+        {children}
+      </ConnectKitProvider>
+    </WagmiProvider>
+  );
 };
 
 export default Web3Provider;

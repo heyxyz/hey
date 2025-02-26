@@ -5,7 +5,6 @@ import type { Post } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
-import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useNewPostModalStore } from "src/store/non-persisted/modal/useNewPostModalStore";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
@@ -17,7 +16,6 @@ interface QuoteProps {
 
 const Quote: FC<QuoteProps> = ({ post }) => {
   const { currentAccount } = useAccountStore();
-  const { setShowAuthModal } = useAuthModalStore();
   const { setShowNewPostModal } = useNewPostModalStore();
   const { setQuotedPost } = usePostStore();
   const { isSuspended } = useAccountStatus();
@@ -33,7 +31,7 @@ const Quote: FC<QuoteProps> = ({ post }) => {
       }
       onClick={() => {
         if (!currentAccount) {
-          return setShowAuthModal(true);
+          return toast.error(Errors.SignWallet);
         }
 
         if (isSuspended) {
