@@ -11,7 +11,7 @@ import { SignupMessage } from "./Signup/ChooseUsername";
 const NotConnected = () => (
   <AuthMessage
     description="Connect with one of our available wallet providers or create a new one."
-    title="Connect your wallet."
+    title={`Welcome to ${APP_NAME}.`}
   />
 );
 
