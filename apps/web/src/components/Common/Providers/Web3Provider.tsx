@@ -1,6 +1,7 @@
 import { heyFont } from "@helpers/fonts";
 import {
   APP_NAME,
+  BRAND_COLOR,
   DESCRIPTION,
   WALLETCONNECT_PROJECT_ID
 } from "@hey/data/constants";
@@ -45,7 +46,8 @@ const Web3Provider: FC<Web3ProviderProps> = ({ children }) => {
         customTheme={{
           "--ck-font-family": heyFont.style.fontFamily,
           "--ck-border-radius": "12px",
-          "--ck-body-background": "#ffffff"
+          "--ck-body-background": "#ffffff",
+          "--ck-focus-color": BRAND_COLOR
         }}
       >
         {children}
