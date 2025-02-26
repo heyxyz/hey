@@ -1,5 +1,6 @@
 fragment RepostFields on Repost {
   id
+  slug
   isDeleted
   author {
     ...AccountFields
