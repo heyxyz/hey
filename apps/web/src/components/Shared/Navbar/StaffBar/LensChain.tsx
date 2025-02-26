@@ -1,29 +1,22 @@
-import plur from "plur";
+import { BLOCK_EXPLORER_URL } from "@hey/data/constants";
+import Link from "next/link";
 import type { FC } from "react";
-import { useBlock } from "wagmi";
+import { useBlockNumber } from "wagmi";
 import { Badge } from ".";
 
 const LensChain: FC = () => {
-  const { data: block, isLoading: blockLoading } = useBlock({
+  const { data, isLoading } = useBlockNumber({
     query: { refetchInterval: 2000 }
   });
 
-  if (blockLoading) {
+  if (isLoading || !data) {
     return null;
   }
 
-  const blockNumber = block?.number?.toString();
-  const transactionCount = block?.transactions.length;
-
   return (
-    <>
-      {block && (
-        <Badge>
-          Block: {blockNumber} ({transactionCount}{" "}
-          {plur("txn", transactionCount)})
-        </Badge>
-      )}
-    </>
+    <Link href={`${BLOCK_EXPLORER_URL}/block/${data}`} target="_blank">
+      <Badge>Block: {data.toString()}</Badge>
+    </Link>
   );
 };
 
