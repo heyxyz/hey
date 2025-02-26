@@ -27,7 +27,7 @@ export const post = [
         logger.info(`(cached) Authorization request fullfilled for ${account}`);
         return res.status(200).json({
           allowed: true,
-          sponsored: isSuspended === "false",
+          sponsored: !JSON.parse(isSuspended),
           appVerificationEndpoint: VERIFICATION_ENDPOINT
         });
       }
@@ -41,7 +41,7 @@ export const post = [
 
       await setRedis(
         cacheKey,
-        accountPermission?.enabled === true ? "true" : "false"
+        JSON.stringify(accountPermission?.enabled ?? false)
       );
 
       if (accountPermission?.enabled) {
