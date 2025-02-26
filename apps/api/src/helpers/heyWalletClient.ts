@@ -1,4 +1,4 @@
-import { http, type Hex, createWalletClient } from "viem";
+import { createWalletClient, http, type Hex } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 export const heyWalletClient = createWalletClient({

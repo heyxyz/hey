@@ -26,7 +26,13 @@ const List: FC = () => {
 
   const request: AccountsRequest = { orderBy };
 
-  const { data, error, fetchMore, loading, refetch } = useAccountsQuery({
+  const {
+    data: accountsData,
+    error: accountsError,
+    loading: accountsLoading,
+    fetchMore,
+    refetch
+  } = useAccountsQuery({
     variables: { request }
   });
 
@@ -46,8 +52,8 @@ const List: FC = () => {
 
   const accounts = searchText
     ? searchData?.accounts?.items
-    : data?.accounts?.items;
-  const pageInfo = data?.accounts?.pageInfo;
+    : accountsData?.accounts?.items;
+  const pageInfo = accountsData?.accounts?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
@@ -99,10 +105,10 @@ const List: FC = () => {
       </div>
       <div className="divider" />
       <div className="m-5">
-        {loading || searchLoading ? (
-          <Loader className="my-10" message="Loading profiles..." />
-        ) : error ? (
-          <ErrorMessage error={error} title="Failed to load profiles" />
+        {accountsLoading || searchLoading ? (
+          <Loader className="my-10" message="Loading accounts..." />
+        ) : accountsError ? (
+          <ErrorMessage error={accountsError} title="Failed to load accounts" />
         ) : accounts?.length ? (
           <Virtuoso
             computeItemKey={(index, account) => `${account.address}-${index}`}

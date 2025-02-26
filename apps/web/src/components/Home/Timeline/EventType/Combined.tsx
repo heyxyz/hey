@@ -13,13 +13,13 @@ const Combined: FC<CombinedProps> = ({ timelineItem }) => {
 
   const repostsLength = reposts.length;
 
-  const getAllProfiles = () => {
-    let profiles = reposts.map((event) => event.author);
-    profiles = profiles.filter(
-      (profile, index, self) =>
-        index === self.findIndex((t) => t.address === profile.address)
+  const getAllAccounts = () => {
+    let accounts = reposts.map((event) => event.author);
+    accounts = accounts.filter(
+      (account, index, self) =>
+        index === self.findIndex((t) => t.address === account.address)
     );
-    return profiles;
+    return accounts;
   };
 
   const actionArray = [];
@@ -30,7 +30,7 @@ const Combined: FC<CombinedProps> = ({ timelineItem }) => {
   return (
     <div className="ld-text-gray-500 flex flex-wrap items-center space-x-1 pb-4 text-[13px] leading-6">
       <SparklesIcon className="size-4" />
-      <Accounts accounts={getAllProfiles()} />
+      <Accounts accounts={getAllAccounts()} />
       <div className="flex items-center space-x-1">
         {actionArray.map((action, index) => (
           <Fragment key={action}>

@@ -47,11 +47,7 @@ const ViewProfile: NextPage = () => {
       : AccountFeedType.Feed
     : AccountFeedType.Feed;
 
-  const {
-    data,
-    error,
-    loading: profileLoading
-  } = useAccountQuery({
+  const { data, error, loading } = useAccountQuery({
     skip: address ? !address : !username,
     variables: {
       request: {
@@ -70,7 +66,7 @@ const ViewProfile: NextPage = () => {
     queryKey: [GET_ACCOUNT_DETAILS_QUERY_KEY, account?.address]
   });
 
-  if (!isReady || profileLoading) {
+  if (!isReady || loading) {
     return <AccountPageShimmer />;
   }
 

@@ -8,17 +8,23 @@ import { type AnyPost, useDeletePostMutation } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface UndoRepostProps {
-  isLoading: boolean;
   post: AnyPost;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  isSubmitting: boolean;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 }
 
-const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
+const UndoRepost: FC<UndoRepostProps> = ({
+  post,
+  isSubmitting,
+  setIsSubmitting
+}) => {
   const { currentAccount } = useAccountStore();
   const { cache } = useApolloClient();
+  const handleTransactionLifecycle = useTransactionLifecycle();
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
 
@@ -30,16 +36,29 @@ const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
     cache.evict({ id: cache.identify(post) });
   };
 
+  const onCompleted = () => {
+    setIsSubmitting(false);
+    updateCache();
+    toast.success("Undone repost");
+  };
+
   const onError = (error?: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
-  const [deletePost] = useDeletePostMutation({
-    onCompleted: () => {
-      toast.success("Undone repost");
-    },
-    update: updateCache
+  const [undoRepost] = useDeletePostMutation({
+    onCompleted: async ({ deletePost }) => {
+      if (deletePost.__typename === "DeletePostResponse") {
+        return onCompleted();
+      }
+
+      return await handleTransactionLifecycle({
+        transactionData: deletePost,
+        onCompleted,
+        onError
+      });
+    }
   });
 
   const handleUndoRepost = async () => {
@@ -48,9 +67,9 @@ const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
     }
 
     try {
-      setIsLoading(true);
+      setIsSubmitting(true);
 
-      return await deletePost({
+      return await undoRepost({
         variables: { request: { post: post.id } }
       });
     } catch (error) {
@@ -67,7 +86,7 @@ const UndoRepost: FC<UndoRepostProps> = ({ isLoading, post, setIsLoading }) => {
           "m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-red-500 text-sm"
         )
       }
-      disabled={isLoading}
+      disabled={isSubmitting}
       onClick={handleUndoRepost}
     >
       <div className="flex items-center space-x-2">

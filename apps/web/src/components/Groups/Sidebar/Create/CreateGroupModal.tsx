@@ -28,7 +28,7 @@ const CreateGroupModal: FC = () => {
   const { isSuspended } = useAccountStatus();
   const { setScreen, setTransactionHash } = useCreateGroupStore();
   const [pfpUrl, setPfpUrl] = useState<string | undefined>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
   const form = useZodForm({
@@ -36,13 +36,13 @@ const CreateGroupModal: FC = () => {
   });
 
   const onCompleted = (hash: string) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     setTransactionHash(hash);
     setScreen("minting");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -66,7 +66,7 @@ const CreateGroupModal: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     const metadata = group({
       name: data.name,
@@ -110,7 +110,7 @@ const CreateGroupModal: FC = () => {
       />
       <Button
         className="flex w-full justify-center"
-        disabled={isLoading}
+        disabled={isSubmitting}
         type="submit"
       >
         Create group

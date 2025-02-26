@@ -1,30 +1,36 @@
 import errorToast from "@helpers/errorToast";
-import { getSimplePaymentDetails } from "@helpers/group";
+import { getSimplePaymentDetails } from "@helpers/rules";
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import {
   type Group,
   GroupRuleType,
+  useTransactionStatusLazyQuery,
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
 import { Button, Card, CardHeader, Image, Input, Tooltip } from "@hey/ui";
+import { useRouter } from "next/router";
 import { type FC, type RefObject, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 
-interface PaymentRuleProps {
+interface SuperJoinProps {
   group: Group;
 }
 
-const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
+const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
+  const { reload } = useRouter();
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
+  const [getTransactionStatus] = useTransactionStatusLazyQuery({
+    fetchPolicy: "no-cache"
+  });
 
   const simplePaymentRule = [
     ...group.rules.required,
@@ -36,13 +42,21 @@ const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
     setAmount(simplePaymentAmount || 0);
   }, [simplePaymentAmount]);
 
-  const onCompleted = () => {
-    setIsLoading(false);
-    toast.success("Payment rule updated");
+  const onCompleted = (hash: string) => {
+    getTransactionStatus({ variables: { request: { txHash: hash } } }).then(
+      ({ data }) => {
+        if (
+          data?.transactionStatus?.__typename === "FinishedTransactionStatus"
+        ) {
+          setIsSubmitting(false);
+          reload();
+        }
+      }
+    );
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -60,7 +74,7 @@ const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
   const handleUpdateRule = async (remove: boolean) => {
     if (isSuspended) return toast.error(Errors.Suspended);
 
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     return await updateGroupRules({
       variables: {
@@ -69,6 +83,9 @@ const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
           ...(remove
             ? { toRemove: [simplePaymentRule?.id] }
             : {
+                ...(simplePaymentRule && {
+                  toRemove: [simplePaymentRule?.id]
+                }),
                 toAdd: {
                   required: [
                     {
@@ -117,13 +134,16 @@ const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
           {simplePaymentRule && (
             <Button
               variant="danger"
-              disabled={isLoading}
+              disabled={isSubmitting}
               onClick={() => handleUpdateRule(true)}
             >
               Remove
             </Button>
           )}
-          <Button disabled={isLoading} onClick={() => handleUpdateRule(false)}>
+          <Button
+            disabled={isSubmitting}
+            onClick={() => handleUpdateRule(false)}
+          >
             Update
           </Button>
         </div>
@@ -132,4 +152,4 @@ const PaymentRule: FC<PaymentRuleProps> = ({ group }) => {
   );
 };
 
-export default PaymentRule;
+export default SuperJoin;

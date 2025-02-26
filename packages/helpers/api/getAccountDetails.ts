@@ -6,15 +6,15 @@ export const GET_ACCOUNT_DETAILS_QUERY_KEY = "getAccountDetails";
 
 /**
  * Get account details
- * @param id account id
+ * @param address account address
  * @returns account details
  */
 const getAccountDetails = async (
-  id: string
+  address: string
 ): Promise<null | AccountDetails> => {
   try {
     const { data } = await axios.get(`${HEY_API_URL}/account/get`, {
-      params: { id }
+      params: { address }
     });
 
     return data.result;

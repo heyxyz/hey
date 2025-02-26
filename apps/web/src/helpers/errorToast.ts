@@ -1,6 +1,9 @@
 import { Errors } from "@hey/data/errors";
 import { toast } from "react-hot-toast";
 
+const FORBIDDEN_ERROR =
+  "Forbidden - Failed to generate source stamp: App rejected verification request:";
+
 /**
  * Error toast
  * @param error Error
@@ -9,6 +12,12 @@ import { toast } from "react-hot-toast";
 const errorToast = (error: any) => {
   if (error?.message.includes("viem")) {
     return;
+  }
+
+  if (error?.message.includes(FORBIDDEN_ERROR)) {
+    return toast.error(error?.message.replace(FORBIDDEN_ERROR, ""), {
+      id: "error"
+    });
   }
 
   if (error?.message.includes("UNPREDICTABLE_GAS_LIMIT")) {

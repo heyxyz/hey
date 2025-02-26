@@ -6,7 +6,7 @@ import {
   FaceFrownIcon,
   FaceSmileIcon
 } from "@heroicons/react/24/outline";
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, HEY_APP } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import {
@@ -52,13 +52,13 @@ const ChooseUsername: FC = () => {
     setOnboardingToken
   } = useSignupStore();
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
   const form = useZodForm({ mode: "onChange", schema: validationSchema });
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -84,11 +84,13 @@ const ChooseUsername: FC = () => {
     username
   }: z.infer<typeof validationSchema>) => {
     try {
-      setIsLoading(true);
+      setIsSubmitting(true);
       await handleWrongNetwork();
 
       const challenge = await loadChallenge({
-        variables: { request: { onboardingUser: { wallet: address } } }
+        variables: {
+          request: { onboardingUser: { app: HEY_APP, wallet: address } }
+        }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -100,7 +102,7 @@ const ChooseUsername: FC = () => {
         message: challenge?.data?.challenge?.text
       });
 
-      // Auth profile and set cookies
+      // Auth account and set cookies
       const auth = await authenticate({
         variables: { request: { id: challenge.data.challenge.id, signature } }
       });
@@ -133,11 +135,11 @@ const ChooseUsername: FC = () => {
     } catch (error) {
       errorToast(error);
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
-  const disabled = !canCheck || !isAvailable || isLoading || isInvalid;
+  const disabled = !canCheck || !isAvailable || isSubmitting || isInvalid;
 
   return (
     <div className="space-y-5">

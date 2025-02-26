@@ -1,7 +1,7 @@
 import { Regex } from "@hey/data/regex";
 import trimify from "@hey/helpers/trimify";
 import type { PostMention } from "@hey/indexer";
-import type { FC } from "react";
+import { type FC, memo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 // @ts-expect-error
@@ -41,14 +41,12 @@ const Markup: FC<MarkupProps> = ({
   };
 
   return (
-    <ReactMarkdown
-      className={className}
-      components={components}
-      remarkPlugins={plugins}
-    >
-      {trimify(children)}
-    </ReactMarkdown>
+    <span className={className}>
+      <ReactMarkdown components={components} remarkPlugins={plugins}>
+        {trimify(children)}
+      </ReactMarkdown>
+    </span>
   );
 };
 
-export default Markup;
+export default memo(Markup);

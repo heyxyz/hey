@@ -1,3 +1,4 @@
+import { LENS_NAMESPACE } from "@hey/data/constants";
 import type { Account } from "@hey/indexer";
 import formatAddress from "./formatAddress";
 import isAccountDeleted from "./isAccountDeleted";
@@ -29,14 +30,18 @@ const getAccount = (
     };
   }
 
+  const value = account.username?.value;
+  const localName = account.username?.localName;
+  const address = account.address;
+
   const prefix = account.username ? "@" : "#";
   const username =
-    (account.username?.value.includes("lens/")
-      ? account.username.localName
-      : account.username?.value) || formatAddress(account.address);
-  const link = account.username
-    ? `/u/${account.username.localName}`
-    : `/account/${account.address}`;
+    (value.includes(LENS_NAMESPACE) ? localName : value) ||
+    formatAddress(address);
+  const link =
+    account.username && value.includes(LENS_NAMESPACE)
+      ? `/u/${localName}`
+      : `/account/${address}`;
 
   return {
     name: sanitizeDisplayName(account.metadata?.name) || username,

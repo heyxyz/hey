@@ -124,7 +124,7 @@ const Privacy: NextPage = () => {
                   improvements.
                 </p>
                 <p className="leading-7">
-                  We collect profile id to identify the user. This makes sure to
+                  We collect account id to identify the user. This makes sure to
                   give the best experience to the user.
                 </p>
                 <p className="leading-7">

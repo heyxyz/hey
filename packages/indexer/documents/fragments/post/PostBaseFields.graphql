@@ -2,8 +2,20 @@ fragment PostBaseFields on Post {
   id
   slug
   isDeleted
+  feed {
+    group {
+      address
+      metadata {
+        name
+        icon
+      }
+    }
+  }
   stats {
     ...PostStatsFields
+  }
+  operations {
+    ...LoggedInPostOperationsFields
   }
   actions {
     __typename
@@ -14,14 +26,8 @@ fragment PostBaseFields on Post {
   metadata {
     ...PostMetadataFields
   }
-  app {
-    ...AppFields
-  }
   mentions {
     ...AccountMentionFields
-  }
-  operations {
-    ...LoggedInPostOperationsFields
   }
   timestamp
 }

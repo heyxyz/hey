@@ -26,7 +26,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 const DeleteSettings: FC = () => {
   const { currentAccount } = useAccountStore();
   const [showWarningModal, setShowWarningModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const handleDelete = async () => {
@@ -34,9 +34,9 @@ const DeleteSettings: FC = () => {
       return toast.error(Errors.SignWallet);
     }
 
-    setIsLoading(true);
+    setIsSubmitting(true);
     await handleWrongNetwork();
-    setIsLoading(false);
+    setIsSubmitting(false);
     return toast.success("Feature not implemented yet");
   };
 
@@ -44,7 +44,7 @@ const DeleteSettings: FC = () => {
     <Card>
       <CardHeader
         body={`This will permanently delete your Account on the Lens Protocol. You will not be able to use any apps built on Lens, including ${APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back.`}
-        title={<div className="text-red-500">Delete Lens profile</div>}
+        title={<div className="text-red-500">Delete Lens account</div>}
       />
       <div className="m-5 space-y-5">
         <SingleAccount
@@ -53,7 +53,7 @@ const DeleteSettings: FC = () => {
           account={currentAccount as Account}
         />
         <div className="space-y-3">
-          <H5 className="text-red-500">Delete Lens profile</H5>
+          <H5 className="text-red-500">Delete Lens account</H5>
           <p>
             This will permanently delete your Account NFT on the Lens Protocol.
             You will not be able to use any apps built on Lens, including{" "}
@@ -64,7 +64,7 @@ const DeleteSettings: FC = () => {
         <H5>What else you should know</H5>
         <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
           <p className="pb-3">
-            You cannot restore your Lens profile if it was accidentally or
+            You cannot restore your Lens account if it was accidentally or
             wrongfully deleted.
           </p>
           <p className="py-3">
@@ -83,9 +83,9 @@ const DeleteSettings: FC = () => {
           </p>
         </div>
         <Button
-          disabled={isLoading}
+          disabled={isSubmitting}
           icon={
-            isLoading ? (
+            isSubmitting ? (
               <Spinner size="xs" variant="danger" />
             ) : (
               <TrashIcon className="size-5" />
@@ -94,7 +94,7 @@ const DeleteSettings: FC = () => {
           onClick={() => setShowWarningModal(true)}
           variant="danger"
         >
-          {isLoading ? "Deleting..." : "Delete your account"}
+          {isSubmitting ? "Deleting..." : "Delete your account"}
         </Button>
       </div>
       <Modal

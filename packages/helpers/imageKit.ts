@@ -1,8 +1,4 @@
-import {
-  HEY_IMAGEKIT_URL,
-  LENS_MEDIA_SNAPSHOT_URL,
-  STORAGE_NODE_URL
-} from "@hey/data/constants";
+import { LENS_MEDIA_SNAPSHOT_URL } from "@hey/data/constants";
 
 /**
  * Transforms the URL of an image to use ImageKit.
@@ -21,10 +17,6 @@ const imageKit = (url: string, name?: string): string => {
     const path = splitedUrl[splitedUrl.length - 1];
 
     return name ? `${LENS_MEDIA_SNAPSHOT_URL}/${name}/${path}` : url;
-  }
-
-  if (url.includes(STORAGE_NODE_URL)) {
-    return name ? `${HEY_IMAGEKIT_URL}/fallback/${name}/${url}` : url;
   }
 
   return url;

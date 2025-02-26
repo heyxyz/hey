@@ -6,7 +6,11 @@ import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import trimify from "@hey/helpers/trimify";
-import { useSetAccountMetadataMutation } from "@hey/indexer";
+import {
+  type Account,
+  useMeLazyQuery,
+  useSetAccountMetadataMutation
+} from "@hey/indexer";
 import { Button, Card, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import type {
   AccountOptions,
@@ -43,9 +47,9 @@ const validationSchema = object({
 });
 
 const AccountSettingsForm: FC = () => {
-  const { currentAccount } = useAccountStore();
+  const { currentAccount, setCurrentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [pfpUrl, setPfpUrl] = useState<string | undefined>(
     currentAccount?.metadata?.picture
   );
@@ -53,14 +57,23 @@ const AccountSettingsForm: FC = () => {
     currentAccount?.metadata?.coverPicture
   );
   const handleTransactionLifecycle = useTransactionLifecycle();
+  const [getCurrentAccountDetails] = useMeLazyQuery({
+    fetchPolicy: "no-cache"
+  });
 
   const onCompleted = () => {
-    setIsLoading(false);
+    getCurrentAccountDetails().then(({ data }) => {
+      setCurrentAccount({
+        currentAccount: data?.me.loggedInAs.account as Account,
+        isSignlessEnabled: data?.me.isSignless || false
+      });
+    });
+    setIsSubmitting(false);
     toast.success("Account updated");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -113,7 +126,7 @@ const AccountSettingsForm: FC = () => {
     }
 
     try {
-      setIsLoading(true);
+      setIsSubmitting(true);
       const otherAttributes =
         currentAccount.metadata?.attributes
           ?.filter(
@@ -187,7 +200,7 @@ const AccountSettingsForm: FC = () => {
       >
         <Input
           disabled
-          label="Account Id"
+          label="Account Address"
           type="text"
           value={currentAccount?.address}
         />
@@ -226,7 +239,7 @@ const AccountSettingsForm: FC = () => {
         <Button
           className="ml-auto"
           disabled={
-            isLoading || (!form.formState.isDirty && !coverUrl && !pfpUrl)
+            isSubmitting || (!form.formState.isDirty && !coverUrl && !pfpUrl)
           }
           type="submit"
         >

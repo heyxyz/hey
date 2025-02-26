@@ -10,7 +10,7 @@ import Custom500 from "src/pages/500";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import ApprovalRule from "./ApprovalRule";
-import PaymentRule from "./PaymentRule";
+import SuperJoin from "./SuperJoin";
 
 const RulesSettings: NextPage = () => {
   const {
@@ -50,7 +50,7 @@ const RulesSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <ApprovalRule group={group} />
-        <PaymentRule group={group} />
+        <SuperJoin group={group} />
       </GridItemEight>
     </GridLayout>
   );

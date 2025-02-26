@@ -36,15 +36,15 @@ const SetAccount: FC = () => {
 
   return (
     <Card as="aside" className="mb-4 space-y-4 p-5">
-      <H5>Setup your {APP_NAME} profile</H5>
+      <H5>Setup your {APP_NAME} account</H5>
       <div className="space-y-1 text-sm leading-5">
         <Status
           finished={Boolean(currentAccount?.metadata?.name)}
-          title="Set profile name"
+          title="Set account name"
         />
         <Status
           finished={Boolean(currentAccount?.metadata?.bio)}
-          title="Set profile bio"
+          title="Set account bio"
         />
         <Status
           finished={Boolean(currentAccount?.metadata?.picture)}
@@ -52,7 +52,7 @@ const SetAccount: FC = () => {
         />
       </div>
       <div className="font-bold">
-        <Link href="/settings">Update profile now</Link>
+        <Link href="/settings">Update account now</Link>
       </div>
     </Card>
   );

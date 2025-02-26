@@ -131,7 +131,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
   }
 
   if (error) {
-    return <ErrorMessage error={error} title="Failed to load profile feed" />;
+    return <ErrorMessage error={error} title="Failed to load account feed" />;
   }
 
   return (

@@ -37,7 +37,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   const collectAction = getCollectActionData(postAction as any);
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSimpleCollected, setHasSimpleCollected] = useState(
     collectAction?.amount ? false : post.operations?.hasSimpleCollected
   );
@@ -74,14 +74,14 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   const onCompleted = () => {
     // Should not disable the button if it's a paid collect module
     setHasSimpleCollected(amount <= 0);
-    setIsLoading(false);
+    setIsSubmitting(false);
     onCollectSuccess?.();
     updateCache();
     toast.success("Collected successfully");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -121,7 +121,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
       return toast.error(Errors.Suspended);
     }
 
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     return await executePostAction({
       variables: {
@@ -167,7 +167,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   return (
     <Button
       className="mt-5 w-full justify-center"
-      disabled={isLoading}
+      disabled={isSubmitting}
       onClick={handleCreateCollect}
     >
       Collect now

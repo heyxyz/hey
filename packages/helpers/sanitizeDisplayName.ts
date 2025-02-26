@@ -1,7 +1,7 @@
 import { Regex } from "@hey/data/regex";
 
 /**
- * Remove restricted symbols from profile name
+ * Remove restricted symbols from account name
  *
  * @param name Account name
  * @returns Account name with restricted symbols removed

@@ -1,8 +1,7 @@
 import type { StorageNodeResponse } from "@hey/types/misc";
-import { StorageClient, testnet } from "@lens-protocol/storage-node-client";
+import { StorageClient } from "@lens-chain/storage-client";
 
-const storageClient = StorageClient.create(testnet);
-const FALLBACK_TYPE = "image/jpeg";
+const storageClient = StorageClient.create();
 
 /**
  * Uploads a set of files to the Lens Storage Node and returns an array of MediaSet objects.
@@ -17,7 +16,7 @@ const uploadToStorageNode = async (
   try {
     const { files } = await storageClient.uploadFolder(data);
     const attachments = files.map(({ gatewayUrl }, index) => {
-      return { mimeType: data[index].type || FALLBACK_TYPE, uri: gatewayUrl };
+      return { mimeType: data[index].type || "image/jpeg", uri: gatewayUrl };
     });
 
     return attachments;

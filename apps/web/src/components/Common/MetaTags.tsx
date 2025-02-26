@@ -25,10 +25,6 @@ const MetaTags: FC<MetaTagsProps> = ({
         content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
         name="viewport"
       />
-      <meta
-        content="hey,hey.xyz,social media profile,social media,lenster,profile,lens,lens protocol,decentralized,web3,Yoginth,@yoginth"
-        name="keywords"
-      />
       <link href={url} rel="canonical" />
 
       <meta content={url} property="og:url" />

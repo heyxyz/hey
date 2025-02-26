@@ -1,15 +1,11 @@
 import ToggleWrapper from "@components/Staff/Accounts/Overview/Tool/ToggleWrapper";
 import errorToast from "@helpers/errorToast";
-import {
-  getAuthApiHeaders,
-  getAuthApiHeadersWithAccessToken
-} from "@helpers/getAuthApiHeaders";
+import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { HEY_API_URL } from "@hey/data/constants";
 import { Permission, PermissionId } from "@hey/data/permissions";
 import getInternalAccount, {
   GET_INTERNAL_ACCOUNT_QUERY_KEY
 } from "@hey/helpers/api/getInternalAccount";
-import { PostReportReason } from "@hey/indexer";
 import { Toggle } from "@hey/ui";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -35,18 +31,6 @@ const Suspend: FC<SuspendProps> = ({ address }) => {
           `${HEY_API_URL}/internal/permissions/assign`,
           { enabled: true, id: PermissionId.Suspended, address },
           { headers: getAuthApiHeaders() }
-        ),
-        axios.post(
-          `${HEY_API_URL}/internal/account/report`,
-          {
-            address,
-            reasons: [
-              PostReportReason.FakeEngagement,
-              PostReportReason.Impersonation,
-              PostReportReason.Misleading
-            ]
-          },
-          { headers: getAuthApiHeadersWithAccessToken() }
         )
       ]);
 

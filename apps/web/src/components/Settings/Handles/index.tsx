@@ -29,7 +29,7 @@ const HandlesSettings: NextPage = () => {
       <GridItemEight>
         <Card>
           <CardHeader
-            body="Linking your handle to your profile showcases it publicly,
+            body="Linking your handle to your account showcases it publicly,
             allowing others to easily identify and connect with you based on
             your unique online identity."
             title="Link a handle"

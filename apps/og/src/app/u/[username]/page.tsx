@@ -61,7 +61,7 @@ const Page = async ({ params }: Props) => {
     return <h1>{username}</h1>;
   }
 
-  logger.info(`[OG] Fetched profile /u/${username}`);
+  logger.info(`[OG] Fetched account /u/${username}`);
 
   return (
     <>

@@ -1,10 +1,10 @@
 import { hydrateVerifiedMembers } from "src/store/persisted/useVerifiedMembersStore";
 
 /**
- * Checks whether a profile is verified or not.
+ * Checks whether a account is verified or not.
  *
- * @param id The profile id to check.
- * @returns True if the profile is verified, false otherwise.
+ * @param id The account id to check.
+ * @returns True if the account is verified, false otherwise.
  */
 const isVerified = (id: string): boolean => {
   const { verifiedMembers } = hydrateVerifiedMembers();

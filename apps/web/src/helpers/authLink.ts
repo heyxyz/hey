@@ -20,6 +20,48 @@ const REFRESH_AUTHENTICATION_MUTATION = `
   }
 `;
 
+let refreshPromise: Promise<string> | null = null;
+
+const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
+  try {
+    const response = await axios.post(
+      LENS_API_URL,
+      {
+        operationName: "Refresh",
+        query: REFRESH_AUTHENTICATION_MUTATION,
+        variables: { request: { refreshToken } }
+      },
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+    const {
+      accessToken,
+      refreshToken: newRefreshToken,
+      idToken
+    } = response?.data?.data?.refresh ?? {};
+
+    if (!accessToken || !newRefreshToken) {
+      signOut();
+      throw new Error("Invalid refresh response");
+    }
+
+    signIn({ accessToken, idToken, refreshToken: newRefreshToken });
+    return accessToken;
+  } catch (error) {
+    signOut();
+    throw error;
+  } finally {
+    refreshPromise = null;
+  }
+};
+
+const refreshTokens = (refreshToken: string): Promise<string> => {
+  if (!refreshPromise) {
+    refreshPromise = executeTokenRefresh(refreshToken);
+  }
+  return refreshPromise;
+};
+
 const authLink = new ApolloLink((operation, forward) => {
   const { accessToken, refreshToken } = hydrateAuthTokens();
 
@@ -29,41 +71,25 @@ const authLink = new ApolloLink((operation, forward) => {
   }
 
   const tokenData = parseJwt(accessToken);
-  const expiringSoon = tokenData?.exp
-    ? Date.now() >= tokenData.exp * 1000 - 2 * 60 * 1000
-    : true;
+  const isExpiringSoon =
+    tokenData?.exp && Date.now() >= tokenData.exp * 1000 - 2 * 60 * 1000;
 
-  if (!expiringSoon) {
+  if (!isExpiringSoon) {
     operation.setContext({
-      headers: { "X-Access-Token": accessToken || "" }
+      headers: { "X-Access-Token": accessToken }
     });
-
     return forward(operation);
   }
 
   return fromPromise(
-    axios
-      .post(
-        LENS_API_URL,
-        {
-          operationName: "Refresh",
-          query: REFRESH_AUTHENTICATION_MUTATION,
-          variables: { request: { refreshToken } }
-        },
-        { headers: { "Content-Type": "application/json" } }
-      )
-      .then(({ data }) => {
-        const accessToken = data?.data?.refresh?.accessToken;
-        const refreshToken = data?.data?.refresh?.refreshToken;
-        const idToken = data?.data?.refresh?.idToken;
-        operation.setContext({ headers: { "X-Access-Token": accessToken } });
-        signIn({ accessToken, idToken, refreshToken });
-
+    refreshTokens(refreshToken)
+      .then((newAccessToken) => {
+        operation.setContext({
+          headers: { "X-Access-Token": newAccessToken }
+        });
         return toPromise(forward(operation));
       })
-      .catch(() => {
-        return toPromise(forward(operation));
-      })
+      .catch(() => toPromise(forward(operation)))
   );
 });
 

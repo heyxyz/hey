@@ -1,6 +1,0 @@
-fragment AppFields on App {
-  metadata {
-    name
-    logo
-  }
-}

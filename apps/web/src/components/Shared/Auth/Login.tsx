@@ -2,6 +2,7 @@ import SwitchNetwork from "@components/Shared/SwitchNetwork";
 import errorToast from "@helpers/errorToast";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/24/solid";
+import { HEY_APP } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import {
   type Account,
@@ -28,13 +29,13 @@ interface LoginProps {
 
 const Login: FC<LoginProps> = ({ setHasAccounts }) => {
   const { reload } = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [loggingInAccountId, setLoggingInAccountId] = useState<null | string>(
     null
   );
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -46,25 +47,24 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
 
-  const { data: accountsAvailable, loading: accountsAvailableLoading } =
-    useAccountsAvailableQuery({
-      onCompleted: (data) =>
-        setHasAccounts(data?.accountsAvailable.items.length > 0),
-      skip: !address,
-      variables: {
-        accountsAvailableRequest: { managedBy: address },
-        lastLoggedInAccountRequest: { address }
-      }
-    });
+  const { data, loading } = useAccountsAvailableQuery({
+    onCompleted: (data) =>
+      setHasAccounts(data?.accountsAvailable.items.length > 0),
+    skip: !address,
+    variables: {
+      accountsAvailableRequest: { managedBy: address },
+      lastLoggedInAccountRequest: { address }
+    }
+  });
 
   const handleSign = async (account: string) => {
     try {
       setLoggingInAccountId(account || null);
-      setIsLoading(true);
+      setIsSubmitting(true);
       // Get challenge
       const challenge = await loadChallenge({
         variables: {
-          request: { accountOwner: { owner: address, account } }
+          request: { accountOwner: { app: HEY_APP, owner: address, account } }
         }
       });
 
@@ -77,7 +77,7 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
         message: challenge?.data?.challenge?.text
       });
 
-      // Auth profile and set cookies
+      // Auth account and set cookies
       const auth = await authenticate({
         variables: { request: { id: challenge.data.challenge.id, signature } }
       });
@@ -94,8 +94,8 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
     } catch {}
   };
 
-  const allProfiles = accountsAvailable?.accountsAvailable.items || [];
-  const lastLogin = accountsAvailable?.lastLoggedInAccount;
+  const allProfiles = data?.accountsAvailable.items || [];
+  const lastLogin = data?.lastLoggedInAccount;
 
   const remainingProfiles = lastLogin
     ? allProfiles
@@ -111,7 +111,7 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain === CHAIN.id ? (
-          accountsAvailableLoading ? (
+          loading ? (
             <Card className="w-full dark:divide-gray-700" forceRounded>
               <Loader
                 className="my-4"
@@ -138,7 +138,7 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
                   />
                   <Button
                     disabled={
-                      isLoading && loggingInAccountId === account.address
+                      isSubmitting && loggingInAccountId === account.address
                     }
                     onClick={() => handleSign(account.address)}
                     outline

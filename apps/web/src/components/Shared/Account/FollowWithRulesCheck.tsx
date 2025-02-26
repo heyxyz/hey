@@ -1,4 +1,4 @@
-import { getSimplePaymentDetails } from "@helpers/group";
+import { getSimplePaymentDetails } from "@helpers/rules";
 import type { Account } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import type { FC } from "react";

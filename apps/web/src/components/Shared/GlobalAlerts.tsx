@@ -5,7 +5,6 @@ import { useMuteAlertStore } from "src/store/non-persisted/alert/useMuteAlertSto
 import BanOrUnbanAccount from "./Alert/BanOrUnbanAccount";
 import BlockOrUnblockAccount from "./Alert/BlockOrUnblockAccount";
 import DeletePost from "./Alert/DeletePost";
-import DisableCollect from "./Alert/DisableCollect";
 import MuteOrUnmuteAccount from "./Alert/MuteOrUnmuteAccount";
 
 const GlobalAlerts: FC = () => {
@@ -16,7 +15,6 @@ const GlobalAlerts: FC = () => {
   return (
     <>
       <DeletePost />
-      <DisableCollect />
       {blockingorUnblockingAccount && <BlockOrUnblockAccount />}
       {banningOrUnbanningAccount && <BanOrUnbanAccount />}
       {mutingOrUnmutingAccount && <MuteOrUnmuteAccount />}

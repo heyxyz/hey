@@ -1,7 +1,6 @@
 fragment AccountFields on Account {
   owner
   address
-  score
   createdAt
   rules {
     anyOf {
@@ -11,13 +10,13 @@ fragment AccountFields on Account {
       ...AccountFollowRuleFields
     }
   }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
   metadata {
     ...AccountMetadata
   }
   username(request: { autoResolve: true }) {
     ...UsernameFields
-  }
-  operations {
-    ...LoggedInAccountOperationsFields
   }
 }

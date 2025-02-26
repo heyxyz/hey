@@ -19,7 +19,7 @@ interface ApprovalRuleProps {
 
 const ApprovalRule: FC<ApprovalRuleProps> = ({ group }) => {
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
   const approvalRule = [...group.rules.required, ...group.rules.anyOf].find(
@@ -28,12 +28,12 @@ const ApprovalRule: FC<ApprovalRuleProps> = ({ group }) => {
   const isApprovalRuleEnabled = approvalRule !== undefined;
 
   const onCompleted = () => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     toast.success("Approval rule updated");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -53,7 +53,7 @@ const ApprovalRule: FC<ApprovalRuleProps> = ({ group }) => {
       return toast.error(Errors.Suspended);
     }
 
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     return updateGroupRules({
       variables: {
@@ -81,7 +81,7 @@ const ApprovalRule: FC<ApprovalRuleProps> = ({ group }) => {
         <ToggleWithHelper
           heading="Enable Membership Approval"
           description="Toggle to require approval for new members"
-          disabled={isLoading}
+          disabled={isSubmitting}
           icon={<PlusCircleIcon className="size-5" />}
           on={isApprovalRuleEnabled}
           setOn={handleUpdateRule}

@@ -1,4 +1,4 @@
-import type { ApolloCache } from "@apollo/client";
+import { useApolloClient } from "@apollo/client";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { useDeletePostMutation } from "@hey/indexer";
@@ -13,9 +13,10 @@ const DeletePost: FC = () => {
   const { deletingPost, setShowPostDeleteAlert, showPostDeleteAlert } =
     useDeletePostAlertStore();
   const { isSuspended } = useAccountStatus();
+  const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = () => {
     cache.evict({
       id: `${deletingPost?.__typename}:${deletingPost?.id}`
     });
@@ -23,6 +24,7 @@ const DeletePost: FC = () => {
 
   const onCompleted = () => {
     setShowPostDeleteAlert(false, null);
+    updateCache();
     toast.success("Post deleted");
   };
 
@@ -41,8 +43,7 @@ const DeletePost: FC = () => {
         onCompleted,
         onError
       });
-    },
-    update: updateCache
+    }
   });
 
   const deletePublication = async () => {
@@ -58,7 +59,7 @@ const DeletePost: FC = () => {
   return (
     <Alert
       confirmText="Delete"
-      description="This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
+      description="This can't be undone and it will be removed from your account, the timeline of any accounts that follow you, and from search results."
       isDestructive
       isPerformingAction={loading}
       onClose={() => setShowPostDeleteAlert(false, null)}

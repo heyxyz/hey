@@ -17,12 +17,12 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface RepostProps {
-  isLoading: boolean;
+  isSubmitting: boolean;
   post: Post;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 }
 
-const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
+const Repost: FC<RepostProps> = ({ isSubmitting, post, setIsSubmitting }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const hasReposted =
@@ -55,14 +55,14 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
   };
 
   const onCompleted = () => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     increment();
     updateCache();
     toast.success("Post has been reposted!");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -90,7 +90,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
       return toast.error(Errors.Suspended);
     }
 
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     return await repost({ variables: { request: { post: post.id } } });
   };
@@ -105,7 +105,7 @@ const Repost: FC<RepostProps> = ({ isLoading, post, setIsLoading }) => {
           "m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm"
         )
       }
-      disabled={isLoading}
+      disabled={isSubmitting}
       onClick={handleCreateRepost}
     >
       <div className="flex items-center space-x-2">

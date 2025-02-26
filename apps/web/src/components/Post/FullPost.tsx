@@ -18,7 +18,6 @@ import PostAvatar from "./PostAvatar";
 import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
 import PostStats from "./PostStats";
-import Translate from "./Translate";
 import PostType from "./Type";
 
 interface FullPostProps {
@@ -67,7 +66,6 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
                 contentClassName="full-page-post-markup"
                 post={targetPost}
               />
-              <Translate post={targetPost} />
               <div className="ld-text-gray-500 my-3 text-sm">
                 <span>{formatDate(timestamp, "hh:mm A · MMM D, YYYY")}</span>
                 {app?.address ? (

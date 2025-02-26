@@ -22,16 +22,16 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 }) => {
   const { isSignlessEnabled } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = () => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     toast.success("Signless enabled");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -62,7 +62,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       return toast.error(Errors.Suspended);
     }
 
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     return isSignlessEnabled ? await removeSignless() : await enableSignless();
   };
@@ -70,7 +70,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   return (
     <Button
       className={cn({ "text-sm": buttonSize === "sm" }, "mr-auto")}
-      disabled={isLoading}
+      disabled={isSubmitting}
       onClick={handleToggleDispatcher}
       variant={isSignlessEnabled ? "danger" : "primary"}
     >

@@ -20,7 +20,7 @@ interface LeaveProps {
 
 const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -33,13 +33,13 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
 
   const onCompleted = () => {
     updateCache();
-    setIsLoading(false);
+    setIsSubmitting(false);
     setJoined(false);
     toast.success("Left group");
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -67,7 +67,7 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
       return toast.error(Errors.Suspended);
     }
 
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     return await leaveGroup({
       variables: { request: { group: group.address } }
@@ -77,7 +77,7 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
   return (
     <Button
       aria-label="Leave"
-      disabled={isLoading}
+      disabled={isSubmitting}
       onClick={handleLeave}
       size={small ? "sm" : "md"}
     >

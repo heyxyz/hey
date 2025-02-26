@@ -23,7 +23,7 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
   const { pathname, push, query } = useRouter();
-  const { addProfile: addToRecentProfiles } = useSearchStore();
+  const { addAccount } = useSearchStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -38,8 +38,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
     handleReset();
   }) as MutableRefObject<HTMLDivElement>;
 
-  const [searchAccounts, { loading: searchAccountsLoading }] =
-    useAccountsLazyQuery();
+  const [searchAccounts, { loading }] = useAccountsLazyQuery();
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
@@ -102,7 +101,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
             {!debouncedSearchText && (
               <RecentAccounts onAccountClick={handleReset} />
             )}
-            {searchAccountsLoading ? (
+            {loading ? (
               <Loader className="my-3" message="Searching users" small />
             ) : (
               <>
@@ -111,7 +110,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     key={account.address}
                     onClick={() => {
-                      addToRecentProfiles(account.address);
+                      addAccount(account.address);
                       push(getAccount(account).link);
                       handleReset();
                     }}

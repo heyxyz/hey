@@ -34,15 +34,15 @@ const AccountPreview: FC<AccountPreviewProps> = ({
   address,
   showUserPreview = true
 }) => {
-  const [loadAccount, { data, loading: networkLoading }] =
-    useFullAccountLazyQuery({ fetchPolicy: "cache-and-network" });
-  const [syntheticLoading, setSyntheticLoading] =
-    useState<boolean>(networkLoading);
+  const [loadAccount, { data, loading }] = useFullAccountLazyQuery({
+    fetchPolicy: "cache-and-network"
+  });
+  const [syntheticLoading, setSyntheticLoading] = useState<boolean>(loading);
   const account = data?.account as Account;
   const stats = data?.accountStats as AccountStats;
 
   const onPreviewStart = async () => {
-    if (account || networkLoading) {
+    if (account || loading) {
       return;
     }
 
@@ -69,7 +69,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
   }
 
   const Preview = () => {
-    if (networkLoading || syntheticLoading) {
+    if (loading || syntheticLoading) {
       return (
         <div className="flex flex-col">
           <div className="horizontal-loader w-full">
@@ -84,7 +84,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
 
     if (!account) {
       return (
-        <div className="flex h-12 items-center px-3">No profile found</div>
+        <div className="flex h-12 items-center px-3">No account found</div>
       );
     }
 

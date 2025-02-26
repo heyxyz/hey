@@ -8,8 +8,8 @@ const WrongWallet: FC = () => {
       <div className="space-y-3 pb-2">
         <H5>Switch to correct wallet</H5>
         <p>
-          You need to switch to correct wallet to manage this profile. Please
-          switch to the correct wallet to manage this profile.
+          You need to switch to correct wallet to manage this account. Please
+          switch to the correct wallet to manage this account.
         </p>
       </div>
       <WalletSelector />

@@ -36,10 +36,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
     schema: validationSchema
   });
 
-  const [
-    createReport,
-    { data: submitData, error: submitError, loading: submitLoading }
-  ] = useReportPostMutation();
+  const [createReport, { data, error, loading }] = useReportPostMutation();
 
   const reportPost = async ({
     additionalComment
@@ -65,7 +62,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
 
   return (
     <div onClick={stopEventPropagation}>
-      {submitData?.reportPost === null ? (
+      {data?.reportPost === null ? (
         <EmptyState
           hideCard
           icon={<CheckCircleIcon className="size-14" />}
@@ -74,8 +71,8 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
       ) : postId ? (
         <div className="p-5">
           <Form className="space-y-4" form={form} onSubmit={reportPost}>
-            {submitError ? (
-              <ErrorMessage error={submitError} title="Failed to report" />
+            {error ? (
+              <ErrorMessage error={error} title="Failed to report" />
             ) : null}
             <Reason setReason={setReason} reason={reason} />
             {reason ? (
@@ -87,7 +84,7 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
                 />
                 <Button
                   className="flex w-full justify-center"
-                  disabled={submitLoading}
+                  disabled={loading}
                   type="submit"
                 >
                   Report

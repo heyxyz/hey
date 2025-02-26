@@ -39,10 +39,7 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
     schema: validationSchema
   });
 
-  const [
-    createReport,
-    { data: submitData, error: submitError, loading: submitLoading }
-  ] = useReportAccountMutation();
+  const [createReport, { data, error, loading }] = useReportAccountMutation();
 
   const reportProfile = async ({
     additionalComment
@@ -68,7 +65,7 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
 
   return (
     <div onClick={stopEventPropagation}>
-      {submitData?.reportAccount === null ? (
+      {data?.reportAccount === null ? (
         <EmptyState
           hideCard
           icon={<CheckCircleIcon className="size-14" />}
@@ -86,8 +83,8 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
           </Card>
           <div className="divider my-5" />
           <Form className="space-y-4" form={form} onSubmit={reportProfile}>
-            {submitError ? (
-              <ErrorMessage error={submitError} title="Failed to report" />
+            {error ? (
+              <ErrorMessage error={error} title="Failed to report" />
             ) : null}
             <Reason setReason={setReason} reason={reason} />
             {reason ? (
@@ -99,7 +96,7 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
                 />
                 <Button
                   className="flex w-full justify-center"
-                  disabled={submitLoading}
+                  disabled={loading}
                   type="submit"
                 >
                   Report

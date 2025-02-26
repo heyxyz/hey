@@ -1,10 +1,12 @@
 import errorToast from "@helpers/errorToast";
-import { getSimplePaymentDetails } from "@helpers/group";
+import { getSimplePaymentDetails } from "@helpers/rules";
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import {
   type Account,
   AccountFollowRuleType,
+  useMeLazyQuery,
+  useTransactionStatusLazyQuery,
   useUpdateAccountFollowRulesMutation
 } from "@hey/indexer";
 import { Button, Card, CardHeader, Image, Input, Tooltip } from "@hey/ui";
@@ -18,13 +20,19 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 const SuperFollow: FC = () => {
   const { reload } = useRouter();
-  const { currentAccount } = useAccountStore();
+  const { currentAccount, setCurrentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
+  const [getTransactionStatus] = useTransactionStatusLazyQuery({
+    fetchPolicy: "no-cache"
+  });
+  const [getCurrentAccountDetails] = useMeLazyQuery({
+    fetchPolicy: "no-cache"
+  });
 
   const account = currentAccount as Account;
   const simplePaymentRule = [
@@ -39,16 +47,26 @@ const SuperFollow: FC = () => {
     setAmount(simplePaymentAmount || 0);
   }, [simplePaymentAmount]);
 
-  const onCompleted = () => {
-    setTimeout(() => {
-      reload();
-    }, 1000);
-    setIsLoading(false);
-    toast.success("Payment rule updated");
+  const onCompleted = (hash: string) => {
+    getTransactionStatus({ variables: { request: { txHash: hash } } }).then(
+      ({ data }) => {
+        if (
+          data?.transactionStatus?.__typename === "FinishedTransactionStatus"
+        ) {
+          getCurrentAccountDetails().then(({ data }) => {
+            setCurrentAccount({
+              currentAccount: data?.me.loggedInAs.account as Account,
+              isSignlessEnabled: data?.me.isSignless || false
+            });
+            reload();
+          });
+        }
+      }
+    );
   };
 
   const onError = (error: any) => {
-    setIsLoading(false);
+    setIsSubmitting(false);
     errorToast(error);
   };
 
@@ -58,7 +76,7 @@ const SuperFollow: FC = () => {
         updateAccountFollowRules.__typename ===
         "UpdateAccountFollowRulesResponse"
       ) {
-        return onCompleted();
+        return onCompleted(updateAccountFollowRules.hash);
       }
 
       return await handleTransactionLifecycle({
@@ -73,7 +91,7 @@ const SuperFollow: FC = () => {
   const handleUpdateRule = (remove: boolean) => {
     if (isSuspended) return toast.error(Errors.Suspended);
 
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     return updateAccountFollowRules({
       variables: {
@@ -81,6 +99,9 @@ const SuperFollow: FC = () => {
           ...(remove
             ? { toRemove: [simplePaymentRule?.id] }
             : {
+                ...(simplePaymentRule && {
+                  toRemove: [simplePaymentRule?.id]
+                }),
                 toAdd: {
                   required: [
                     {
@@ -104,7 +125,7 @@ const SuperFollow: FC = () => {
     <Card>
       <CardHeader
         body="You can set a payment rule to super follow users."
-        title="Super follow"
+        title="Super follow - Payment Gated"
       />
       <div className="m-5 space-y-4">
         <Input
@@ -129,13 +150,16 @@ const SuperFollow: FC = () => {
           {simplePaymentRule && (
             <Button
               variant="danger"
-              disabled={isLoading}
+              disabled={isSubmitting}
               onClick={() => handleUpdateRule(true)}
             >
               Remove
             </Button>
           )}
-          <Button disabled={isLoading} onClick={() => handleUpdateRule(false)}>
+          <Button
+            disabled={isSubmitting}
+            onClick={() => handleUpdateRule(false)}
+          >
             Update
           </Button>
         </div>
