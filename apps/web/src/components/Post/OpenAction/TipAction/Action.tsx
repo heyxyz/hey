@@ -1,5 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import FundButton from "@components/Shared/Fund/FundButton";
+import LoginButton from "@components/Shared/LoginButton";
 import errorToast from "@helpers/errorToast";
 import { DEFAULT_COLLECT_TOKEN, IS_MAINNET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -15,7 +16,6 @@ import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
-import { useAuthModalStore } from "src/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import type { Address } from "viem";
@@ -31,7 +31,6 @@ interface ActionProps {
 
 const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const { currentAccount } = useAccountStore();
-  const { setShowAuthModal } = useAuthModalStore();
   const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(2);
@@ -133,21 +132,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const amountDisabled = isSubmitting || !currentAccount;
 
   if (!currentAccount) {
-    return (
-      <div className="m-5">
-        <Button
-          className={submitButtonClassName}
-          onClick={() => {
-            if (!currentAccount) {
-              closePopover();
-              return setShowAuthModal(true);
-            }
-          }}
-        >
-          Log in to tip
-        </Button>
-      </div>
-    );
+    return <LoginButton className="m-5" title="Login to Tip" />;
   }
 
   return (
