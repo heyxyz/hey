@@ -22,7 +22,7 @@ export const post = [
       // TODO: Add redis cache
       const accountPermission = await prisma.accountPermission.findFirst({
         where: {
-          permissionId: PermissionId.SoftSuspended,
+          permissionId: PermissionId.Suspended,
           accountAddress: account as string
         }
       });
