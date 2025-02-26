@@ -7,10 +7,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
 
-const GET_OPERATIONS_QUERY_KEY = "getOperations";
+const GET_INTERNAL_OPERATIONS_QUERY_KEY = "getInternalOperations";
 
 const Operations: FC = () => {
-  const getOperations = async (): Promise<
+  const getInternalOperations = async (): Promise<
     { operation: string; count: number }[]
   > => {
     try {
@@ -26,8 +26,8 @@ const Operations: FC = () => {
   };
 
   const { data, isLoading, error } = useQuery({
-    queryFn: getOperations,
-    queryKey: [GET_OPERATIONS_QUERY_KEY],
+    queryFn: getInternalOperations,
+    queryKey: [GET_INTERNAL_OPERATIONS_QUERY_KEY],
     refetchInterval: 5000
   });
 
