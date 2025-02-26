@@ -36,7 +36,7 @@ const getAccount = (
 
   const prefix = account.username ? "@" : "#";
   const username =
-    (value.includes(LENS_NAMESPACE) ? localName : value) ||
+    (value?.includes(LENS_NAMESPACE) ? localName : value) ||
     formatAddress(address);
   const link =
     account.username && value.includes(LENS_NAMESPACE)
