@@ -10,7 +10,7 @@ import {
 import { Spinner } from "@hey/ui";
 import type { Src } from "@livepeer/react";
 import * as Player from "@livepeer/react/player";
-import type { FC, ReactNode } from "react";
+import { type FC, type ReactNode, memo } from "react";
 
 const PlayerLoading = () => (
   <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -122,4 +122,4 @@ const Video: FC<VideoProps> = ({ src, poster }) => {
   );
 };
 
-export default Video;
+export default memo(Video);
