@@ -2,7 +2,7 @@ import ActionType from "@components/Home/Timeline/EventType";
 import PostWrapper from "@components/Shared/PostWrapper";
 import type { Post, TimelineItem } from "@hey/indexer";
 import cn from "@hey/ui/cn";
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import { memo } from "react";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
@@ -13,7 +13,6 @@ import PostType from "./Type";
 
 interface SinglePostProps {
   timelineItem?: TimelineItem;
-  header?: ReactNode;
   isFirst?: boolean;
   isLast?: boolean;
   post: Post;
@@ -25,7 +24,6 @@ interface SinglePostProps {
 
 const SinglePost: FC<SinglePostProps> = ({
   timelineItem,
-  header,
   isFirst = false,
   isLast = false,
   post,
@@ -45,7 +43,6 @@ const SinglePost: FC<SinglePostProps> = ({
       )}
       post={rootPost}
     >
-      {header}
       {timelineItem ? (
         <ActionType timelineItem={timelineItem} />
       ) : (
