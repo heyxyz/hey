@@ -3,6 +3,7 @@ import prisma from "@hey/db/prisma/db/client";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
+import { VERIFICATION_ENDPOINT } from "src/helpers/constants";
 import { noBody } from "src/helpers/responses";
 
 export const post = [
@@ -32,16 +33,14 @@ export const post = [
         return res.status(200).json({
           allowed: true,
           sponsored: false,
-          appVerificationEndpoint:
-            "https://hey-api-v3-mainnet.up.railway.app/lens/verification"
+          appVerificationEndpoint: VERIFICATION_ENDPOINT
         });
       }
 
       return res.status(200).json({
         allowed: true,
         sponsored: true,
-        appVerificationEndpoint:
-          "https://hey-api-v3-mainnet.up.railway.app/lens/verification"
+        appVerificationEndpoint: VERIFICATION_ENDPOINT
       });
     } catch (error) {
       return catchedError(res, error);
