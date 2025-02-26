@@ -1,6 +1,6 @@
 export const HEY_USER_AGENT = "HeyBot/0.1 (like TwitterBot)";
 export const VERIFICATION_ENDPOINT =
-  "https://bigint.ngrok.app/lens/verification";
+  "https://hey-api-v3-mainnet.up.railway.app/lens/verification";
 
 // Cache
 // Cache for 30 minutes
