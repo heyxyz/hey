@@ -1,6 +1,5 @@
 import { PermissionId } from "@hey/data/permissions";
 import prisma from "@hey/db/prisma/db/client";
-import { getRedis, setRedis } from "@hey/db/redisClient";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -20,18 +19,6 @@ export const post = [
     try {
       logger.info(`Authorization request received for ${account}`);
 
-      const cacheKey = `suspended:${account}`;
-      const isSuspended = await getRedis(cacheKey);
-
-      if (isSuspended) {
-        logger.info(`(cached) Authorization request fullfilled for ${account}`);
-        return res.status(200).json({
-          allowed: true,
-          sponsored: !JSON.parse(isSuspended),
-          appVerificationEndpoint: VERIFICATION_ENDPOINT
-        });
-      }
-
       const accountPermission = await prisma.accountPermission.findFirst({
         where: {
           permissionId: PermissionId.Suspended,
@@ -39,21 +26,15 @@ export const post = [
         }
       });
 
-      await setRedis(
-        cacheKey,
-        JSON.stringify(accountPermission?.enabled ?? false)
-      );
+      logger.info(`Authorization request fullfilled for ${account}`);
 
       if (accountPermission?.enabled) {
-        logger.info(`Authorization request fullfilled for ${account}`);
         return res.status(200).json({
           allowed: true,
           sponsored: false,
           appVerificationEndpoint: VERIFICATION_ENDPOINT
         });
       }
-
-      logger.info(`Authorization request fullfilled for ${account}`);
 
       return res.status(200).json({
         allowed: true,
