@@ -8,10 +8,10 @@ import AuthMessage from "./AuthMessage";
 import Signup from "./Signup";
 import { SignupMessage } from "./Signup/ChooseUsername";
 
-const NotConnected = () => (
+const NotConnected = ({ isLogin }: { isLogin?: boolean }) => (
   <AuthMessage
-    description="Connect with one of our available wallet providers or create a new one."
-    title={`Welcome to ${APP_NAME}.`}
+    description="Connect with one of our wallet provider to access your account."
+    title={`${isLogin ? "Login" : "Signup"} to ${APP_NAME}.`}
   />
 );
 
@@ -39,7 +39,7 @@ const Auth: FC = () => {
               <SignupMessage />
             )
           ) : (
-            <NotConnected />
+            <NotConnected isLogin />
           )}
           <Login setHasAccounts={setHasAccounts} />
         </div>
