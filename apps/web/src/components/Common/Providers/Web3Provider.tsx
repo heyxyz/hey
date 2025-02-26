@@ -1,3 +1,4 @@
+import { heyFont } from "@helpers/fonts";
 import {
   APP_NAME,
   DESCRIPTION,
@@ -7,7 +8,7 @@ import { LENS_TESTNET_RPCS } from "@hey/data/rpcs";
 import { chains } from "@lens-network/sdk/viem";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import type { FC, ReactNode } from "react";
-import { http, WagmiProvider, createConfig, fallback } from "wagmi";
+import { createConfig, fallback, http, WagmiProvider } from "wagmi";
 
 const config = createConfig(
   getDefaultConfig({
@@ -35,7 +36,20 @@ interface Web3ProviderProps {
 const Web3Provider: FC<Web3ProviderProps> = ({ children }) => {
   return (
     <WagmiProvider config={config}>
-      <ConnectKitProvider>{children}</ConnectKitProvider>
+      <ConnectKitProvider
+        theme="soft"
+        options={{
+          hideNoWalletCTA: true,
+          hideQuestionMarkCTA: true
+        }}
+        customTheme={{
+          "--ck-font-family": heyFont.style.fontFamily,
+          "--ck-border-radius": "12px",
+          "--ck-body-background": "#ffffff"
+        }}
+      >
+        {children}
+      </ConnectKitProvider>
     </WagmiProvider>
   );
 };
