@@ -8,7 +8,7 @@ interface CheckboxProps extends Omit<ComponentProps<"input">, "prefix"> {
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  function CheckBox({ className = "", label, ...props }, ref) {
+  function Checkbox({ className = "", label, ...props }, ref) {
     const id = useId();
 
     return (
