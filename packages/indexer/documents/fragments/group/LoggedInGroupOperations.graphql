@@ -1,4 +1,5 @@
 fragment LoggedInGroupOperationsFields on LoggedInGroupOperations {
+  id
   isMember
   isBanned
 }
