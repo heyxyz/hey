@@ -24,10 +24,7 @@ export const post = [
       const isSuspended = await getRedis(cacheKey);
 
       if (isSuspended) {
-        logger.info(
-          `(cached) Authorization request fullfilled for ${account} - ${isSuspended === "false" ? "Not Sponsored" : "Suspended"}`
-        );
-
+        logger.info(`(cached) Authorization request fullfilled for ${account}`);
         return res.status(200).json({
           allowed: true,
           sponsored: isSuspended === "false",
@@ -42,12 +39,13 @@ export const post = [
         }
       });
 
-      if (accountPermission?.enabled) {
-        logger.info(
-          `Authorization request fullfilled for ${account} - Not Sponsored`
-        );
-        await setRedis(cacheKey, accountPermission?.enabled.toString());
+      await setRedis(
+        cacheKey,
+        accountPermission?.enabled === true ? "true" : "false"
+      );
 
+      if (accountPermission?.enabled) {
+        logger.info(`Authorization request fullfilled for ${account}`);
         return res.status(200).json({
           allowed: true,
           sponsored: false,
@@ -55,9 +53,7 @@ export const post = [
         });
       }
 
-      logger.info(
-        `Authorization request fullfilled for ${account} - Sponsored`
-      );
+      logger.info(`Authorization request fullfilled for ${account}`);
 
       return res.status(200).json({
         allowed: true,
