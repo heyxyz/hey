@@ -11,7 +11,8 @@ export const get = [
   async (_: Request, res: Response) => {
     try {
       const operations = await prisma.verificationOperationCount.findMany({
-        select: { operation: true, count: true }
+        select: { operation: true, count: true },
+        orderBy: { count: "desc" }
       });
 
       logger.info("Internal operations stats fetched");
