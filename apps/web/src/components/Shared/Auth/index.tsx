@@ -10,7 +10,7 @@ import { SignupMessage } from "./Signup/ChooseUsername";
 
 const NotConnected = ({ isLogin }: { isLogin?: boolean }) => (
   <AuthMessage
-    description="Connect with one of our wallet provider to access your account."
+    description="Connect with our wallet provider to access your account."
     title={`${isLogin ? "Login" : "Signup"} to ${APP_NAME}.`}
   />
 );
