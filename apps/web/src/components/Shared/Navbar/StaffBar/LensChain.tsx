@@ -5,11 +5,9 @@ import { useBlockNumber } from "wagmi";
 import { Badge } from ".";
 
 const LensChain: FC = () => {
-  const { data, isLoading } = useBlockNumber({
-    query: { refetchInterval: 2000 }
-  });
+  const { data } = useBlockNumber({ query: { refetchInterval: 2000 } });
 
-  if (isLoading || !data) {
+  if (!data) {
     return null;
   }
 
