@@ -3,10 +3,10 @@ import { Errors } from "@hey/data/errors";
 import axios from "axios";
 
 /**
- * Uploads the given data to hey-metadata S3 bucket.
+ * Uploads the given data to lens storage node.
  *
  * @param data The data to upload.
- * @returns The S3 transaction ID.
+ * @returns The storage node uri (lens://id).
  * @throws An error if the upload fails.
  */
 const uploadMetadata = async (data: any): Promise<string> => {
