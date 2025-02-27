@@ -33,7 +33,9 @@ export const STATIC_ASSETS_URL = "https://static.hey.xyz";
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const LENS_MEDIA_SNAPSHOT_URL =
   "https://ik.imagekit.io/lens/media-snapshot";
-export const STORAGE_NODE_URL = "https://api.grove.storage";
+export const STORAGE_NODE_URL = IS_MAINNET
+  ? "https://api.grove.storage"
+  : "https://api.staging.grove.storage";
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/cover.png`;
 export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;

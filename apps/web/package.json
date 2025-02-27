@@ -19,7 +19,7 @@
     "@hey/image-cropper": "workspace:*",
     "@hey/indexer": "workspace:*",
     "@hey/ui": "workspace:*",
-    "@lens-chain/storage-client": "0.0.0-next-20250226115542",
+    "@lens-chain/storage-client": "0.0.0-next-20250227110209",
     "@lens-network/sdk": "canary",
     "@lens-protocol/metadata": "next",
     "@livepeer/react": "^4.2.10",

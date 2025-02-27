@@ -250,8 +250,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@lens-chain/storage-client':
-        specifier: 0.0.0-next-20250226115542
-        version: 0.0.0-next-20250226115542
+        specifier: 0.0.0-next-20250227110209
+        version: 0.0.0-next-20250227110209
       '@lens-network/sdk':
         specifier: canary
         version: 0.0.0-canary-20241203140504(viem@2.23.5(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.2))
@@ -1769,8 +1769,8 @@ packages:
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
 
-  '@lens-chain/storage-client@0.0.0-next-20250226115542':
-    resolution: {integrity: sha512-mvohPul2bai/Ub+XJQrzI8qnQBgQ1rRPXX8Lm4tPsV747Vk0ApFnbLpY/vvyAVYBPZorCNkOeKFP+0adLnp5pA==}
+  '@lens-chain/storage-client@0.0.0-next-20250227110209':
+    resolution: {integrity: sha512-db3+rFfQqXHeGFPV7Mn30FE8vUSxRrFvxm5BcEC9I222bPVVPBCtt++46d30X4PpZlsDetKv/zwUW5Z8EouecQ==}
 
   '@lens-network/sdk@0.0.0-canary-20241203140504':
     resolution: {integrity: sha512-w5mNEXQTP0pSkCq6b8sgM2/87dad1gFTP7hbaDxy4lXnM1fBrVA5OzxWRfCIJJY8/NGdw4RYhEzJoXf4IRR97w==}
@@ -8399,7 +8399,7 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@lens-chain/storage-client@0.0.0-next-20250226115542': {}
+  '@lens-chain/storage-client@0.0.0-next-20250227110209': {}
 
   '@lens-network/sdk@0.0.0-canary-20241203140504(viem@2.23.5(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.2))':
     optionalDependencies:

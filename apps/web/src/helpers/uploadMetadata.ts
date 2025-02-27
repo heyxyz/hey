@@ -1,6 +1,5 @@
-import { STORAGE_NODE_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import axios from "axios";
+import { storageClient } from "./storageClient";
 
 /**
  * Uploads the given data to lens storage node.
@@ -11,8 +10,7 @@ import axios from "axios";
  */
 const uploadMetadata = async (data: any): Promise<string> => {
   try {
-    const response = await axios.post(STORAGE_NODE_URL, data);
-    const { uri } = response.data[0];
+    const { uri } = await storageClient.uploadAsJson(data);
 
     return uri;
   } catch {

@@ -1,7 +1,5 @@
 import type { StorageNodeResponse } from "@hey/types/misc";
-import { StorageClient } from "@lens-chain/storage-client";
-
-const storageClient = StorageClient.create();
+import { storageClient } from "./storageClient";
 
 /**
  * Uploads a set of files to the Lens Storage Node and returns an array of MediaSet objects.
