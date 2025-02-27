@@ -103,8 +103,11 @@ const FundAccount: FC = () => {
         </div>
       </div>
       <Card className="mt-5">
-        <div className="mx-5 my-3">
+        <div className="mx-5 my-3 flex items-center justify-between">
           <b>Purchase</b>
+          <span className="ld-text-gray-500 text-sm">
+            Balance: {walletBalance} wGHO
+          </span>
         </div>
         <div className="divider" />
         <div className="space-y-5 p-5">
