@@ -5,7 +5,7 @@
   "license": "AGPL-3.0",
   "scripts": {
     "build": "next build",
-    "dev": "next dev --turbopack --port 4783",
+    "dev": "next dev --port 4783",
     "start": "next start --port 4783",
     "typecheck": "tsc --pretty"
   },
