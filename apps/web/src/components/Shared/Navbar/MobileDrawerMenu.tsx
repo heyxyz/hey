@@ -1,9 +1,11 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { FeatureFlag } from "@hey/data/feature-flags";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import { useFlag } from "@unleash/proxy-client-react";
 import Link from "next/link";
 import type { FC } from "react";
 import { useMobileDrawerModalStore } from "src/store/non-persisted/modal/useMobileDrawerModalStore";
@@ -14,6 +16,7 @@ import Bookmarks from "./NavItems/Bookmarks";
 import Groups from "./NavItems/Groups";
 import Logout from "./NavItems/Logout";
 import Settings from "./NavItems/Settings";
+import StaffTools from "./NavItems/StaffTools";
 import Support from "./NavItems/Support";
 import SwitchAccount from "./NavItems/SwitchAccount";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
@@ -22,6 +25,7 @@ import YourAccount from "./NavItems/YourAccount";
 const MobileDrawerMenu: FC = () => {
   const { currentAccount } = useAccountStore();
   const { setShowMobileDrawer } = useMobileDrawerModalStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
 
   const handleCloseDrawer = () => {
     setShowMobileDrawer(false);
@@ -74,6 +78,11 @@ const MobileDrawerMenu: FC = () => {
             <Link href="/settings" onClick={handleCloseDrawer}>
               <Settings className={cn(itemClass, "px-4")} />
             </Link>
+            {isStaff ? (
+              <Link href="/staff" onClick={handleCloseDrawer}>
+                <StaffTools className={cn(itemClass, "px-4")} />
+              </Link>
+            ) : null}
             <Groups
               className={cn(itemClass, "px-4")}
               onClick={handleCloseDrawer}

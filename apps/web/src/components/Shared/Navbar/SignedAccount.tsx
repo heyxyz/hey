@@ -1,9 +1,11 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { FeatureFlag } from "@hey/data/feature-flags";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
+import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useMobileDrawerModalStore } from "src/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -14,6 +16,7 @@ import MobileDrawerMenu from "./MobileDrawerMenu";
 import AppVersion from "./NavItems/AppVersion";
 import Logout from "./NavItems/Logout";
 import Settings from "./NavItems/Settings";
+import StaffTools from "./NavItems/StaffTools";
 import SwitchAccount from "./NavItems/SwitchAccount";
 import ThemeSwitch from "./NavItems/ThemeSwitch";
 import YourAccount from "./NavItems/YourAccount";
@@ -21,6 +24,7 @@ import YourAccount from "./NavItems/YourAccount";
 const SignedAccount: FC = () => {
   const { currentAccount } = useAccountStore();
   const { setShowMobileDrawer, showMobileDrawer } = useMobileDrawerModalStore();
+  const isStaff = useFlag(FeatureFlag.Staff);
 
   const Avatar = () => (
     <Image
@@ -99,6 +103,17 @@ const SignedAccount: FC = () => {
             >
               <Settings />
             </MenuItem>
+            {isStaff ? (
+              <MenuItem
+                as={NextLink}
+                className={({ focus }: { focus: boolean }) =>
+                  cn({ "dropdown-active": focus }, "menu-item")
+                }
+                href="/staff"
+              >
+                <StaffTools />
+              </MenuItem>
+            ) : null}
             <MenuItem
               as="div"
               className={({ focus }) =>

@@ -12,7 +12,6 @@ import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
 import MenuItems from "./MenuItems";
 import MoreNavItems from "./MoreNavItems";
 import Search from "./Search";
-import StaffBar from "./StaffBar";
 
 const Navbar: FC = () => {
   const { currentAccount } = useAccountStore();
@@ -61,7 +60,6 @@ const Navbar: FC = () => {
 
   return (
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
-      <StaffBar />
       <div className="container mx-auto max-w-screen-xl px-5">
         <div className="relative flex h-14 items-center justify-between sm:h-16">
           <div className="flex items-center justify-start">
