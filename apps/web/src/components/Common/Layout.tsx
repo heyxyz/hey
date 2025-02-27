@@ -14,9 +14,8 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { hydrateAuthTokens, signOut } from "src/store/persisted/useAuthStore";
+import { signOut } from "src/store/persisted/useAuthStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useDisconnect } from "wagmi";
 import GlobalModals from "../Shared/GlobalModals";
 import Navbar from "../Shared/Navbar";
 
@@ -31,14 +30,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { resetPreferences } = usePreferencesStore();
   const { resetStatus } = useAccountStatus();
   const isMounted = useIsClient();
-  const { disconnect } = useDisconnect();
   const { address: sessionAccountAddress } = getCurrentSession();
 
   const logout = (shouldReload = false) => {
     resetPreferences();
     resetStatus();
     signOut();
-    disconnect?.();
     if (shouldReload) {
       reload();
     }
@@ -55,16 +52,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     skip: !sessionAccountAddress
   });
 
-  const validateAuthentication = () => {
-    const { accessToken } = hydrateAuthTokens();
-
-    if (!accessToken) {
+  useEffect(() => {
+    if (!sessionAccountAddress) {
       logout();
     }
-  };
-
-  useEffect(() => {
-    validateAuthentication();
   }, []);
 
   const profileLoading = !currentAccount && loading;

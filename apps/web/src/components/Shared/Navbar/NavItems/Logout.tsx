@@ -6,9 +6,9 @@ import cn from "@hey/ui/cn";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { signOut } from "src/store/persisted/useAuthStore";
 import { usePreferencesStore } from "src/store/persisted/usePreferencesStore";
-import { useDisconnect } from "wagmi";
 
 interface LogoutProps {
   className?: string;
@@ -19,8 +19,6 @@ const Logout: FC<LogoutProps> = ({ className = "", onClick }) => {
   const { reload } = useRouter();
   const { resetPreferences } = usePreferencesStore();
   const [revoking, setRevoking] = useState(false);
-
-  const { disconnect } = useDisconnect();
   const { authenticationId } = getCurrentSession();
 
   const onError = (error: any) => {
@@ -33,15 +31,21 @@ const Logout: FC<LogoutProps> = ({ className = "", onClick }) => {
   const handleLogout = async () => {
     try {
       setRevoking(true);
-      if (authenticationId) {
-        await revokeAuthentication({
-          variables: { request: { authenticationId } }
-        });
-      }
-      resetPreferences();
-      signOut();
-      disconnect?.();
-      reload();
+      toast.promise(
+        revokeAuthentication({
+          variables: { request: { authenticationId } },
+          onCompleted: () => {
+            resetPreferences();
+            signOut();
+            reload();
+          }
+        }),
+        {
+          loading: "Logging out...",
+          success: "Logged out successfully",
+          error: "Failed to log out"
+        }
+      );
     } catch (error) {
       onError(error);
     } finally {
