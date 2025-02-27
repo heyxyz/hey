@@ -170,8 +170,9 @@ const AccountSettingsForm: FC = () => {
         preparedAccountMetadata.attributes?.filter((m) => {
           return m.key !== "" && Boolean(trimify(m.value));
         });
-      const metadata = accountMetadata(preparedAccountMetadata);
-      const metadataUri = await uploadMetadata(metadata);
+      const metadataUri = await uploadMetadata(
+        accountMetadata(preparedAccountMetadata)
+      );
 
       return await setAccountMetadata({
         variables: { request: { metadataUri } }

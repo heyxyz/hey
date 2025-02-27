@@ -109,8 +109,9 @@ const ChooseUsername: FC = () => {
 
       if (auth.data?.authenticate.__typename === "AuthenticationTokens") {
         const accessToken = auth.data?.authenticate.accessToken;
-        const metadata = accountMetadata({ name: username });
-        const metadataUri = await uploadMetadata(metadata);
+        const metadataUri = await uploadMetadata(
+          accountMetadata({ name: username })
+        );
 
         setOnboardingToken(accessToken);
         return await createAccountWithUsername({

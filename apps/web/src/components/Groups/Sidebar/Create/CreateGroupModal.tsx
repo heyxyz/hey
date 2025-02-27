@@ -68,28 +68,19 @@ const CreateGroupModal: FC = () => {
 
     setIsSubmitting(true);
 
-    const metadata = group({
-      name: data.name,
-      description: data.description || undefined,
-      icon: pfpUrl
-    });
-    const metadataUri = await uploadMetadata(metadata);
+    const metadataUri = await uploadMetadata(
+      group({
+        name: data.name,
+        description: data.description || undefined,
+        icon: pfpUrl
+      })
+    );
+
     return await createGroup({
       variables: {
         request: {
           metadataUri,
           rules: { required: [{ banAccountRule: { enable: true } }] }
-          // TODO: Remove this once after testing
-          // rules: {
-          //   required: [
-          //     {
-          //       simplePaymentRule: {
-          //         cost: { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
-          //         recipient: "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF"
-          //       }
-          //     }
-          //   ]
-          // }
         }
       }
     });

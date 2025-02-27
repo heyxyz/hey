@@ -88,13 +88,14 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
     try {
       setIsSubmitting(true);
 
-      const metadata = groupMetadata({
-        name: data.name,
-        description: data.description,
-        icon: pfpUrl || undefined,
-        coverPicture: coverUrl || undefined
-      });
-      const metadataUri = await uploadMetadata(metadata);
+      const metadataUri = await uploadMetadata(
+        groupMetadata({
+          name: data.name,
+          description: data.description,
+          icon: pfpUrl || undefined,
+          coverPicture: coverUrl || undefined
+        })
+      );
 
       return await setGroupMetadata({
         variables: { request: { group: group.address, metadataUri } }
