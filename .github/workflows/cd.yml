@@ -1,4 +1,4 @@
-name: Deploy Docker Images
+name: Continuous Deployment
 
 env:
   WEB_RAILWAY_SERVICE_ID: 588272af-55fa-4a08-b0a2-ec2dec7600ce
