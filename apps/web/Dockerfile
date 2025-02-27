@@ -39,6 +39,10 @@ RUN adduser --system --uid 1001 app
 COPY --from=installer /app /app
 RUN chown -R 1001:1001 /app
 
+# Set environment variables
+ENV NEXT_PUBLIC_IS_PRODUCTION=true \
+    NEXT_PUBLIC_LENS_NETWORK=testnet
+
 # Switch to non-root user
 USER app
 

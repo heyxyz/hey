@@ -45,8 +45,8 @@ jobs:
               - 'packages/**'
 
   web:
-    # needs: check-changes
-    # if: needs.check-changes.outputs.web-changed == 'true'
+    needs: check-changes
+    if: needs.check-changes.outputs.web-changed == 'true'
     name: heyxyz/web:latest
     runs-on: ubuntu-latest
     steps:

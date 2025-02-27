@@ -13,7 +13,7 @@ export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const HEY_APP = getEnvConfig().appAddress;
 export const HEY_SPONSOR = getEnvConfig().sponsorAddress;
 export const HEY_API_URL = IS_PRODUCTION
-  ? "https://api.hey.xyz"
+  ? "https://hey-api-v3-mainnet.up.railway.app"
   : "http://localhost:4784";
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
