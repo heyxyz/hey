@@ -62,6 +62,10 @@ const nextConfig = {
       }
     ];
   },
+  env: {
+    NEXT_PUBLIC_IS_PRODUCTION: process.env.NEXT_PUBLIC_IS_PRODUCTION,
+    NEXT_PUBLIC_LENS_NETWORK: process.env.NEXT_PUBLIC_LENS_NETWORK
+  },
   transpilePackages: ["data"]
 };
 
