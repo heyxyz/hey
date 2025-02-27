@@ -1,4 +1,4 @@
-name: Continuous Deployment
+name: CD
 
 env:
   WEB_RAILWAY_SERVICE_ID: 588272af-55fa-4a08-b0a2-ec2dec7600ce
@@ -10,10 +10,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-changes:
