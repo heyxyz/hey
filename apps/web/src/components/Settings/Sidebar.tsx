@@ -4,11 +4,11 @@ import {
   AdjustmentsVerticalIcon,
   AtSymbolIcon,
   CodeBracketIcon,
-  CpuChipIcon,
   ExclamationTriangleIcon,
   FingerPrintIcon,
   GlobeAltIcon,
   NoSymbolIcon,
+  PaintBrushIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
 import type { Account } from "@hey/indexer";
@@ -20,12 +20,12 @@ const SettingsSidebar: FC = () => {
 
   const sidebarItems = [
     {
-      icon: <UserIcon className="size-4" />,
-      title: "Profile",
+      icon: <PaintBrushIcon className="size-4" />,
+      title: "Personalize",
       url: "/settings"
     },
     {
-      icon: <CpuChipIcon className="size-4" />,
+      icon: <UserIcon className="size-4" />,
       title: "Account",
       url: "/settings/account"
     },
