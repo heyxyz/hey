@@ -52,15 +52,15 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
       fields: { hasTipped: () => true },
       id: cache.identify(post.operations as LoggedInPostOperations)
     });
-    // cache.modify({
-    //   fields: {
-    //     stats: (existingData) => ({
-    //       ...existingData,
-    //       tips: existingData.tips + 1
-    //     })
-    //   },
-    //   id: cache.identify(post)
-    // });
+    cache.modify({
+      fields: {
+        stats: (existingData) => ({
+          ...existingData,
+          tips: existingData.tips + 1
+        })
+      },
+      id: cache.identify(post)
+    });
   };
 
   const onCompleted = () => {
