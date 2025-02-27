@@ -39,7 +39,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const { cache } = useApolloClient();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
-  const symbol = IS_MAINNET ? "GHO" : "WGRASS";
+  const symbol = IS_MAINNET ? "wGHO" : "wGRASS";
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address: currentAccount?.address,

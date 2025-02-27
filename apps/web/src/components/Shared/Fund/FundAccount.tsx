@@ -95,11 +95,11 @@ const FundAccount: FC = () => {
         <Image
           className="size-12 rounded-full"
           src={`${STATIC_IMAGES_URL}/tokens/gho.svg`}
-          alt="GHO"
+          alt="wGHO"
         />
-        <div className="font-bold text-2xl">{accountBalance} GHO</div>
+        <div className="font-bold text-2xl">{accountBalance} wGHO</div>
         <div className="ld-text-gray-500 text-sm">
-          GHO enables various on-chain and Hey-specific actions.
+          Wrapped GHO enables various Hey-specific actions.
         </div>
       </div>
       <Card className="mt-5">
@@ -108,27 +108,27 @@ const FundAccount: FC = () => {
         </div>
         <div className="divider" />
         <div className="space-y-5 p-5">
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 text-sm">
             <Button
               className="w-full"
               onClick={() => handleSetAmount(2)}
               outline={amount !== 2}
             >
-              2 GHO
+              2 wGHO
             </Button>
             <Button
               className="w-full"
               onClick={() => handleSetAmount(5)}
               outline={amount !== 5}
             >
-              5 GHO
+              5 wGHO
             </Button>
             <Button
               className="w-full"
               onClick={() => handleSetAmount(10)}
               outline={amount !== 10}
             >
-              10 GHO
+              10 wGHO
             </Button>
             <Button
               className="w-full"
@@ -147,6 +147,7 @@ const FundAccount: FC = () => {
                 className="no-spinner"
                 max={1000}
                 onChange={onOtherAmount}
+                prefix="wGHO"
                 placeholder="300"
                 ref={inputRef}
                 type="number"
@@ -166,7 +167,7 @@ const FundAccount: FC = () => {
             </Button>
           ) : (
             <Button disabled={!amount} className="w-full" onClick={handleFund}>
-              <b>Fund {amount} GHO</b>
+              <b>Fund {amount} wGHO</b>
             </Button>
           )}
         </div>

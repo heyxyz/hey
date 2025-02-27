@@ -119,11 +119,11 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
           label="Amount"
           placeholder="1"
           prefix={
-            <Tooltip content="Payable in GHO" placement="top">
+            <Tooltip content="Payable in wGHO" placement="top">
               <Image
                 className="size-5"
                 src={`${STATIC_IMAGES_URL}/tokens/gho.svg`}
-                alt="GHO"
+                alt="wGHO"
               />
             </Tooltip>
           }
