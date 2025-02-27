@@ -28,11 +28,11 @@ const WalletSelector: FC = () => {
         onClick={() => setOpen(true)}
         type="button"
       >
-        Connect wallet
+        Connect Wallet
         <img
-          alt="Browser Wallet"
+          alt="Family"
           className="size-6"
-          src={`${STATIC_IMAGES_URL}/wallets/browser-wallet.svg`}
+          src={`${STATIC_IMAGES_URL}/brands/family.png`}
         />
       </button>
       <div className="linkify text-gray-500 text-sm">
