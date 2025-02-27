@@ -35,6 +35,7 @@ const nextConfig = {
   poweredByHeader: false,
   productionBrowserSourceMaps: true,
   reactStrictMode: false,
+  devIndicators: false,
   redirects() {
     return [
       {
