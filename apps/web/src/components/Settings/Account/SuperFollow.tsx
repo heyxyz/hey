@@ -47,22 +47,25 @@ const SuperFollow: FC = () => {
     setAmount(simplePaymentAmount || 0);
   }, [simplePaymentAmount]);
 
+  const pollTransactionStatus = async (hash: string) => {
+    const { data } = await getTransactionStatus({
+      variables: { request: { txHash: hash } }
+    });
+
+    if (data?.transactionStatus?.__typename === "FinishedTransactionStatus") {
+      const accountData = await getCurrentAccountDetails();
+      setCurrentAccount({
+        currentAccount: accountData?.data?.me.loggedInAs.account as Account,
+        isSignlessEnabled: accountData?.data?.me.isSignless || false
+      });
+      reload();
+    } else {
+      setTimeout(() => pollTransactionStatus(hash), 1000);
+    }
+  };
+
   const onCompleted = (hash: string) => {
-    getTransactionStatus({ variables: { request: { txHash: hash } } }).then(
-      ({ data }) => {
-        if (
-          data?.transactionStatus?.__typename === "FinishedTransactionStatus"
-        ) {
-          getCurrentAccountDetails().then(({ data }) => {
-            setCurrentAccount({
-              currentAccount: data?.me.loggedInAs.account as Account,
-              isSignlessEnabled: data?.me.isSignless || false
-            });
-            reload();
-          });
-        }
-      }
-    );
+    pollTransactionStatus(hash);
   };
 
   const onError = (error: any) => {
@@ -125,7 +128,7 @@ const SuperFollow: FC = () => {
     <Card>
       <CardHeader
         body="You can set a payment rule to super follow users."
-        title="Super follow - Payment Gated"
+        title="Super follow"
       />
       <div className="m-5 space-y-4">
         <Input

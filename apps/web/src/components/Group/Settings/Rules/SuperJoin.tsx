@@ -42,17 +42,20 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
     setAmount(simplePaymentAmount || 0);
   }, [simplePaymentAmount]);
 
+  const pollTransactionStatus = async (hash: string) => {
+    const { data } = await getTransactionStatus({
+      variables: { request: { txHash: hash } }
+    });
+
+    if (data?.transactionStatus?.__typename === "FinishedTransactionStatus") {
+      reload();
+    } else {
+      setTimeout(() => pollTransactionStatus(hash), 1000);
+    }
+  };
+
   const onCompleted = (hash: string) => {
-    getTransactionStatus({ variables: { request: { txHash: hash } } }).then(
-      ({ data }) => {
-        if (
-          data?.transactionStatus?.__typename === "FinishedTransactionStatus"
-        ) {
-          setIsSubmitting(false);
-          reload();
-        }
-      }
-    );
+    pollTransactionStatus(hash);
   };
 
   const onError = (error: any) => {
