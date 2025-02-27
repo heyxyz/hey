@@ -53,7 +53,8 @@ export const generateMetadata = async ({
       url: `https://hey.xyz/posts/${targetPost.slug}`
     },
     other: {
-      "count:actions": targetPost.operations?.simpleCollectCount || 0,
+      "count:collects": targetPost.stats.collects,
+      "count:tips": targetPost.stats.tips,
       "count:comments": targetPost.stats.comments,
       "count:likes": targetPost.stats.reactions,
       "count:reposts": targetPost.stats.reposts,
@@ -89,7 +90,10 @@ const Page = async ({ params }: Props) => {
         <b>Stats</b>
         <ul>
           <li>
-            <a href={postUrl}>Actions: {metadata.other?.["count:actions"]}</a>
+            <a href={postUrl}>Collects: {metadata.other?.["count:collects"]}</a>
+          </li>
+          <li>
+            <a href={postUrl}>Tips: {metadata.other?.["count:tips"]}</a>
           </li>
           <li>Comments: {metadata.other?.["count:comments"]}</li>
           <li>

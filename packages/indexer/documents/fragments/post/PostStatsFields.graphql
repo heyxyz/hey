@@ -4,4 +4,6 @@ fragment PostStatsFields on PostStats {
   quotes
   reactions
   reposts
+  collects
+  tips
 }

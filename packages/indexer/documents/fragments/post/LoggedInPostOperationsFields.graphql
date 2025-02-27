@@ -23,6 +23,4 @@ fragment LoggedInPostOperationsFields on LoggedInPostOperations {
   canComment {
     __typename
   }
-  simpleCollectCount
-  postTipCount
 }

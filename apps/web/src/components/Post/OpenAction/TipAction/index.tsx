@@ -16,7 +16,7 @@ interface TipActionProps {
 
 const TipAction: FC<TipActionProps> = ({ post, showCount }) => {
   const hasTipped = post.operations?.hasTipped;
-  const postTipCount = post.operations?.postTipCount || 0;
+  const { tips } = post.stats;
 
   const iconClassName = showCount
     ? "w-[17px] sm:w-[20px]"
@@ -52,14 +52,14 @@ const TipAction: FC<TipActionProps> = ({ post, showCount }) => {
           </MenuItems>
         </MenuTransition>
       </Menu>
-      {(postTipCount || 0) > 0 && !showCount && (
+      {(tips || 0) > 0 && !showCount && (
         <span
           className={cn(
             hasTipped ? "text-brand-500" : "ld-text-gray-500",
             "text-[11px] sm:text-xs"
           )}
         >
-          {nFormatter(postTipCount || 0)}
+          {nFormatter(tips || 0)}
         </span>
       )}
     </div>

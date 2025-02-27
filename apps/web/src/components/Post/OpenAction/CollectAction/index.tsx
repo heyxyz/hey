@@ -13,7 +13,7 @@ interface CollectActionProps {
 
 const CollectAction: FC<CollectActionProps> = ({ post }) => {
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const simpleCollectCount = post.operations?.simpleCollectCount || 0;
+  const { collects } = post.stats;
 
   return (
     <div className="ld-text-gray-500 flex items-center space-x-1">
@@ -24,17 +24,15 @@ const CollectAction: FC<CollectActionProps> = ({ post }) => {
         type="button"
       >
         <Tooltip
-          content={`${humanize(simpleCollectCount)} ${plur("Collect", simpleCollectCount)}`}
+          content={`${humanize(collects)} ${plur("Collect", collects)}`}
           placement="top"
           withDelay
         >
           <ShoppingBagIcon className="w-[15px] sm:w-[18px]" />
         </Tooltip>
       </button>
-      {simpleCollectCount > 0 ? (
-        <span className="text-[11px] sm:text-xs">
-          {nFormatter(simpleCollectCount)}
-        </span>
+      {collects > 0 ? (
+        <span className="text-[11px] sm:text-xs">{nFormatter(collects)}</span>
       ) : null}
       <Modal
         onClose={() => setShowCollectModal(false)}
