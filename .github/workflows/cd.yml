@@ -61,6 +61,9 @@ jobs:
           image_name: web
           tag_name: "v3"
           docker_file: ./apps/web/Dockerfile
+          build_args: |
+            NEXT_PUBLIC_IS_PRODUCTION=true
+            NEXT_PUBLIC_LENS_NETWORK=testnet
 
       - name: Trigger Web Deployment 🚀
         uses: indiesdev/curl@v1
