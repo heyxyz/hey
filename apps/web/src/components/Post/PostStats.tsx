@@ -18,10 +18,17 @@ const PostStats: FC<PostStatsProps> = ({ post }) => {
   const [showRepostsModal, setShowRepostsModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const { bookmarks, comments, reposts, quotes, reactions } = post.stats;
+  const { bookmarks, comments, reposts, quotes, reactions, collects, tips } =
+    post.stats;
 
   const showStats =
-    comments > 0 || reactions > 0 || reposts > 0 || quotes > 0 || bookmarks > 0;
+    comments > 0 ||
+    reactions > 0 ||
+    reposts > 0 ||
+    quotes > 0 ||
+    bookmarks > 0 ||
+    collects > 0 ||
+    tips > 0;
 
   if (!showStats) {
     return null;
@@ -68,7 +75,18 @@ const PostStats: FC<PostStatsProps> = ({ post }) => {
             {plur("Like", reactions)}
           </button>
         ) : null}
-        {/* TODO: Add tips count */}
+        {tips > 0 ? (
+          <span>
+            <b className="text-black dark:text-white">{nFormatter(tips)}</b>{" "}
+            {plur("Tip", tips)}
+          </span>
+        ) : null}
+        {collects > 0 ? (
+          <span>
+            <b className="text-black dark:text-white">{nFormatter(collects)}</b>{" "}
+            {plur("Collect", collects)}
+          </span>
+        ) : null}
         {bookmarks > 0 ? (
           <span>
             <b className="text-black dark:text-white">
