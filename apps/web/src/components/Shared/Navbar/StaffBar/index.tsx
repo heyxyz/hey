@@ -6,7 +6,6 @@ import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
-import Performance from "./Performance";
 
 interface BadgeProps {
   children: ReactNode;
@@ -28,7 +27,6 @@ const StaffBar: FC = () => {
   return (
     <div className="flex items-center justify-between bg-gray-200 px-3 py-1 text-sm dark:bg-gray-800">
       <div className="mr-5 flex flex-wrap items-center gap-2">
-        <Performance />
         <div className="flex items-center space-x-1">
           <GlobeAltIcon
             className={cn(
