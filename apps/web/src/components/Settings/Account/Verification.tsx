@@ -83,7 +83,6 @@ const Verification: FC = () => {
             className="!mt-4"
             disabled={!hasAllRequirements}
             onClick={() => {
-              // TODO: Migrate to Hey API
               toast.success("Verification request sent to staff!");
             }}
           >

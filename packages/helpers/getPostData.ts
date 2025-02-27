@@ -57,8 +57,7 @@ const getPostData = (
       return {
         asset: {
           cover: metadata.video.cover || videoAttachments?.coverUri,
-          // TODO: Fix this type
-          license: metadata.video.license as any,
+          license: metadata.video.license,
           type: "Video",
           uri: metadata.video.item || videoAttachments?.uri
         },
