@@ -7,8 +7,6 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const allowedBots =
   ".*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook).*";
-const { VERCEL_DEPLOYMENT_ID } = process.env;
-const DEPLOYMENT_ID = VERCEL_DEPLOYMENT_ID || "unknown";
 
 // Remove data-testid from production
 const isDevelopment = process.env.NODE_ENV === "development";
@@ -19,40 +17,28 @@ const compilerOptions = isDevelopment
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   ...compilerOptions,
+  poweredByHeader: false,
+  productionBrowserSourceMaps: true,
+  reactStrictMode: false,
+  devIndicators: false,
   headers() {
     return [
       {
         headers: [
           { key: "Referrer-Policy", value: "strict-origin" },
           { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "X-XSS-Protection", value: "1; mode=block" },
-          { key: "X-Hey-Deployment", value: DEPLOYMENT_ID }
+          { key: "X-XSS-Protection", value: "1; mode=block" }
         ],
         source: "/(.*)"
       }
     ];
   },
-  poweredByHeader: false,
-  productionBrowserSourceMaps: true,
-  reactStrictMode: false,
-  devIndicators: false,
   redirects() {
     return [
-      {
-        destination: "/?signup=true",
-        permanent: false,
-        source: "/signup"
-      },
       {
         destination: "https://discord.com/invite/B8eKhSSUwX",
         permanent: true,
         source: "/discord"
-      },
-      {
-        destination:
-          "https://zora.co/collect/zora:0xf2086c0eaa8b34b0eef73920d0b1b53f4146e2e4/1?referrer=0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF",
-        permanent: true,
-        source: "/zorb"
       },
       {
         destination:
