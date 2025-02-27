@@ -19,6 +19,7 @@ jobs:
   check-changes:
     runs-on: ubuntu-latest
     outputs:
+      web-changed: ${{ steps.filter.outputs.web }}
       api-changed: ${{ steps.filter.outputs.api }}
       cron-changed: ${{ steps.filter.outputs.cron }}
       og-changed: ${{ steps.filter.outputs.og }}
