@@ -50,9 +50,7 @@ const Follow: FC<FollowProps> = ({
     updateCache();
     setIsSubmitting(false);
     onFollow?.();
-    if (title === "Follow") {
-      trackEvent(Events.Account.Follow);
-    }
+    trackEvent(Events.Account.Follow);
   };
 
   const onError = (error: any) => {

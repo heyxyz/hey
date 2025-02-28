@@ -5,7 +5,6 @@ export const Events = {
     Switch: "switch_account",
     Follow: "follow_account",
     Unfollow: "unfollow_account",
-    SuperFollow: "super_follow_account",
     Block: "block_account",
     Unblock: "unblock_account",
     Mute: "mute_account",

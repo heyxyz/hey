@@ -14,8 +14,8 @@ interface JoinProps {
   group: Group;
   setJoined: (joined: boolean) => void;
   small: boolean;
-  label?: string;
   className?: string;
+  title?: string;
 }
 
 const Join: FC<JoinProps> = ({
@@ -23,7 +23,7 @@ const Join: FC<JoinProps> = ({
   setJoined,
   small,
   className = "",
-  label = "Join"
+  title = "Join"
 }) => {
   const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -89,7 +89,7 @@ const Join: FC<JoinProps> = ({
       outline
       size={small ? "sm" : "md"}
     >
-      {label}
+      {title}
     </Button>
   );
 };

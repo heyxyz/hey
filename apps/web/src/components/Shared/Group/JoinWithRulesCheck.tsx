@@ -43,7 +43,7 @@ const JoinWithRulesCheck: FC<JoinWithRulesCheckProps> = ({
       group={group}
       setJoined={setJoined}
       small={small}
-      label={requiresMembershipApproval ? "Request to join" : "Join"}
+      title={requiresMembershipApproval ? "Request to join" : "Join"}
     />
   );
 };

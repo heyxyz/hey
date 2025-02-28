@@ -76,12 +76,10 @@ const SuperJoin: FC = () => {
           <Join
             className="w-full"
             group={superJoiningGroup as Group}
-            setJoined={() => {
-              setShowSuperJoinModal(false, superJoiningGroup);
-            }}
+            setJoined={() => setShowSuperJoinModal(false, superJoiningGroup)}
             small={false}
-            label={
-              requiresMembershipApproval ? "Request to join" : "Join group"
+            title={
+              requiresMembershipApproval ? "Request to join" : "Super Join"
             }
           />
         ) : (
