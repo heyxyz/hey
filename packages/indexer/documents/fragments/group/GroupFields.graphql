@@ -14,10 +14,7 @@ fragment GroupFields on Group {
     ...LoggedInGroupOperationsFields
   }
   metadata {
-    name
-    description
-    icon
-    coverPicture
+    ...GroupMetadataFields
   }
   timestamp
 }

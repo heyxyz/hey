@@ -1,4 +1,4 @@
-fragment AccountMetadata on AccountMetadata {
+fragment AccountMetadataFields on AccountMetadata {
   id
   name
   bio

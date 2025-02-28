@@ -1,0 +1,6 @@
+fragment GroupMetadataFields on GroupMetadata {
+  name
+  description
+  icon
+  coverPicture
+}

@@ -14,7 +14,7 @@ fragment AccountFields on Account {
     ...LoggedInAccountOperationsFields
   }
   metadata {
-    ...AccountMetadata
+    ...AccountMetadataFields
   }
   username(request: { autoResolve: true }) {
     ...UsernameFields

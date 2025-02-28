@@ -6,8 +6,7 @@ fragment PostBaseFields on Post {
     group {
       address
       metadata {
-        name
-        icon
+        ...GroupMetadataFields
       }
     }
   }
