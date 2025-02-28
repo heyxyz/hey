@@ -1,8 +1,10 @@
 import AvatarUpload from "@components/Shared/AvatarUpload";
 import CoverUpload from "@components/Shared/CoverUpload";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import { Regex } from "@hey/data/regex";
 import { type Group, useSetGroupMetadataMutation } from "@hey/indexer";
 import { Button, Card, Form, Input, TextArea, useZodForm } from "@hey/ui";
@@ -45,6 +47,7 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
 
   const onCompleted = () => {
     setIsSubmitting(false);
+    trackEvent(Events.Group.UpdateSettings, { type: "set_metadata" });
     toast.success("Group updated");
   };
 

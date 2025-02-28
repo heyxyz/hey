@@ -1,8 +1,10 @@
 import AvatarUpload from "@components/Shared/AvatarUpload";
 import CoverUpload from "@components/Shared/CoverUpload";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import { Regex } from "@hey/data/regex";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import trimify from "@hey/helpers/trimify";
@@ -69,6 +71,7 @@ const AccountSettingsForm: FC = () => {
       });
     });
     setIsSubmitting(false);
+    trackEvent(Events.Account.UpdateSettings, { type: "set_metadata" });
     toast.success("Account updated");
   };
 

@@ -1,8 +1,10 @@
 import SearchAccounts from "@components/Shared/SearchAccounts";
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import { useAddAccountManagerMutation } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import type { Dispatch, FC, SetStateAction } from "react";
@@ -31,6 +33,7 @@ const AddAccountManager: FC<AddAccountManagerProps> = ({
   const onCompleted = () => {
     setIsSubmitting(false);
     setShowAddManagerModal(false);
+    trackEvent(Events.Account.UpdateSettings, { type: "add_manager" });
     toast.success("Account manager added");
   };
 

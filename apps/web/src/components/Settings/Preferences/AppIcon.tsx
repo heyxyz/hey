@@ -1,8 +1,10 @@
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { CheckCircleIcon as CheckCircleIconOutline } from "@heroicons/react/24/outline";
 import { CheckCircleIcon as CheckCircleIconSolid } from "@heroicons/react/24/solid";
 import { APP_NAME, HEY_API_URL, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { Events } from "@hey/data/events";
 import { Card, CardHeader, Tooltip } from "@hey/ui";
 import axios from "axios";
 import type { FC } from "react";
@@ -32,6 +34,7 @@ const AppIcon: FC = () => {
       );
 
       setAppIcon(id);
+      trackEvent(Events.Account.UpdateSettings, { type: "set_app_icon", id });
       toast.success("App icon updated");
     } catch (error) {
       errorToast(error);

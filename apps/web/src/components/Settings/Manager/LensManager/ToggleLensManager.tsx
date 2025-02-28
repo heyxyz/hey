@@ -1,5 +1,7 @@
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import {
   useEnableSignlessMutation,
   useRemoveSignlessMutation
@@ -27,6 +29,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 
   const onCompleted = () => {
     setIsSubmitting(false);
+    trackEvent(Events.Account.UpdateSettings, { type: "toggle_signless" });
     toast.success("Signless enabled");
   };
 

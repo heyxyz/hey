@@ -1,7 +1,9 @@
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { getSimplePaymentDetails } from "@helpers/rules";
 import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import {
   type Account,
   AccountFollowRuleType,
@@ -65,6 +67,7 @@ const SuperFollow: FC = () => {
   };
 
   const onCompleted = (hash: string) => {
+    trackEvent(Events.Account.UpdateSettings, { type: "simple_payment_rule" });
     pollTransactionStatus(hash);
   };
 
