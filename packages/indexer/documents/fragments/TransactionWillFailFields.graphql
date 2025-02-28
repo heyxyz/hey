@@ -1,0 +1,3 @@
+fragment TransactionWillFailFields on TransactionWillFail {
+  reason
+}

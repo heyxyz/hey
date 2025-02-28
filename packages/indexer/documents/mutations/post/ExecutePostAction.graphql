@@ -10,7 +10,7 @@ mutation ExecutePostAction($request: ExecutePostActionRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

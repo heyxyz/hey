@@ -10,7 +10,7 @@ mutation Unblock($request: UnblockRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

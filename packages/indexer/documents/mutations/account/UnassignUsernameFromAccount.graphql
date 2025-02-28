@@ -12,7 +12,7 @@ mutation UnassignUsernameFromAccount(
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

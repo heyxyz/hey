@@ -7,7 +7,7 @@ mutation CreateGroup($request: CreateGroupRequest!) {
       ...SelfFundedTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

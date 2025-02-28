@@ -10,7 +10,7 @@ mutation SetAccountMetadata($request: SetAccountMetadataRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

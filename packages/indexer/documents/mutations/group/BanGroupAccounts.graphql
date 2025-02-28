@@ -10,7 +10,7 @@ mutation BanGroupAccounts($request: BanGroupAccountsRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

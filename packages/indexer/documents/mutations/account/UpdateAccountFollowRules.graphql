@@ -10,7 +10,7 @@ mutation UpdateAccountFollowRules($request: UpdateAccountFollowRulesRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

@@ -7,7 +7,7 @@ mutation UpdateGroupRules($request: UpdateGroupRulesRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

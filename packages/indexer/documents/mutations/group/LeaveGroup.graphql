@@ -13,7 +13,7 @@ mutation LeaveGroup($request: LeaveGroupRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

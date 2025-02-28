@@ -7,7 +7,7 @@ mutation SetGroupMetadata($request: SetGroupMetadataRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

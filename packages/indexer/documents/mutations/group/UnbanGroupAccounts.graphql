@@ -10,7 +10,7 @@ mutation UnbanGroupAccounts($request: UnbanGroupAccountsRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

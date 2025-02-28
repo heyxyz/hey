@@ -10,7 +10,7 @@ mutation AssignUsernameToAccount($request: AssignUsernameToAccountRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

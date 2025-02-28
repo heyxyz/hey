@@ -13,7 +13,7 @@ mutation Follow($request: CreateFollowRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

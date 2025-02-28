@@ -10,7 +10,7 @@ mutation DeletePost($request: DeletePostRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

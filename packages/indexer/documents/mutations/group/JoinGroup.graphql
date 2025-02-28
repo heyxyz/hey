@@ -13,7 +13,7 @@ mutation JoinGroup($request: JoinGroupRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

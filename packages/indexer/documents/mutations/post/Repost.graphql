@@ -10,7 +10,7 @@ mutation Repost($request: CreateRepostRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

@@ -7,7 +7,7 @@ mutation AddAccountManager($request: AddAccountManagerRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

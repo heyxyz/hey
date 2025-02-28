@@ -12,7 +12,7 @@ mutation CreateAccountWithUsername(
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }

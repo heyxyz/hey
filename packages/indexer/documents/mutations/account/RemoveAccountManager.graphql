@@ -7,7 +7,7 @@ mutation RemoveAccountManager($request: RemoveAccountManagerRequest!) {
       ...SponsoredTransactionRequestFields
     }
     ... on TransactionWillFail {
-      reason
+      ...TransactionWillFailFields
     }
   }
 }
