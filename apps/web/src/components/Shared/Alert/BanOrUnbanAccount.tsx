@@ -1,6 +1,8 @@
 import { useApolloClient } from "@apollo/client";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import getAccount from "@hey/helpers/getAccount";
 import {
   type Account,
@@ -38,6 +40,7 @@ const BanOrUnbanAccount: FC = () => {
     updateCache();
     setIsSubmitting(false);
     setShowBanOrUnbanAlert(false, banning, null, null);
+    trackEvent(banning ? Events.Group.Ban : Events.Group.Unban);
     toast.success(banning ? "Banned successfully" : "Unbanned successfully");
   };
 

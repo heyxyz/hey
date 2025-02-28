@@ -1,6 +1,8 @@
 import { useApolloClient } from "@apollo/client";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import getAccount from "@hey/helpers/getAccount";
 import {
   type LoggedInAccountOperations,
@@ -44,6 +46,7 @@ const MuteOrUnmuteAccount: FC = () => {
     setIsSubmitting(false);
     setHasMuted(!hasMuted);
     setShowMuteOrUnmuteAlert(false, null);
+    trackEvent(hasMuted ? Events.Account.Unmute : Events.Account.Mute);
     toast.success(hasMuted ? "Unmuted successfully" : "Muted successfully");
   };
 

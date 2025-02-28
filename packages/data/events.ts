@@ -8,6 +8,8 @@ export const Events = {
     SuperFollow: "super_follow_account",
     Block: "block_account",
     Unblock: "unblock_account",
+    Mute: "mute_account",
+    Unmute: "unmute_account",
     UpdateSettings: "update_account_settings"
   },
   Post: {
@@ -25,6 +27,8 @@ export const Events = {
     Create: "create_group",
     Join: "join_group",
     Leave: "leave_group",
+    Ban: "ban_group",
+    Unban: "unban_group",
     UpdateSettings: "update_group_settings"
   }
 };
