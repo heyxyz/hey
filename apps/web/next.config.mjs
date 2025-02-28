@@ -1,5 +1,4 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
-import { withAxiom } from "next-axiom";
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true"
@@ -65,4 +64,4 @@ const nextConfig = {
   transpilePackages: ["data"]
 };
 
-export default withBundleAnalyzer(withAxiom(nextConfig));
+export default withBundleAnalyzer(nextConfig);
