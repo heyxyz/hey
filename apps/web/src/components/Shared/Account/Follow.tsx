@@ -1,6 +1,8 @@
 import { useApolloClient } from "@apollo/client";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import {
   type Account,
   type LoggedInAccountOperations,
@@ -49,6 +51,7 @@ const Follow: FC<FollowProps> = ({
     updateCache();
     setIsSubmitting(false);
     onFollow?.();
+    trackEvent(Events.Account.Follow);
   };
 
   const onError = (error: any) => {

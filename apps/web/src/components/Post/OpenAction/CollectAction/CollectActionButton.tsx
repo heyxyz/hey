@@ -1,9 +1,11 @@
 import { useApolloClient } from "@apollo/client";
 import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { COLLECT_FEES_WALLET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
 import {
   type LoggedInPostOperations,
@@ -77,6 +79,10 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
     setIsSubmitting(false);
     onCollectSuccess?.();
     updateCache();
+    trackEvent(Events.Post.Collect, {
+      amount: amount,
+      currency: collectAction?.assetSymbol
+    });
     toast.success("Collected successfully");
   };
 

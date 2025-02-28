@@ -1,7 +1,9 @@
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import {
   type Group,
   GroupRuleType,
@@ -29,6 +31,7 @@ const ApprovalRule: FC<ApprovalRuleProps> = ({ group }) => {
 
   const onCompleted = () => {
     setIsSubmitting(false);
+    trackEvent(Events.Group.UpdateSettings, { type: "approval_rule" });
     toast.success("Approval rule updated");
   };
 

@@ -1,8 +1,10 @@
 import ToggleWithHelper from "@components/Shared/ToggleWithHelper";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import { SwatchIcon } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
+import { Events } from "@hey/data/events";
 import axios from "axios";
 import type { FC } from "react";
 import { useState } from "react";
@@ -23,6 +25,9 @@ const IncludeLowScore: FC = () => {
       );
 
       setIncludeLowScore(!includeLowScore);
+      trackEvent(Events.Account.UpdateSettings, {
+        type: "toggle_include_low_score"
+      });
       toast.success("Notification preference updated");
     } catch (error) {
       errorToast(error);

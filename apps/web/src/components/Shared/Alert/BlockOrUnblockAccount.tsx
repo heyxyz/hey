@@ -1,6 +1,8 @@
 import { useApolloClient } from "@apollo/client";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import getAccount from "@hey/helpers/getAccount";
 import {
   type Account,
@@ -48,6 +50,7 @@ const BlockOrUnblockAccount: FC = () => {
     setIsSubmitting(false);
     setHasBlocked(!hasBlocked);
     setShowBlockOrUnblockAlert(false, null);
+    trackEvent(hasBlocked ? Events.Account.Unblock : Events.Account.Block);
     toast.success(
       hasBlocked ? "Unblocked successfully" : "Blocked successfully"
     );

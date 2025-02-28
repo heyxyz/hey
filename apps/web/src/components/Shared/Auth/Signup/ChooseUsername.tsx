@@ -1,3 +1,4 @@
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import {
@@ -8,6 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import { Regex } from "@hey/data/regex";
 import {
   useAccountQuery,
@@ -127,6 +129,7 @@ const ChooseUsername: FC = () => {
               setTransactionHash(createAccountWithUsername.hash);
               setChoosedHandle(username);
               setScreen("minting");
+              trackEvent(Events.Account.Signup);
             }
           }
         });

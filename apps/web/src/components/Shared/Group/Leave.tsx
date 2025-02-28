@@ -1,6 +1,8 @@
 import { useApolloClient } from "@apollo/client";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import {
   type Group,
   type LoggedInGroupOperations,
@@ -35,6 +37,7 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
     updateCache();
     setIsSubmitting(false);
     setJoined(false);
+    trackEvent(Events.Group.Leave);
     toast.success("Left group");
   };
 

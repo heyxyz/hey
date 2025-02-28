@@ -1,9 +1,11 @@
 import { useApolloClient } from "@apollo/client";
 import FundButton from "@components/Shared/Fund/FundButton";
 import LoginButton from "@components/Shared/LoginButton";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { DEFAULT_COLLECT_TOKEN, IS_MAINNET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import {
   type LoggedInPostOperations,
   type Post,
@@ -67,6 +69,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
     setIsSubmitting(false);
     closePopover();
     updateCache();
+    trackEvent(Events.Post.Tip, { amount: amount });
     toast.success(`Tipped ${amount} ${symbol}`);
   };
 

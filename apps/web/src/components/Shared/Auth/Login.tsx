@@ -1,9 +1,11 @@
 import SwitchNetwork from "@components/Shared/SwitchNetwork";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { HEY_APP } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import {
   type Account,
   useAccountsAvailableQuery,
@@ -87,6 +89,7 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
         const refreshToken = auth.data?.authenticate.refreshToken;
         const idToken = auth.data?.authenticate.idToken;
         signIn({ accessToken, idToken, refreshToken });
+        trackEvent(Events.Account.Login);
         return reload();
       }
 

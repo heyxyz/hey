@@ -1,6 +1,8 @@
 import { useApolloClient } from "@apollo/client";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import {
   type Account,
   type LoggedInAccountOperations,
@@ -45,6 +47,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const onCompleted = () => {
     updateCache();
     setIsSubmitting(false);
+    trackEvent(Events.Account.Unfollow);
   };
 
   const onError = (error: any) => {

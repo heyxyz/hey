@@ -1,6 +1,8 @@
 import { useApolloClient } from "@apollo/client";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import { useDeletePostMutation } from "@hey/indexer";
 import { Alert } from "@hey/ui";
 import type { FC } from "react";
@@ -25,6 +27,7 @@ const DeletePost: FC = () => {
   const onCompleted = () => {
     setShowPostDeleteAlert(false, null);
     updateCache();
+    trackEvent(Events.Post.Delete);
     toast.success("Post deleted");
   };
 

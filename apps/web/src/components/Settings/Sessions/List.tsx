@@ -1,7 +1,9 @@
 import Loader from "@components/Shared/Loader";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { ComputerDesktopIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import {
   type AuthenticatedSessionsRequest,
@@ -34,6 +36,7 @@ const List: FC = () => {
   const onCompleted = () => {
     setRevoking(false);
     setRevokeingSessionId(null);
+    trackEvent(Events.Account.UpdateSettings, { type: "revoke_session" });
     toast.success("Session revoked");
   };
 

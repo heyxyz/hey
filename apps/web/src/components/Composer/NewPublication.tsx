@@ -3,10 +3,12 @@ import QuotedPost from "@components/Post/QuotedPost";
 import { AudioPostSchema } from "@components/Shared/Audio";
 import Wrapper from "@components/Shared/Embed/Wrapper";
 import EmojiPicker from "@components/Shared/EmojiPicker";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import collectActionParams from "@hey/helpers/collectActionParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
@@ -116,6 +118,17 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
     setShowNewPostModal(false);
   };
 
+  const onCompleted = () => {
+    reset();
+    trackEvent(
+      isComment
+        ? Events.Post.Comment
+        : isQuote
+          ? Events.Post.Quote
+          : Events.Post.Post
+    );
+  };
+
   const onError = (error?: any) => {
     setIsSubmitting(false);
     errorToast(error);
@@ -123,7 +136,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
 
   const { createPost } = useCreatePost({
     commentOn: post,
-    onCompleted: () => reset(),
+    onCompleted,
     onError
   });
 
