@@ -44,4 +44,4 @@ runs:
         context: .
         file: ${{ inputs.docker_file }}
         push: true
-        tags: heyxyz/${{ inputs.image_name }}:${{ inputs.tag_name }}
+        tags: heyverse/${{ inputs.image_name }}:${{ inputs.tag_name }}

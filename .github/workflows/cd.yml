@@ -44,13 +44,13 @@ jobs:
   web:
     needs: check-changes
     if: needs.check-changes.outputs.web-changed == 'true'
-    name: heyxyz/web:latest
+    name: heyverse/web:latest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push heyxyz/web:latest 🚀
+      - name: Build and push heyverse/web:latest 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -63,7 +63,7 @@ jobs:
         uses: indiesdev/curl@v1
         id: deploy
         with:
-          url: "https://redeploy.heyxyz.workers.dev"
+          url: "https://redeploy.heyverse.workers.dev"
           params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.WEB_RAILWAY_SERVICE_ID }}" }'
           method: "GET"
           timeout: 30000
@@ -71,13 +71,13 @@ jobs:
   api:
     needs: check-changes
     if: needs.check-changes.outputs.api-changed == 'true'
-    name: heyxyz/api:latest
+    name: heyverse/api:latest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push heyxyz/api:latest 🚀
+      - name: Build and push heyverse/api:latest 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -90,7 +90,7 @@ jobs:
         uses: indiesdev/curl@v1
         id: deploy
         with:
-          url: "https://redeploy.heyxyz.workers.dev"
+          url: "https://redeploy.heyverse.workers.dev"
           params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.API_RAILWAY_SERVICE_ID }}" }'
           method: "GET"
           timeout: 30000
@@ -98,13 +98,13 @@ jobs:
   cron:
     needs: check-changes
     if: needs.check-changes.outputs.cron-changed == 'true'
-    name: heyxyz/cron:latest
+    name: heyverse/cron:latest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push heyxyz/cron:latest 🚀
+      - name: Build and push heyverse/cron:latest 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -117,7 +117,7 @@ jobs:
       #   uses: indiesdev/curl@v1
       #   id: deploy
       #   with:
-      #     url: "https://redeploy.heyxyz.workers.dev"
+      #     url: "https://redeploy.heyverse.workers.dev"
       #     params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.CRON_RAILWAY_SERVICE_ID }}" }'
       #     method: "GET"
       #     timeout: 30000
@@ -125,13 +125,13 @@ jobs:
   og:
     needs: check-changes
     if: needs.check-changes.outputs.og-changed == 'true'
-    name: heyxyz/og:latest
+    name: heyverse/og:latest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push heyxyz/og:latest 🚀
+      - name: Build and push heyverse/og:latest 🚀
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -144,7 +144,7 @@ jobs:
       #   uses: indiesdev/curl@v1
       #   id: deploy
       #   with:
-      #     url: "https://redeploy.heyxyz.workers.dev"
+      #     url: "https://redeploy.heyverse.workers.dev"
       #     params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.OG_RAILWAY_SERVICE_ID }}" }'
       #     method: "GET"
       #     timeout: 30000

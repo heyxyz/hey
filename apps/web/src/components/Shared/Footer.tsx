@@ -24,7 +24,7 @@ const links = [
     label: "Status"
   },
   {
-    href: "https://github.com/heyxyz/hey",
+    href: "https://github.com/heyverse/hey",
     label: "GitHub"
   },
   { href: "/support", label: "Support" }
