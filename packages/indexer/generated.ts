@@ -4799,7 +4799,7 @@ export type MutationRefreshArgs = {
 
 
 export type MutationRefreshMetadataArgs = {
-  request: EntityId;
+  request: RefreshMetadataRequest;
 };
 
 
@@ -6461,7 +6461,7 @@ export type QueryPostsArgs = {
 
 
 export type QueryRefreshMetadataStatusArgs = {
-  id: Scalars['UUID']['input'];
+  request: RefreshMetadataStatusRequest;
 };
 
 
@@ -6589,10 +6589,19 @@ export type ReferralCut = {
   percent: Scalars['Int']['input'];
 };
 
+export type RefreshMetadataRequest = {
+  entity: EntityId;
+};
+
 export type RefreshMetadataResult = {
   __typename?: 'RefreshMetadataResult';
   /** The id of the refresh metadata job. You can use this id to check the status of the job. */
   id: Scalars['UUID']['output'];
+};
+
+export type RefreshMetadataStatusRequest = {
+  /** The refresh metadata status ID from the refreshMetadata mutation. */
+  id: Scalars['UUID']['input'];
 };
 
 export type RefreshMetadataStatusResult = {
