@@ -1,6 +1,8 @@
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import {
@@ -58,6 +60,7 @@ const SwitchAccounts: FC = () => {
         const idToken = auth.data?.switchAccount.idToken;
         signOut();
         signIn({ accessToken, idToken, refreshToken });
+        trackEvent(Events.Account.Switch);
         return reload();
       }
 

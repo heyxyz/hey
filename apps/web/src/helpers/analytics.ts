@@ -4,7 +4,7 @@
  * @param data - The data to track
  * @returns The result of the Simple Analytics event
  */
-const trackEvent = (event: string, data: any) => {
+const trackEvent = (event: string, data?: Record<string, any>) => {
   return (window as any)?.sa_event(event, data);
 };
 

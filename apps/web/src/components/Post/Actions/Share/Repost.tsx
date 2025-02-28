@@ -1,8 +1,10 @@
 import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import {
   type LoggedInPostOperations,
   type Post,
@@ -58,6 +60,7 @@ const Repost: FC<RepostProps> = ({ isSubmitting, post, setIsSubmitting }) => {
     setIsSubmitting(false);
     increment();
     updateCache();
+    trackEvent(Events.Post.Repost);
     toast.success("Post has been reposted!");
   };
 

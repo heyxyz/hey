@@ -1,19 +1,28 @@
 export const Events = {
   Account: {
-    Signup: "signup",
-    Login: "login",
-    Follow: "follow",
-    Unfollow: "unfollow"
+    Signup: "signup_account",
+    Login: "login_account",
+    Switch: "switch_account",
+    Follow: "follow_account",
+    Unfollow: "unfollow_account",
+    SuperFollow: "super_follow_account",
+    Block: "block_account",
+    Unblock: "unblock_account"
   },
   Post: {
-    Post: "post",
-    Comment: "comment",
-    Like: "like",
-    Repost: "repost",
-    Collect: "collect"
+    Post: "new_post",
+    Comment: "new_comment",
+    Quote: "new_quote",
+    Like: "like_post",
+    UndoLike: "undo_like_post",
+    Repost: "repost_post",
+    Collect: "collect_post",
+    Tip: "tip_post",
+    Delete: "delete_post"
   },
   Group: {
-    Join: "join",
-    Leave: "leave"
+    Create: "create_group",
+    Join: "join_group",
+    Leave: "leave_group"
   }
 };

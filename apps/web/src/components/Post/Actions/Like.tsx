@@ -1,8 +1,10 @@
 import type { ApolloCache } from "@apollo/client";
+import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
+import { Events } from "@hey/data/events";
 import nFormatter from "@hey/helpers/nFormatter";
 import {
   type LoggedInPostOperations,
@@ -54,6 +56,7 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
   };
 
   const [addReaction] = useAddReactionMutation({
+    onCompleted: () => trackEvent(Events.Post.Like),
     onError: (error) => {
       toggleReact();
       decrement();
@@ -63,6 +66,7 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
   });
 
   const [undoReaction] = useUndoReactionMutation({
+    onCompleted: () => trackEvent(Events.Post.UndoLike),
     onError: (error) => {
       toggleReact();
       increment();
