@@ -21,8 +21,7 @@ class HeyDocument extends Document {
           {/* Simple Analytics */}
           <Script
             async
-            data-hostname="hey.xyz"
-            src="https://scripts.simpleanalyticscdn.com/latest.dev.js"
+            src="https://scripts.simpleanalyticscdn.com/latest.js"
           />
         </Head>
         <body>
