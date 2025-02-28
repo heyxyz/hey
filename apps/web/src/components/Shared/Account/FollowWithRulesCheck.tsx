@@ -9,14 +9,12 @@ interface FollowWithRulesCheckProps {
   buttonClassName: string;
   account: Account;
   small: boolean;
-  title: string;
 }
 
 const FollowWithRulesCheck: FC<FollowWithRulesCheckProps> = ({
   buttonClassName,
   account,
-  small,
-  title
+  small
 }) => {
   const { setShowSuperFollowModal } = useSuperFollowModalStore();
   const { assetContract: requiredSimplePayment } = getSimplePaymentDetails(
@@ -38,12 +36,7 @@ const FollowWithRulesCheck: FC<FollowWithRulesCheckProps> = ({
   }
 
   return (
-    <Follow
-      account={account}
-      buttonClassName={buttonClassName}
-      small={small}
-      title={title}
-    />
+    <Follow account={account} buttonClassName={buttonClassName} small={small} />
   );
 };
 

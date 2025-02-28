@@ -1,6 +1,8 @@
+import trackEvent from "@helpers/analytics";
 import { getSimplePaymentDetails } from "@helpers/rules";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
+import { Events } from "@hey/data/events";
 import { tokens } from "@hey/data/tokens";
 import getAccount from "@hey/helpers/getAccount";
 import getTokenImage from "@hey/helpers/getTokenImage";
@@ -78,9 +80,13 @@ const SuperFollow: FC = () => {
             buttonClassName="w-full"
             small={false}
             title="Super Follow"
-            onFollow={() =>
-              setShowSuperFollowModal(false, superFollowingAccount)
-            }
+            onFollow={() => {
+              setShowSuperFollowModal(false, superFollowingAccount);
+              trackEvent(Events.Account.SuperFollow, {
+                amount,
+                symbol: assetSymbol
+              });
+            }}
           />
         ) : (
           <FundButton className="w-full" />

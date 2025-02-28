@@ -22,7 +22,7 @@ interface FollowProps {
   buttonClassName: string;
   account: Account;
   small: boolean;
-  title: string;
+  title?: string;
 }
 
 const Follow: FC<FollowProps> = ({
@@ -30,12 +30,11 @@ const Follow: FC<FollowProps> = ({
   buttonClassName,
   account,
   small,
-  title
+  title = "Follow"
 }) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useAuthModalStore();
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -51,7 +50,9 @@ const Follow: FC<FollowProps> = ({
     updateCache();
     setIsSubmitting(false);
     onFollow?.();
-    trackEvent(Events.Account.Follow);
+    if (title === "Follow") {
+      trackEvent(Events.Account.Follow);
+    }
   };
 
   const onError = (error: any) => {

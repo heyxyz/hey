@@ -7,7 +7,6 @@ import Unfollow from "./Unfollow";
 
 interface FollowUnfollowButtonProps {
   buttonClassName?: string;
-  followTitle?: string;
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
   account: Account;
@@ -17,7 +16,6 @@ interface FollowUnfollowButtonProps {
 
 const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
   buttonClassName = "",
-  followTitle = "Follow",
   hideFollowButton = false,
   hideUnfollowButton = false,
   account,
@@ -38,7 +36,6 @@ const FollowUnfollowButton: FC<FollowUnfollowButtonProps> = ({
             buttonClassName={buttonClassName}
             account={account}
             small={small}
-            title={followTitle}
           />
         ))}
       {!hideUnfollowButton &&
