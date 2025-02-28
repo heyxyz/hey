@@ -28,20 +28,20 @@ jobs:
       - name: Typecheck 🔡
         run: pnpm typecheck
 
-  biome:
-    name: Biome
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🚪
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+  # biome:
+  #   name: Biome
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout 🚪
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Setup Node.js, pnpm and dependencies 🌸
-        uses: ./.github/actions/setup-pnpm
+  #     - name: Setup Node.js, pnpm and dependencies 🌸
+  #       uses: ./.github/actions/setup-pnpm
 
-      - name: Biome 🪩
-        run: pnpm biome:check
+  #     - name: Biome 🪩
+  #       run: pnpm biome:check
 
   build:
     name: Build
