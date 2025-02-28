@@ -3,7 +3,6 @@ import Footer from "@components/Shared/Footer";
 import type { FC } from "react";
 import { memo } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import EnableLensManager from "./EnableLensManager";
 import SetAccount from "./SetAccount";
 import StaffPicks from "./StaffPicks";
 import WhoToFollow from "./WhoToFollow";
@@ -17,12 +16,7 @@ const Sidebar: FC = () => {
     <>
       {/* <Gitcoin /> */}
       {loggedOut && <SignupCard />} {/* Onboarding steps */}
-      {loggedInWithProfile && (
-        <>
-          <EnableLensManager />
-          <SetAccount />
-        </>
-      )}
+      {loggedInWithProfile && <SetAccount />}
       {/* Recommendations */}
       <StaffPicks />
       {loggedInWithProfile && <WhoToFollow />}
