@@ -3,8 +3,12 @@ import axios from "axios";
 
 const trackEvent = async (event: string, metadata?: Record<string, any>) => {
   try {
+    if (!process.env.TRACKER_URL) {
+      return null;
+    }
+
     const { data } = await axios.post(
-      "https://queue.simpleanalyticscdn.com/events",
+      process.env.TRACKER_URL,
       {
         type: "event",
         hostname: "hey.xyz",

@@ -4,5 +4,6 @@ declare namespace NodeJS {
     DATABASE_URL: string;
     PRIVATE_KEY: string;
     SECRET: string;
+    TRACKER_URL: string;
   }
 }
