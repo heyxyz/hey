@@ -724,6 +724,10 @@ export type AmountInput = {
   value: Scalars['BigDecimal']['input'];
 };
 
+export type AnyJsonRequest = {
+  uri: Scalars['URI']['input'];
+};
+
 export type AnyKeyValue = AddressKeyValue | ArrayKeyValue | BigDecimalKeyValue | BooleanKeyValue | DictionaryKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
 
 export type AnyKeyValueInput = {
@@ -6064,6 +6068,7 @@ export type Query = {
   accountsBulk: Array<Account>;
   /** Get admins for a graph/app/sponsor/feed/username/group address */
   adminsFor: PaginatedAdminsResult;
+  anyJson: Scalars['JSON']['output'];
   /** Get an app */
   app?: Maybe<App>;
   /** Get the feeds for an app */
@@ -6240,6 +6245,11 @@ export type QueryAccountsBulkArgs = {
 
 export type QueryAdminsForArgs = {
   request: AdminsForRequest;
+};
+
+
+export type QueryAnyJsonArgs = {
+  request: AnyJsonRequest;
 };
 
 

@@ -1,12 +1,12 @@
 import type {
-  AccountFollowRule,
+  AccountFollowRuleFragment,
   AccountFollowRules,
-  GroupRule,
+  GroupRuleFragment,
   GroupRules
 } from "@hey/indexer";
 import getAnyKeyValue from "./getAnyKeyValue";
 
-const extractMembershipApproval = (rules: GroupRule[]): boolean => {
+const extractMembershipApproval = (rules: GroupRuleFragment[]): boolean => {
   for (const rule of rules) {
     if (rule.type === "MEMBERSHIP_APPROVAL") {
       return true;
@@ -27,7 +27,7 @@ interface AssetDetails {
 }
 
 const extractPaymentDetails = (
-  rules: GroupRule[] | AccountFollowRule[]
+  rules: GroupRuleFragment[] | AccountFollowRuleFragment[]
 ): AssetDetails => {
   for (const rule of rules) {
     if (rule.type === "SIMPLE_PAYMENT") {
