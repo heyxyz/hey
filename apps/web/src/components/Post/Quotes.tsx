@@ -64,7 +64,7 @@ const Quotes: FC<QuotesProps> = ({ post }) => {
   return (
     <Card>
       <div className="flex items-center space-x-3 p-5">
-        <Link href={`/posts/${post.slug}`}>
+        <Link href={`/posts/${post.id}`}>
           <ArrowLeftIcon className="size-5" />
         </Link>
         <H5>Quotes</H5>

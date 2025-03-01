@@ -1,0 +1,20 @@
+fragment Group on Group {
+  address
+  feed
+  owner
+  rules {
+    anyOf {
+      ...GroupRule
+    }
+    required {
+      ...GroupRule
+    }
+  }
+  operations {
+    ...LoggedInGroupOperations
+  }
+  metadata {
+    ...GroupMetadata
+  }
+  timestamp
+}

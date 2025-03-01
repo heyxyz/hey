@@ -1,3 +1,0 @@
-fragment MediaImageFields on MediaImage {
-  item
-}

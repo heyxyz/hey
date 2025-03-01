@@ -40,13 +40,13 @@ const RepostNotification: FC<RepostNotificationProps> = ({ notification }) => {
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstAccount={firstAccount}
-          linkToType={`/posts/${notification.post.slug}`}
+          linkToType={`/posts/${notification.post.id}`}
           text={text}
           type={type}
         />
         <Link
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
-          href={`/posts/${notification.post.slug}`}
+          href={`/posts/${notification.post.id}`}
         >
           <Markup mentions={notification.post.mentions}>
             {filteredContent}

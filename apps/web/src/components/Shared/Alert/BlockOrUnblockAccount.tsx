@@ -5,7 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import getAccount from "@hey/helpers/getAccount";
 import {
-  type Account,
+  type AccountFragment,
   type LoggedInAccountOperations,
   useBlockMutation,
   useUnblockMutation
@@ -42,7 +42,9 @@ const BlockOrUnblockAccount: FC = () => {
         blockingorUnblockingAccount?.operations as LoggedInAccountOperations
       )
     });
-    cache.evict({ id: cache.identify(blockingorUnblockingAccount as Account) });
+    cache.evict({
+      id: cache.identify(blockingorUnblockingAccount as AccountFragment)
+    });
   };
 
   const onCompleted = () => {

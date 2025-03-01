@@ -1,10 +1,10 @@
 query MlPostsExplore($request: MlexplorePostsRequest!) {
   mlPostsExplore(request: $request) {
     items {
-      ...PostFields
+      ...Post
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

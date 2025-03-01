@@ -1,10 +1,10 @@
 query Usernames($request: UsernamesRequest!) {
   usernames(request: $request) {
     items {
-      ...UsernameFields
+      ...Username
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

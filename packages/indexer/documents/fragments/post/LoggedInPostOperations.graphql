@@ -1,0 +1,26 @@
+fragment LoggedInPostOperations on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasSimpleCollected
+  hasTipped
+  isNotInterested
+  hasCommented {
+    ...BooleanValue
+  }
+  hasQuoted {
+    ...BooleanValue
+  }
+  hasReposted {
+    ...BooleanValue
+  }
+  canRepost {
+    __typename
+  }
+  canQuote {
+    __typename
+  }
+  canComment {
+    __typename
+  }
+}

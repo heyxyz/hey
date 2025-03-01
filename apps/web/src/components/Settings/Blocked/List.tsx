@@ -2,7 +2,6 @@ import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
-  type Account,
   type AccountsBlockedRequest,
   PageSize,
   useAccountsBlockedQuery
@@ -69,14 +68,11 @@ const List: FC = () => {
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              account={accountBlocked.account as Account}
+              account={accountBlocked.account}
             />
             <Button
               onClick={() =>
-                setShowBlockOrUnblockAlert(
-                  true,
-                  accountBlocked.account as Account
-                )
+                setShowBlockOrUnblockAlert(true, accountBlocked.account)
               }
             >
               Unblock

@@ -17,7 +17,7 @@ import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import getAvatar from "@hey/helpers/getAvatar";
 import getFavicon from "@hey/helpers/getFavicon";
 import getMentions from "@hey/helpers/getMentions";
-import type { Account } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import { Button, H3, Image, LightBox, Tooltip } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import { useTheme } from "next-themes";
@@ -47,7 +47,7 @@ const MetaDetails = ({
 
 interface DetailsProps {
   isSuspended: boolean;
-  account: Account;
+  account: AccountFragment;
 }
 
 const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {

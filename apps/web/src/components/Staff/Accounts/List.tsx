@@ -2,7 +2,6 @@ import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowPathIcon, UsersIcon } from "@heroicons/react/24/outline";
 import {
-  type Account,
   AccountsOrderBy,
   type AccountsRequest,
   PageSize,
@@ -120,7 +119,7 @@ const List: FC = () => {
                 <SingleAccount
                   isBig
                   linkToAccount={false}
-                  account={account as Account}
+                  account={account}
                   showBio={false}
                   showUserPreview={false}
                 />

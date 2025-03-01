@@ -55,10 +55,7 @@ const PostStats: FC<PostStatsProps> = ({ post }) => {
           </button>
         ) : null}
         {quotes > 0 ? (
-          <Link
-            className="outline-offset-2"
-            href={`/posts/${post.slug}/quotes`}
-          >
+          <Link className="outline-offset-2" href={`/posts/${post.id}/quotes`}>
             <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{" "}
             {plur("Quote", quotes)}
           </Link>

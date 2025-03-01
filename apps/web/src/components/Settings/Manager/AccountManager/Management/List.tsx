@@ -3,7 +3,6 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import errorToast from "@helpers/errorToast";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
-  type Account,
   type AccountsAvailableRequest,
   type LastLoggedInAccountRequest,
   ManagedAccountsVisibility,
@@ -129,7 +128,7 @@ const List: FC<ListProps> = ({ managed = false }) => {
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
-            account={accountAvailable.account as Account}
+            account={accountAvailable.account}
           />
           {address !== accountAvailable.account.owner && (
             <Button

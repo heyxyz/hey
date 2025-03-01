@@ -1,7 +1,0 @@
-fragment AccountFollowRuleFields on AccountFollowRule {
-  id
-  type
-  config {
-    ...AnyKeyValueFields
-  }
-}

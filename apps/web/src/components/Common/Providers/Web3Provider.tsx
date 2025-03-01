@@ -10,7 +10,7 @@ import { LENS_TESTNET_RPCS } from "@hey/data/rpcs";
 import { chains } from "@lens-network/sdk/viem";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import type { FC, ReactNode } from "react";
-import { createConfig, fallback, http, WagmiProvider } from "wagmi";
+import { http, WagmiProvider, createConfig, fallback } from "wagmi";
 
 const config = createConfig(
   getDefaultConfig({

@@ -1,10 +1,10 @@
 query Accounts($request: AccountsRequest!) {
   accounts(request: $request) {
     items {
-      ...AccountFields
+      ...Account
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

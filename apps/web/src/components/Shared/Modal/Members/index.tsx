@@ -2,7 +2,6 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
-  type Account,
   type Group,
   type GroupMembersRequest,
   PageSize,
@@ -82,10 +81,10 @@ const Members: FC<MembersProps> = ({ group }) => {
             hideUnfollowButton={
               currentAccount?.address === member.account.address
             }
-            account={member.account as Account}
+            account={member.account}
             showBio
             showUserPreview={false}
-            menu={<Ban group={group} account={member.account as Account} />}
+            menu={<Ban group={group} account={member.account} />}
           />
         </div>
       )}

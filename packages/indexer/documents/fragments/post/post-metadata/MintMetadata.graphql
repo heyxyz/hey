@@ -1,0 +1,11 @@
+fragment MintMetadata on MintMetadata {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...Media
+  }
+}

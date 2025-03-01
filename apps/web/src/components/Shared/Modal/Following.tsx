@@ -1,7 +1,7 @@
 import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import type { Account, FollowingRequest } from "@hey/indexer";
+import type { FollowingRequest } from "@hey/indexer";
 import { PageSize, useFollowingQuery } from "@hey/indexer";
 import { EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
@@ -83,7 +83,7 @@ const Following: FC<FollowingProps> = ({ handle, address }) => {
             hideUnfollowButton={
               currentAccount?.address === following.following.address
             }
-            account={following.following as Account}
+            account={following.following}
             showBio
             showUserPreview={false}
           />

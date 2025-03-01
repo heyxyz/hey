@@ -1,0 +1,13 @@
+fragment SimpleCollectAction on SimpleCollectAction {
+  address
+  referralShare
+  collectLimit
+  endsAt
+  recipients {
+    address
+    percent
+  }
+  amount {
+    ...Erc20Amount
+  }
+}

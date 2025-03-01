@@ -1,4 +1,4 @@
-fragment AccountMentionFields on AccountMention {
+fragment AccountMention on AccountMention {
   account
   namespace
   replace {

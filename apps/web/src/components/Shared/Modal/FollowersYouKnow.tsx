@@ -2,7 +2,6 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
-  type Account,
   type FollowersYouKnowRequest,
   useFollowersYouKnowQuery
 } from "@hey/indexer";
@@ -87,7 +86,7 @@ const FollowersYouKnow: FC<FollowersYouKnowProps> = ({ handle, address }) => {
             hideUnfollowButton={
               currentAccount?.address === follower.follower.address
             }
-            account={follower.follower as Account}
+            account={follower.follower}
             showBio
             showUserPreview={false}
           />

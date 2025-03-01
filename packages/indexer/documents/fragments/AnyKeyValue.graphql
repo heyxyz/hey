@@ -1,0 +1,14 @@
+fragment AnyKeyValue on AnyKeyValue {
+  ... on AddressKeyValue {
+    key
+    address
+  }
+  ... on BigDecimalKeyValue {
+    key
+    bigDecimal
+  }
+  ... on StringKeyValue {
+    key
+    string
+  }
+}

@@ -11,7 +11,7 @@ import {
   PaintBrushIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
-import type { Account } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
@@ -72,7 +72,7 @@ const SettingsSidebar: FC = () => {
         <SingleAccount
           hideFollowButton
           hideUnfollowButton
-          account={currentAccount as Account}
+          account={currentAccount as AccountFragment}
           showUserPreview={false}
         />
       </div>

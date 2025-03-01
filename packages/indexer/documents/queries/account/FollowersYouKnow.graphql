@@ -2,11 +2,11 @@ query FollowersYouKnow($request: FollowersYouKnowRequest!) {
   followersYouKnow(request: $request) {
     items {
       follower {
-        ...AccountFields
+        ...Account
       }
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

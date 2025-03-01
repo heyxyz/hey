@@ -1,5 +1,5 @@
 import {
-  type Account,
+  type AccountFragment,
   type AccountsRequest,
   PageSize,
   useAccountsLazyQuery
@@ -13,7 +13,7 @@ interface SearchAccountsProps {
   error?: boolean;
   hideDropdown?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onAccountSelected: (account: Account) => void;
+  onAccountSelected: (account: AccountFragment) => void;
   placeholder?: string;
   value: string;
 }
@@ -40,7 +40,7 @@ const SearchAccounts: FC<SearchAccountsProps> = ({
     searchAccounts({ variables: { request } });
   };
 
-  const accounts = data?.accounts?.items as Account[];
+  const accounts = data?.accounts?.items;
 
   return (
     <div className="relative w-full">
@@ -56,7 +56,7 @@ const SearchAccounts: FC<SearchAccountsProps> = ({
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
             {loading ? (
               <Loader className="my-3" message="Searching users" small />
-            ) : accounts.length > 0 ? (
+            ) : accounts && accounts.length > 0 ? (
               accounts.slice(0, 7).map((account) => (
                 <div
                   className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"

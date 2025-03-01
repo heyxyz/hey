@@ -3,7 +3,7 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import { type Account, useAccountsBulkQuery } from "@hey/indexer";
+import { useAccountsBulkQuery } from "@hey/indexer";
 import { H6 } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -51,7 +51,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
               key={account.address}
               onClick={() => {
                 addAccount(account.address);
-                push(getAccount(account as Account).link);
+                push(getAccount(account).link);
                 onAccountClick();
               }}
             >
@@ -60,7 +60,7 @@ const RecentAccounts: FC<RecentAccountsProps> = ({ onAccountClick }) => {
                   hideFollowButton
                   hideUnfollowButton
                   linkToAccount={false}
-                  account={account as Account}
+                  account={account}
                   showUserPreview={false}
                 />
               </div>

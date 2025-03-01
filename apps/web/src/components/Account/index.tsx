@@ -10,7 +10,7 @@ import getAccountDetails, {
 } from "@hey/helpers/api/getAccountDetails";
 import getAccount from "@hey/helpers/getAccount";
 import isAccountDeleted from "@hey/helpers/isAccountDeleted";
-import { type Account, useAccountQuery } from "@hey/indexer";
+import { useAccountQuery } from "@hey/indexer";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -58,7 +58,7 @@ const ViewProfile: NextPage = () => {
     }
   });
 
-  const account = data?.account as Account;
+  const account = data?.account;
 
   const { data: accountDetails, isLoading: accountDetailsLoading } = useQuery({
     enabled: Boolean(account?.address),
@@ -101,13 +101,13 @@ const ViewProfile: NextPage = () => {
       <GridLayout>
         <GridItemFour>
           {isDeleted ? (
-            <DeletedDetails account={account as Account} />
+            <DeletedDetails account={account} />
           ) : isSuspended ? (
-            <SuspendedDetails account={account as Account} />
+            <SuspendedDetails account={account} />
           ) : (
             <Details
               isSuspended={accountDetails?.isSuspended || false}
-              account={account as Account}
+              account={account}
             />
           )}
         </GridItemFour>

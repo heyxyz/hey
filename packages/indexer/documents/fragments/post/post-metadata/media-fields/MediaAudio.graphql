@@ -1,0 +1,6 @@
+fragment MediaAudio on MediaAudio {
+  artist
+  item
+  cover
+  license
+}

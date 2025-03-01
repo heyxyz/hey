@@ -1,6 +1,6 @@
 import SmallSingleAccount from "@components/Shared/SmallSingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import { type Account, useAccountsAvailableQuery } from "@hey/indexer";
+import { useAccountsAvailableQuery } from "@hey/indexer";
 import { H5 } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -33,9 +33,7 @@ const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
                 <Link
                   href={`/staff/accounts/${data?.lastLoggedInAccount?.address}`}
                 >
-                  <SmallSingleAccount
-                    account={data?.lastLoggedInAccount as Account}
-                  />
+                  <SmallSingleAccount account={data?.lastLoggedInAccount} />
                 </Link>
                 <div className="divider my-5 border-yellow-600 border-dashed" />
               </div>
@@ -45,9 +43,7 @@ const ManagedAccounts: FC<ManagedAccountsProps> = ({ address }) => {
                 <Link
                   href={`/staff/accounts/${accountAvailable.account.address}`}
                 >
-                  <SmallSingleAccount
-                    account={accountAvailable.account as Account}
-                  />
+                  <SmallSingleAccount account={accountAvailable.account} />
                 </Link>
               </div>
             ))}

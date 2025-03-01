@@ -30,13 +30,13 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstAccount={firstAccount}
-          linkToType={`/posts/${notification.quote.slug}`}
+          linkToType={`/posts/${notification.quote.id}`}
           text={text}
           type={type}
         />
         <Link
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
-          href={`/posts/${notification.quote.slug}`}
+          href={`/posts/${notification.quote.id}`}
         >
           <Markup mentions={notification.quote.mentions}>
             {filteredContent}

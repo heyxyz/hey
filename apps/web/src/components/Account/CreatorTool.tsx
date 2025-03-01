@@ -6,7 +6,7 @@ import { Permission, PermissionId } from "@hey/data/permissions";
 import getInternalAccount, {
   GET_INTERNAL_ACCOUNT_QUERY_KEY
 } from "@hey/helpers/api/getInternalAccount";
-import type { Account } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import { Toggle } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 interface CreatorToolProps {
-  account: Account;
+  account: AccountFragment;
 }
 
 const CreatorTool: FC<CreatorToolProps> = ({ account }) => {

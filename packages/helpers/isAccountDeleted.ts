@@ -1,7 +1,7 @@
 import { NULL_ADDRESS } from "@hey/data/constants";
-import type { Account } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 
-const isAccountDeleted = (account: Account): boolean => {
+const isAccountDeleted = (account: AccountFragment): boolean => {
   if (account.owner === NULL_ADDRESS) {
     return true;
   }

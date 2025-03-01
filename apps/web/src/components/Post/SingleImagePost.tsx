@@ -19,7 +19,7 @@ const SingleImagePost: FC<SingleImagePostProps> = ({ post }) => {
 
   return (
     <Link
-      href={`/posts/${post.slug}`}
+      href={`/posts/${post.id}`}
       key={post.id}
       className="relative h-80 overflow-hidden rounded-xl bg-center bg-cover"
       style={{

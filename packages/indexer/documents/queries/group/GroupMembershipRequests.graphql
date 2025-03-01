@@ -2,11 +2,11 @@ query GroupMembershipRequests($request: GroupMembershipRequestsRequest!) {
   groupMembershipRequests(request: $request) {
     items {
       account {
-        ...AccountFields
+        ...Account
       }
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

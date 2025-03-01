@@ -1,0 +1,27 @@
+fragment Account on Account {
+  owner
+  address
+  createdAt
+  rules {
+    anyOf {
+      ...AccountFollowRule
+    }
+    required {
+      ...AccountFollowRule
+    }
+  }
+  operations {
+    ...LoggedInAccountOperations
+  }
+  metadata {
+    ...AccountMetadata
+  }
+  username(request: { autoResolve: true }) {
+    ...Username
+  }
+  pro: username(
+    request: { namespace: "0x8cC5F0756Ab65f8c8706a181c12407950902767D" }
+  ) {
+    localName
+  }
+}

@@ -1,0 +1,5 @@
+fragment MetadataAttribute on MetadataAttribute {
+  type
+  key
+  value
+}

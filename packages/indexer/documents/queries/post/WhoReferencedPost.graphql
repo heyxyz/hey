@@ -1,10 +1,10 @@
 query WhoReferencedPost($request: WhoReferencedPostRequest!) {
   whoReferencedPost(request: $request) {
     items {
-      ...AccountFields
+      ...Account
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

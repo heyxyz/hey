@@ -1,0 +1,3 @@
+fragment TransactionWillFail on TransactionWillFail {
+  reason
+}

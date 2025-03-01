@@ -1,13 +1,13 @@
-import type { Account } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  blockingorUnblockingAccount: null | Account;
+  blockingorUnblockingAccount: null | AccountFragment;
   showBlockOrUnblockAlert: boolean;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
-    blockingorUnblockingAccount: null | Account
+    blockingorUnblockingAccount: null | AccountFragment
   ) => void;
 }
 

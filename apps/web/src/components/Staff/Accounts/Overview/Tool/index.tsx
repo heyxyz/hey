@@ -3,7 +3,7 @@ import { getAuthApiHeaders } from "@helpers/getAuthApiHeaders";
 import getInternalAccount, {
   GET_INTERNAL_ACCOUNT_QUERY_KEY
 } from "@hey/helpers/api/getInternalAccount";
-import type { Account } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import { useQuery } from "@tanstack/react-query";
 import type { FC } from "react";
 import AccountOverview from "./AccountOverview";
@@ -12,7 +12,7 @@ import ManagedAccounts from "./ManagedAccounts";
 import Permissions from "./Permissions";
 
 interface AccountStaffToolProps {
-  account: Account;
+  account: AccountFragment;
 }
 
 const AccountStaffTool: FC<AccountStaffToolProps> = ({ account }) => {

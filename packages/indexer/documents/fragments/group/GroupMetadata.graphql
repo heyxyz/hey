@@ -1,0 +1,6 @@
+fragment GroupMetadata on GroupMetadata {
+  name
+  description
+  icon
+  coverPicture
+}

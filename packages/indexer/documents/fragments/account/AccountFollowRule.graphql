@@ -1,0 +1,7 @@
+fragment AccountFollowRule on AccountFollowRule {
+  id
+  type
+  config {
+    ...AnyKeyValue
+  }
+}

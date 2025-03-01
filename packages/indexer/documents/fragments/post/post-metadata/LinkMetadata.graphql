@@ -1,0 +1,12 @@
+fragment LinkMetadata on LinkMetadata {
+  id
+  content
+  sharingLink
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...Media
+  }
+}

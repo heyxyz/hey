@@ -1,0 +1,31 @@
+fragment PostBase on Post {
+  id
+  isDeleted
+  feed {
+    group {
+      address
+      metadata {
+        ...GroupMetadata
+      }
+    }
+  }
+  stats {
+    ...PostStats
+  }
+  operations {
+    ...LoggedInPostOperations
+  }
+  actions {
+    __typename
+  }
+  author {
+    ...Account
+  }
+  metadata {
+    ...PostMetadata
+  }
+  mentions {
+    ...AccountMention
+  }
+  timestamp
+}

@@ -1,0 +1,6 @@
+fragment Erc20Amount on Erc20Amount {
+  asset {
+    ...Erc20
+  }
+  value
+}

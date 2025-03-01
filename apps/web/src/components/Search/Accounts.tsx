@@ -1,12 +1,7 @@
 import SingleAccountsShimmer from "@components/Shared/Shimmer/SingleAccountsShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import {
-  type Account,
-  type AccountsRequest,
-  PageSize,
-  useAccountsQuery
-} from "@hey/indexer";
+import { type AccountsRequest, PageSize, useAccountsQuery } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
@@ -67,7 +62,7 @@ const Accounts: FC<AccountsProps> = ({ query }) => {
       endReached={onEndReached}
       itemContent={(_, account) => (
         <Card className="p-5">
-          <SingleAccount isBig account={account as Account} showBio />
+          <SingleAccount isBig account={account} showBio />
         </Card>
       )}
       useWindowScroll

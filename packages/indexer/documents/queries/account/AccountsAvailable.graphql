@@ -3,23 +3,23 @@ query AccountsAvailable(
   $lastLoggedInAccountRequest: LastLoggedInAccountRequest!
 ) {
   lastLoggedInAccount(request: $lastLoggedInAccountRequest) {
-    ...AccountFields
+    ...Account
   }
   accountsAvailable(request: $accountsAvailableRequest) {
     items {
       ... on AccountManaged {
         account {
-          ...AccountFields
+          ...Account
         }
       }
       ... on AccountOwned {
         account {
-          ...AccountFields
+          ...Account
         }
       }
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

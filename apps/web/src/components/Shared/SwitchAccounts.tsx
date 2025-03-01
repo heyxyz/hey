@@ -6,7 +6,6 @@ import { Events } from "@hey/data/events";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import {
-  type Account,
   useAccountsAvailableQuery,
   useSwitchAccountMutation
 } from "@hey/indexer";
@@ -82,7 +81,7 @@ const SwitchAccounts: FC = () => {
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
           key={accountAvailable?.account.address}
           onClick={async () => {
-            const selectedAccount = accountsAvailable[index].account as Account;
+            const selectedAccount = accountsAvailable[index].account;
             await handleSwitchAccount(selectedAccount.address);
           }}
           type="button"
@@ -102,10 +101,7 @@ const SwitchAccounts: FC = () => {
                 "truncate"
               )}
             >
-              {
-                getAccount(accountAvailable.account as Account)
-                  .usernameWithPrefix
-              }
+              {getAccount(accountAvailable.account).usernameWithPrefix}
             </div>
           </span>
           {isSubmitting &&

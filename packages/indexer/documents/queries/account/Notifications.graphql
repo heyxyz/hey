@@ -2,26 +2,26 @@ query Notifications($request: NotificationRequest!) {
   notifications(request: $request) {
     items {
       ... on CommentNotification {
-        ...CommentNotificationFields
+        ...CommentNotification
       }
       ... on FollowNotification {
-        ...FollowNotificationFields
+        ...FollowNotification
       }
       ... on MentionNotification {
-        ...MentionNotificationFields
+        ...MentionNotification
       }
       ... on QuoteNotification {
-        ...QuoteNotificationFields
+        ...QuoteNotification
       }
       ... on ReactionNotification {
-        ...ReactionNotificationFields
+        ...ReactionNotification
       }
       ... on RepostNotification {
-        ...RepostNotificationFields
+        ...RepostNotification
       }
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

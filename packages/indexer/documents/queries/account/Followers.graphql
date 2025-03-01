@@ -2,11 +2,11 @@ query Followers($request: FollowersRequest!) {
   followers(request: $request) {
     items {
       follower {
-        ...AccountFields
+        ...Account
       }
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

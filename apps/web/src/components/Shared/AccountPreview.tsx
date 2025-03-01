@@ -4,11 +4,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import getMentions from "@hey/helpers/getMentions";
 import nFormatter from "@hey/helpers/nFormatter";
 import truncateByWords from "@hey/helpers/truncateByWords";
-import {
-  type Account,
-  type AccountStats,
-  useFullAccountLazyQuery
-} from "@hey/indexer";
+import { type AccountStats, useFullAccountLazyQuery } from "@hey/indexer";
 import { Card, Image } from "@hey/ui";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import plur from "plur";
@@ -38,7 +34,7 @@ const AccountPreview: FC<AccountPreviewProps> = ({
     fetchPolicy: "cache-and-network"
   });
   const [syntheticLoading, setSyntheticLoading] = useState<boolean>(loading);
-  const account = data?.account as Account;
+  const account = data?.account;
   const stats = data?.accountStats as AccountStats;
 
   const onPreviewStart = async () => {

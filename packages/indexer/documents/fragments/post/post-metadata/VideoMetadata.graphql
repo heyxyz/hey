@@ -1,0 +1,14 @@
+fragment VideoMetadata on VideoMetadata {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  video {
+    ...MediaVideo
+  }
+  attachments {
+    ...Media
+  }
+}

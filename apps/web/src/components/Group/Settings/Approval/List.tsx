@@ -2,7 +2,6 @@ import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import {
-  type Account,
   type Group,
   type GroupMembershipRequestsRequest,
   PageSize,
@@ -78,14 +77,14 @@ const List: FC<ListProps> = ({ group }) => {
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              account={bannedAccount.account as Account}
+              account={bannedAccount.account}
             />
             <Button
               onClick={() =>
                 setShowBanOrUnbanAlert(
                   true,
                   false,
-                  bannedAccount.account as Account,
+                  bannedAccount.account,
                   group.address
                 )
               }

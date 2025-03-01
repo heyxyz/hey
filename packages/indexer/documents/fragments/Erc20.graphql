@@ -1,0 +1,9 @@
+fragment Erc20 on Erc20 {
+  contract {
+    address
+    chainId
+  }
+  decimals
+  name
+  symbol
+}

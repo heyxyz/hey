@@ -1,5 +1,5 @@
 import getAccount from "@hey/helpers/getAccount";
-import type { Account } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
@@ -7,7 +7,7 @@ import Slug from "./Slug";
 
 interface FallbackAccountNameProps {
   className?: string;
-  account?: Account;
+  account?: AccountFragment;
   separator?: ReactNode;
 }
 

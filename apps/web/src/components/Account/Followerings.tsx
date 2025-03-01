@@ -3,13 +3,13 @@ import Following from "@components/Shared/Modal/Following";
 import GraphStatsShimmer from "@components/Shared/Shimmer/GraphStatsShimmer";
 import getAccount from "@hey/helpers/getAccount";
 import humanize from "@hey/helpers/humanize";
-import { type Account, useAccountStatsQuery } from "@hey/indexer";
+import { type AccountFragment, useAccountStatsQuery } from "@hey/indexer";
 import { H4, Modal } from "@hey/ui";
 import plur from "plur";
 import { type FC, useState } from "react";
 
 interface FolloweringsProps {
-  account: Account;
+  account: AccountFragment;
 }
 
 const Followerings: FC<FolloweringsProps> = ({ account }) => {

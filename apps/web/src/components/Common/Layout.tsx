@@ -5,7 +5,7 @@ import BottomNavigation from "@components/Shared/Navbar/BottomNavigation";
 import PageMetatags from "@components/Shared/PageMetatags";
 import getCurrentSession from "@helpers/getCurrentSession";
 import getToastOptions from "@helpers/getToastOptions";
-import { type Account, useMeQuery } from "@hey/indexer";
+import { useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
@@ -44,7 +44,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { loading } = useMeQuery({
     onCompleted: ({ me }) => {
       setCurrentAccount({
-        currentAccount: me.loggedInAs.account as Account,
+        currentAccount: me.loggedInAs.account,
         isSignlessEnabled: me.isSignless
       });
     },

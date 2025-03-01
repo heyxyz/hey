@@ -1,0 +1,8 @@
+fragment TextOnlyMetadata on TextOnlyMetadata {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+}

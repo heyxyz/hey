@@ -1,0 +1,18 @@
+fragment CheckingInMetadata on CheckingInMetadata {
+  id
+  content
+  tags
+  location
+  position
+  address {
+    country
+    locality
+    postalCode
+  }
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...Media
+  }
+}

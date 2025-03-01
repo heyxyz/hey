@@ -5,8 +5,9 @@ import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
-  type Account,
   AccountFollowRuleType,
+  type AccountFollowRules,
+  type AccountFragment,
   useMeLazyQuery,
   useTransactionStatusLazyQuery,
   useUpdateAccountFollowRulesMutation
@@ -36,13 +37,13 @@ const SuperFollow: FC = () => {
     fetchPolicy: "no-cache"
   });
 
-  const account = currentAccount as Account;
+  const account = currentAccount as AccountFragment;
   const simplePaymentRule = [
     ...account.rules.required,
     ...account.rules.anyOf
   ].find((rule) => rule.type === AccountFollowRuleType.SimplePayment);
   const { amount: simplePaymentAmount } = getSimplePaymentDetails(
-    account.rules
+    account.rules as AccountFollowRules
   );
 
   useEffect(() => {
@@ -57,7 +58,8 @@ const SuperFollow: FC = () => {
     if (data?.transactionStatus?.__typename === "FinishedTransactionStatus") {
       const accountData = await getCurrentAccountDetails();
       setCurrentAccount({
-        currentAccount: accountData?.data?.me.loggedInAs.account as Account,
+        currentAccount: accountData?.data?.me.loggedInAs
+          .account as AccountFragment,
         isSignlessEnabled: accountData?.data?.me.isSignless || false
       });
       reload();

@@ -3,17 +3,17 @@ query Timeline($request: TimelineRequest!) {
     items {
       id
       primary {
-        ...PostFields
+        ...Post
       }
       comments {
-        ...PostFields
+        ...Post
       }
       reposts {
-        ...RepostFields
+        ...Repost
       }
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

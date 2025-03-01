@@ -1,12 +1,12 @@
 import { MenuItem } from "@headlessui/react";
 import { FlagIcon } from "@heroicons/react/24/outline";
-import type { Account } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useReportAccountModalStore } from "src/store/non-persisted/modal/useReportAccountModalStore";
 
 interface ReportProps {
-  account: Account;
+  account: AccountFragment;
 }
 
 const Report: FC<ReportProps> = ({ account }) => {

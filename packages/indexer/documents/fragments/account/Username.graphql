@@ -1,0 +1,6 @@
+fragment Username on Username {
+  namespace
+  localName
+  linkedTo
+  value
+}

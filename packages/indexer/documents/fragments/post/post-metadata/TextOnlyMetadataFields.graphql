@@ -1,8 +1,0 @@
-fragment TextOnlyMetadataFields on TextOnlyMetadata {
-  id
-  content
-  tags
-  attributes {
-    ...MetadataAttributeFields
-  }
-}

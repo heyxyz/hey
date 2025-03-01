@@ -1,7 +1,7 @@
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import type { Account } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import Slug from "./Slug";
 interface SmallSingleAccountProps {
   hideSlug?: boolean;
   linkToAccount?: boolean;
-  account: Account;
+  account: AccountFragment;
   smallAvatar?: boolean;
   timestamp?: Date;
 }

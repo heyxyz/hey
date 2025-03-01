@@ -1,0 +1,11 @@
+fragment Media on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideo
+  }
+  ... on MediaImage {
+    ...MediaImage
+  }
+  ... on MediaAudio {
+    ...MediaAudio
+  }
+}

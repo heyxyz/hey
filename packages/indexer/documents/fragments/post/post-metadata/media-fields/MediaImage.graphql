@@ -1,0 +1,3 @@
+fragment MediaImage on MediaImage {
+  item
+}

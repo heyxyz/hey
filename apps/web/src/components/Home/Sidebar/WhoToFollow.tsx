@@ -2,7 +2,7 @@ import DismissRecommendedAccount from "@components/Shared/DismissRecommendedAcco
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import {
-  type Account,
+  type AccountFragment,
   PageSize,
   useMlAccountRecommendationsQuery
 } from "@hey/indexer";
@@ -71,10 +71,10 @@ const WhoToFollow: FC = () => {
               <SingleAccount
                 hideFollowButton={currentAccount?.address === account.address}
                 hideUnfollowButton={currentAccount?.address === account.address}
-                account={account as Account}
+                account={account}
               />
             </div>
-            <DismissRecommendedAccount account={account as Account} />
+            <DismissRecommendedAccount account={account} />
           </div>
         ))}
         <button
@@ -90,7 +90,7 @@ const WhoToFollow: FC = () => {
         show={showMore}
         title="Suggested for you"
       >
-        <Suggested accounts={recommendedAccounts as Account[]} />
+        <Suggested accounts={recommendedAccounts as AccountFragment[]} />
       </Modal>
     </>
   );

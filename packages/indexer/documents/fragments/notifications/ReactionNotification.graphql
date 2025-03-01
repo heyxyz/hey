@@ -1,0 +1,11 @@
+fragment ReactionNotification on ReactionNotification {
+  id
+  post {
+    ...Post
+  }
+  reactions {
+    account {
+      ...Account
+    }
+  }
+}

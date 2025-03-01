@@ -1,0 +1,8 @@
+fragment AnyPost on AnyPost {
+  ... on Post {
+    ...Post
+  }
+  ... on Repost {
+    ...Repost
+  }
+}

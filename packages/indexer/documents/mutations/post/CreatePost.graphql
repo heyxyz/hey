@@ -4,13 +4,13 @@ mutation CreatePost($request: CreatePostRequest!) {
       hash
     }
     ... on SelfFundedTransactionRequest {
-      ...SelfFundedTransactionRequestFields
+      ...SelfFundedTransactionRequest
     }
     ... on SponsoredTransactionRequest {
-      ...SponsoredTransactionRequestFields
+      ...SponsoredTransactionRequest
     }
     ... on TransactionWillFail {
-      ...TransactionWillFailFields
+      ...TransactionWillFail
     }
   }
 }

@@ -1,13 +1,13 @@
-import type { Account } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
   showReportAccountModal: boolean;
-  reportingAccount: null | Account;
+  reportingAccount: null | AccountFragment;
   setShowReportAccountModal: (
     showReportAccountModal: boolean,
-    reportingAccount: null | Account
+    reportingAccount: null | AccountFragment
   ) => void;
 }
 

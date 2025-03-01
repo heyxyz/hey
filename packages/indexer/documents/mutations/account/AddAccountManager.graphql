@@ -1,13 +1,13 @@
 mutation AddAccountManager($request: AddAccountManagerRequest!) {
   addAccountManager(request: $request) {
     ... on SelfFundedTransactionRequest {
-      ...SelfFundedTransactionRequestFields
+      ...SelfFundedTransactionRequest
     }
     ... on SponsoredTransactionRequest {
-      ...SponsoredTransactionRequestFields
+      ...SponsoredTransactionRequest
     }
     ... on TransactionWillFail {
-      ...TransactionWillFailFields
+      ...TransactionWillFail
     }
   }
 }

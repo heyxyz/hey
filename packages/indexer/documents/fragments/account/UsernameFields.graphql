@@ -1,6 +1,0 @@
-fragment UsernameFields on Username {
-  namespace
-  localName
-  linkedTo
-  value
-}

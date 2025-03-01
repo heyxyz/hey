@@ -1,0 +1,13 @@
+fragment LivestreamMetadata on LivestreamMetadata {
+  id
+  playbackUrl
+  liveUrl
+  content
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...Media
+  }
+}

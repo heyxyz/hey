@@ -1,6 +1,0 @@
-fragment MediaAudioFields on MediaAudio {
-  artist
-  item
-  cover
-  license
-}

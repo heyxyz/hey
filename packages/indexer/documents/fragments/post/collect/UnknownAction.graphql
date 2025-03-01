@@ -1,0 +1,3 @@
+fragment UnknownAction on UnknownAction {
+  __typename
+}

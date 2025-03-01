@@ -1,0 +1,12 @@
+fragment Post on Post {
+  ...PostBase
+  root {
+    ...PostBase
+  }
+  commentOn {
+    ...PostBase
+  }
+  quoteOf {
+    ...PostBase
+  }
+}

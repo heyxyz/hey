@@ -2,7 +2,6 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import type { Account } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
@@ -30,7 +29,7 @@ const SignedAccount: FC = () => {
     <Image
       alt={currentAccount?.address}
       className="size-8 cursor-pointer rounded-full border dark:border-gray-700"
-      src={getAvatar(currentAccount as Account)}
+      src={getAvatar(currentAccount)}
     />
   );
 
