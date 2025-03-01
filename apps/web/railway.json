@@ -1,0 +1,23 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "pnpm --filter @hey/web build"
+  },
+  "deploy": {
+    "runtime": "V2",
+    "startCommand": "pnpm --filter @hey/web start",
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 1000,
+    "region": "europe-west4-drams3a",
+    "numReplicas": 1,
+    "restartPolicyType": "ALWAYS",
+    "sleepApplication": false,
+    "limitOverride": {
+      "containers": {
+        "cpu": 5,
+        "memoryBytes": 5000000000
+      }
+    }
+  }
+}
