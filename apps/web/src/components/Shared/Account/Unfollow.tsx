@@ -5,7 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
   type AccountFragment,
-  type LoggedInAccountOperations,
+  type LoggedInAccountOperationsFragment,
   useUnfollowMutation
 } from "@hey/indexer";
 import { Button } from "@hey/ui";
@@ -40,7 +40,9 @@ const Unfollow: FC<UnfollowProps> = ({
   const updateCache = () => {
     cache.modify({
       fields: { isFollowedByMe: () => false },
-      id: cache.identify(account.operations as LoggedInAccountOperations)
+      id: cache.identify(
+        account.operations as LoggedInAccountOperationsFragment
+      )
     });
   };
 

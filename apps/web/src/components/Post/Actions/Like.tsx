@@ -7,7 +7,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import nFormatter from "@hey/helpers/nFormatter";
 import {
-  type LoggedInPostOperations,
+  type LoggedInPostOperationsFragment,
   type Post,
   PostReactionType,
   useAddReactionMutation,
@@ -38,7 +38,7 @@ const Like: FC<LikeProps> = ({ post, showCount }) => {
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
       fields: { hasReacted: () => !hasReacted },
-      id: cache.identify(post.operations as LoggedInPostOperations)
+      id: cache.identify(post.operations as LoggedInPostOperationsFragment)
     });
     cache.modify({
       fields: {

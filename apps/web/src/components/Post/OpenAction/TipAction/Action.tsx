@@ -7,7 +7,7 @@ import { DEFAULT_COLLECT_TOKEN, IS_MAINNET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
-  type LoggedInPostOperations,
+  type LoggedInPostOperationsFragment,
   type Post,
   useExecutePostActionMutation
 } from "@hey/indexer";
@@ -52,7 +52,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const updateCache = () => {
     cache.modify({
       fields: { hasTipped: () => true },
-      id: cache.identify(post.operations as LoggedInPostOperations)
+      id: cache.identify(post.operations as LoggedInPostOperationsFragment)
     });
     cache.modify({
       fields: {

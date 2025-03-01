@@ -5,7 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
   type AccountFragment,
-  type LoggedInAccountOperations,
+  type LoggedInAccountOperationsFragment,
   useFollowMutation
 } from "@hey/indexer";
 import { Button } from "@hey/ui";
@@ -42,7 +42,9 @@ const Follow: FC<FollowProps> = ({
   const updateCache = () => {
     cache.modify({
       fields: { isFollowedByMe: () => true },
-      id: cache.identify(account.operations as LoggedInAccountOperations)
+      id: cache.identify(
+        account.operations as LoggedInAccountOperationsFragment
+      )
     });
   };
 

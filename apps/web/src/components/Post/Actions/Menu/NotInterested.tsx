@@ -4,7 +4,7 @@ import errorToast from "@helpers/errorToast";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
-  type LoggedInPostOperations,
+  type LoggedInPostOperationsFragment,
   type Post,
   type PostNotInterestedRequest,
   useAddPostNotInterestedMutation,
@@ -28,7 +28,7 @@ const NotInterested: FC<NotInterestedProps> = ({ post }) => {
   const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
     cache.modify({
       fields: { isNotInterested: () => notInterested },
-      id: cache.identify(post.operations as LoggedInPostOperations)
+      id: cache.identify(post.operations as LoggedInPostOperationsFragment)
     });
   };
 

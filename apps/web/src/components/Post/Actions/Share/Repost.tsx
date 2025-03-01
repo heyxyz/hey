@@ -6,7 +6,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
-  type LoggedInPostOperations,
+  type LoggedInPostOperationsFragment,
   type Post,
   useRepostMutation
 } from "@hey/indexer";
@@ -43,7 +43,7 @@ const Repost: FC<RepostProps> = ({ isSubmitting, post, setIsSubmitting }) => {
           return { ...existingValue, optimistic: true };
         }
       },
-      id: cache.identify(post.operations as LoggedInPostOperations)
+      id: cache.identify(post.operations as LoggedInPostOperationsFragment)
     });
     cache.modify({
       fields: {

@@ -8,7 +8,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
 import {
-  type LoggedInPostOperations,
+  type LoggedInPostOperationsFragment,
   type Post,
   type PostAction,
   useExecutePostActionMutation
@@ -60,7 +60,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
   const updateCache = () => {
     cache.modify({
       fields: { hasSimpleCollected: () => true },
-      id: cache.identify(post.operations as LoggedInPostOperations)
+      id: cache.identify(post.operations as LoggedInPostOperationsFragment)
     });
     cache.modify({
       fields: {

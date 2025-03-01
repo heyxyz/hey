@@ -5,7 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import getAccount from "@hey/helpers/getAccount";
 import {
-  type LoggedInAccountOperations,
+  type LoggedInAccountOperationsFragment,
   useMuteMutation,
   useUnmuteMutation
 } from "@hey/indexer";
@@ -36,7 +36,7 @@ const MuteOrUnmuteAccount: FC = () => {
     cache.modify({
       fields: { isMutedByMe: () => !hasMuted },
       id: cache.identify(
-        mutingOrUnmutingAccount?.operations as LoggedInAccountOperations
+        mutingOrUnmutingAccount?.operations as LoggedInAccountOperationsFragment
       )
     });
   };
