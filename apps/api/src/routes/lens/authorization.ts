@@ -5,6 +5,7 @@ import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { VERIFICATION_ENDPOINT } from "src/helpers/constants";
 import { noBody } from "src/helpers/responses";
+import trackEvent from "src/helpers/trackEvent";
 
 export const post = async (req: Request, res: Response) => {
   const { body } = req;
@@ -34,6 +35,8 @@ export const post = async (req: Request, res: Response) => {
         appVerificationEndpoint: VERIFICATION_ENDPOINT
       });
     }
+
+    trackEvent("authorization");
 
     return res.status(200).json({
       allowed: true,

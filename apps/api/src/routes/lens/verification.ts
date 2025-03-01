@@ -6,6 +6,7 @@ import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { heyWalletClient } from "src/helpers/heyWalletClient";
 import { noBody } from "src/helpers/responses";
+import trackEvent from "src/helpers/trackEvent";
 import { type Address, checksumAddress } from "viem";
 
 const TYPES = {
@@ -80,6 +81,8 @@ export const post = async (req: Request, res: Response) => {
         reason: `Account is suspended on ${APP_NAME}`
       });
     }
+
+    trackEvent("verification", { operation });
 
     return res.status(200).json({ allowed: true, signature });
   } catch (error) {
