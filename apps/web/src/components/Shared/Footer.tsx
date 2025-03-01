@@ -48,7 +48,7 @@ const Footer: FC = () => {
       </span>
       <button
         type="button"
-        className="font-bold text-green-600"
+        className="font-bold text-yellow-600"
         onClick={() => setShowTipModal(true)}
       >
         Tip
