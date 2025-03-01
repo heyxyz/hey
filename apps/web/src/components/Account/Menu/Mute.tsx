@@ -2,13 +2,13 @@ import { MenuItem } from "@headlessui/react";
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AccountFieldsFragment } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useMuteAlertStore } from "src/store/non-persisted/alert/useMuteAlertStore";
 
 interface MuteProps {
-  account: AccountFieldsFragment;
+  account: AccountFragment;
 }
 
 const Mute: FC<MuteProps> = ({ account }) => {

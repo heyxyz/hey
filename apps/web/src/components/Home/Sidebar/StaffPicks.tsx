@@ -2,7 +2,7 @@ import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimme
 import SingleAccount from "@components/Shared/SingleAccount";
 import { CursorArrowRippleIcon as CursorArrowRippleIconOutline } from "@heroicons/react/24/outline";
 import { HEY_API_URL } from "@hey/data/constants";
-import { type AccountFieldsFragment, useStaffPicksQuery } from "@hey/indexer";
+import { type AccountFragment, useStaffPicksQuery } from "@hey/indexer";
 import type { StaffPick } from "@hey/types/hey";
 import { Card, EmptyState, ErrorMessage, H5 } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
@@ -110,7 +110,7 @@ const StaffPicks: FC = () => {
         !account.operations?.isFollowedByMe &&
         currentAccount?.address !== account.address
     )
-    .slice(0, 5) as AccountFieldsFragment[];
+    .slice(0, 5) as AccountFragment[];
 
   if (filteredAccounts.length === 0) {
     return null;

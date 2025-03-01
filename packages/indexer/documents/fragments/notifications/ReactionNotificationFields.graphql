@@ -5,7 +5,7 @@ fragment ReactionNotificationFields on ReactionNotification {
   }
   reactions {
     account {
-      ...AccountFields
+      ...Account
     }
   }
 }

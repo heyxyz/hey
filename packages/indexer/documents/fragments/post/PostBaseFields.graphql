@@ -20,7 +20,7 @@ fragment PostBaseFields on Post {
     __typename
   }
   author {
-    ...AccountFields
+    ...Account
   }
   metadata {
     ...PostMetadataFields

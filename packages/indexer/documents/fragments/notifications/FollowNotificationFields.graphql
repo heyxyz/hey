@@ -2,7 +2,7 @@ fragment FollowNotificationFields on FollowNotification {
   id
   followers {
     account {
-      ...AccountFields
+      ...Account
     }
   }
 }

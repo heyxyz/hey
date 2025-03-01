@@ -9,7 +9,7 @@ import { Regex } from "@hey/data/regex";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import trimify from "@hey/helpers/trimify";
 import {
-  type AccountFieldsFragment,
+  type AccountFragment,
   useMeLazyQuery,
   useSetAccountMetadataMutation
 } from "@hey/indexer";
@@ -66,7 +66,7 @@ const AccountSettingsForm: FC = () => {
   const onCompleted = () => {
     getCurrentAccountDetails().then(({ data }) => {
       setCurrentAccount({
-        currentAccount: data?.me.loggedInAs.account as AccountFieldsFragment,
+        currentAccount: data?.me.loggedInAs.account as AccountFragment,
         isSignlessEnabled: data?.me.isSignless || false
       });
     });

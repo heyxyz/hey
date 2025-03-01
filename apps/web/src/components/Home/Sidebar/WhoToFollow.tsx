@@ -2,7 +2,7 @@ import DismissRecommendedAccount from "@components/Shared/DismissRecommendedAcco
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import {
-  type AccountFieldsFragment,
+  type AccountFragment,
   PageSize,
   useMlAccountRecommendationsQuery
 } from "@hey/indexer";
@@ -90,7 +90,7 @@ const WhoToFollow: FC = () => {
         show={showMore}
         title="Suggested for you"
       >
-        <Suggested accounts={recommendedAccounts as AccountFieldsFragment[]} />
+        <Suggested accounts={recommendedAccounts as AccountFragment[]} />
       </Modal>
     </>
   );

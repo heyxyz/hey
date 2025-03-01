@@ -3,7 +3,7 @@ import SingleAccount from "@components/Shared/SingleAccount";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import {
-  type AccountFieldsFragment,
+  type AccountFragment,
   type AccountsRequest,
   PageSize,
   useAccountsLazyQuery
@@ -26,7 +26,7 @@ const Search: FC<SearchProps> = ({ placeholder = "Search…" }) => {
   const { addAccount } = useSearchStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [accounts, setAccounts] = useState<AccountFieldsFragment[]>([]);
+  const [accounts, setAccounts] = useState<AccountFragment[]>([]);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
   const handleReset = () => {

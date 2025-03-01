@@ -5,7 +5,7 @@ fragment RepostNotificationFields on RepostNotification {
   }
   reposts {
     account {
-      ...AccountFields
+      ...Account
     }
     repostedAt
   }

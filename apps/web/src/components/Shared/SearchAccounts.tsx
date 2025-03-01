@@ -1,5 +1,5 @@
 import {
-  type AccountFieldsFragment,
+  type AccountFragment,
   type AccountsRequest,
   PageSize,
   useAccountsLazyQuery
@@ -13,7 +13,7 @@ interface SearchAccountsProps {
   error?: boolean;
   hideDropdown?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onAccountSelected: (account: AccountFieldsFragment) => void;
+  onAccountSelected: (account: AccountFragment) => void;
   placeholder?: string;
   value: string;
 }

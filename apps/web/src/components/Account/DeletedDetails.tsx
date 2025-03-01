@@ -1,12 +1,12 @@
 import Slug from "@components/Shared/Slug";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
-import type { AccountFieldsFragment } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import { H3, Image } from "@hey/ui";
 import type { FC } from "react";
 
 interface DeletedDetailsProps {
-  account: AccountFieldsFragment;
+  account: AccountFragment;
 }
 
 const DeletedDetails: FC<DeletedDetailsProps> = ({ account }) => {

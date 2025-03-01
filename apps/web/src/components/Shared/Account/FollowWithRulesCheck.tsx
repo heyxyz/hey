@@ -1,5 +1,5 @@
 import { getSimplePaymentDetails } from "@helpers/rules";
-import type { AccountFieldsFragment, AccountFollowRules } from "@hey/indexer";
+import type { AccountFollowRules, AccountFragment } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useSuperFollowModalStore } from "src/store/non-persisted/modal/useSuperFollowModalStore";
@@ -7,7 +7,7 @@ import Follow from "./Follow";
 
 interface FollowWithRulesCheckProps {
   buttonClassName: string;
-  account: AccountFieldsFragment;
+  account: AccountFragment;
   small: boolean;
 }
 

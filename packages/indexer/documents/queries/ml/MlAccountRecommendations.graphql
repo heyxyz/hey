@@ -1,7 +1,7 @@
 query MlAccountRecommendations($request: MlaccountRecommendationsRequest!) {
   mlAccountRecommendations(request: $request) {
     items {
-      ...AccountFields
+      ...Account
     }
     pageInfo {
       ...PaginatedResultInfoFields

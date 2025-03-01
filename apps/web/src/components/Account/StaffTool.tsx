@@ -1,9 +1,9 @@
 import Suspend from "@components/Shared/Account/Suspend";
-import type { AccountFieldsFragment } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import type { FC } from "react";
 
 interface StaffToolProps {
-  account: AccountFieldsFragment;
+  account: AccountFragment;
 }
 
 const StaffTool: FC<StaffToolProps> = ({ account }) => {

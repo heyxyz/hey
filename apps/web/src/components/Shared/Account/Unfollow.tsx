@@ -4,7 +4,7 @@ import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
-  type AccountFieldsFragment,
+  type AccountFragment,
   type LoggedInAccountOperations,
   useUnfollowMutation
 } from "@hey/indexer";
@@ -19,7 +19,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface UnfollowProps {
   buttonClassName: string;
-  account: AccountFieldsFragment;
+  account: AccountFragment;
   small: boolean;
   title: string;
 }

@@ -2,10 +2,10 @@ query GroupBannedAccounts($request: GroupBannedAccountsRequest!) {
   groupBannedAccounts(request: $request) {
     items {
       account {
-        ...AccountFields
+        ...Account
       }
       bannedBy {
-        ...AccountFields
+        ...Account
       }
       bannedAt
       lastActiveAt

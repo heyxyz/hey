@@ -1,4 +1,4 @@
-fragment AccountFields on Account {
+fragment Account on Account {
   owner
   address
   createdAt

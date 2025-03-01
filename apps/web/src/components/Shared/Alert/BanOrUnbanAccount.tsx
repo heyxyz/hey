@@ -5,7 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import getAccount from "@hey/helpers/getAccount";
 import {
-  type AccountFieldsFragment,
+  type AccountFragment,
   useBanGroupAccountsMutation,
   useUnbanGroupAccountsMutation
 } from "@hey/indexer";
@@ -34,7 +34,7 @@ const BanOrUnbanAccount: FC = () => {
 
   const updateCache = () => {
     cache.evict({
-      id: cache.identify(banningOrUnbanningAccount as AccountFieldsFragment)
+      id: cache.identify(banningOrUnbanningAccount as AccountFragment)
     });
   };
 

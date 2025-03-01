@@ -2,7 +2,7 @@ import Verified from "@components/Shared/Account/Icons/Verified";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import type { AccountFieldsFragment, PostGroupInfo } from "@hey/indexer";
+import type { AccountFragment, PostGroupInfo } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ import AccountPreview from "../Shared/AccountPreview";
 import Slug from "../Shared/Slug";
 
 interface PostAccountProps {
-  account: AccountFieldsFragment;
+  account: AccountFragment;
   group?: PostGroupInfo;
   postSlug: string;
   timestamp: Date;

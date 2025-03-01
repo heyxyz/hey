@@ -1,7 +1,7 @@
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import {
-  type AccountFieldsFragment,
+  type AccountFragment,
   type PostMention,
   useAccountsBulkQuery
 } from "@hey/indexer";
@@ -85,7 +85,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
         title="Relevant people"
       >
         <MoreRelevantPeople
-          accounts={data?.accountsBulk as AccountFieldsFragment[]}
+          accounts={data?.accountsBulk as AccountFragment[]}
         />
       </Modal>
     </>

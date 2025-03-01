@@ -1,7 +1,7 @@
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getMentions from "@hey/helpers/getMentions";
-import type { AccountFieldsFragment } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
@@ -18,7 +18,7 @@ interface SingleAccountProps {
   hideUnfollowButton?: boolean;
   isBig?: boolean;
   linkToAccount?: boolean;
-  account: AccountFieldsFragment;
+  account: AccountFragment;
   showBio?: boolean;
   showUserPreview?: boolean;
   menu?: ReactNode;

@@ -1,5 +1,5 @@
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AccountFieldsFragment } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import FollowWithRulesCheck from "./FollowWithRulesCheck";
@@ -9,7 +9,7 @@ interface FollowUnfollowButtonProps {
   buttonClassName?: string;
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
-  account: AccountFieldsFragment;
+  account: AccountFragment;
   small?: boolean;
   unfollowTitle?: string;
 }

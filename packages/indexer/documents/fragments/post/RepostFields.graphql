@@ -2,7 +2,7 @@ fragment RepostFields on Repost {
   id
   isDeleted
   author {
-    ...AccountFields
+    ...Account
   }
   repostOf {
     ...PostFields

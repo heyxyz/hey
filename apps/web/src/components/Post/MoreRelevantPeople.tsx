@@ -1,11 +1,11 @@
 import SingleAccount from "@components/Shared/SingleAccount";
-import type { AccountFieldsFragment } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MoreRelevantPeopleProps {
-  accounts: AccountFieldsFragment[];
+  accounts: AccountFragment[];
 }
 
 const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ accounts }) => {

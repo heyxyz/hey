@@ -2,7 +2,7 @@ import MenuTransition from "@components/Shared/MenuTransition";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AccountFieldsFragment } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import type { FC } from "react";
 import { Fragment } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -12,7 +12,7 @@ import Mute from "./Mute";
 import Report from "./Report";
 
 interface AccountMenuProps {
-  account: AccountFieldsFragment;
+  account: AccountFragment;
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ account }) => {

@@ -2,7 +2,7 @@ query PostReactions($request: PostReactionsRequest!) {
   postReactions(request: $request) {
     items {
       account {
-        ...AccountFields
+        ...Account
       }
     }
     pageInfo {

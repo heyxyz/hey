@@ -1,11 +1,11 @@
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AccountFieldsFragment } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
 import { NotificationAccountName } from "./Account";
 
 interface AggregatedNotificationTitleProps {
-  firstAccount: AccountFieldsFragment;
+  firstAccount: AccountFragment;
   linkToType: string;
   text: string;
   type?: string;

@@ -1,17 +1,17 @@
 import { Localstorage } from "@hey/data/storage";
-import type { AccountFieldsFragment } from "@hey/indexer";
+import type { AccountFragment } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface State {
-  currentAccount: null | AccountFieldsFragment;
+  currentAccount: null | AccountFragment;
   isSignlessEnabled: boolean;
   setCurrentAccount: ({
     currentAccount,
     isSignlessEnabled
   }: {
-    currentAccount: null | AccountFieldsFragment;
+    currentAccount: null | AccountFragment;
     isSignlessEnabled: boolean;
   }) => void;
 }

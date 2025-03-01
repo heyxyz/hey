@@ -3,7 +3,7 @@ query FullAccount(
   $accountStatsRequest: AccountStatsRequest!
 ) {
   account(request: $accountRequest) {
-    ...AccountFields
+    ...Account
   }
   accountStats(request: $accountStatsRequest) {
     feedStats {
