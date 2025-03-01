@@ -11,7 +11,6 @@ import { storageClient } from "./storageClient";
 const uploadMetadata = async (data: any): Promise<string> => {
   try {
     const { uri } = await storageClient.uploadAsJson(data);
-
     return uri;
   } catch {
     throw new Error(Errors.SomethingWentWrong);

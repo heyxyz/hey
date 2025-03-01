@@ -24,6 +24,7 @@
     "express-file-routing": "^3.0.3",
     "express-rate-limit": "^7.5.0",
     "express-session": "^1.18.1",
+    "graphql": "^16.10.0",
     "jose": "^6.0.8",
     "linkedom": "^0.18.9",
     "rate-limit-redis": "^4.2.0",
