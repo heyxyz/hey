@@ -28,7 +28,7 @@ const PostType: FC<PostTypeProps> = ({
       {type === "Repost" ? <Reposted account={post.author} /> : null}
       {type === "Post" &&
       post.commentOn &&
-      (showThread || pathname === "/posts/[slug]") ? (
+      (showThread || pathname === "/posts/[id]") ? (
         <Commented post={post} />
       ) : null}
     </span>

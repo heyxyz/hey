@@ -33,13 +33,13 @@ const CommentNotification: FC<CommentNotificationProps> = ({
       <div className="ml-9">
         <AggregatedNotificationTitle
           firstAccount={firstAccount}
-          linkToType={`/posts/${notification.comment.slug}`}
+          linkToType={`/posts/${notification.comment.id}`}
           text={text}
           type={type}
         />
         <Link
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
-          href={`/posts/${notification.comment.slug}`}
+          href={`/posts/${notification.comment.id}`}
         >
           <Markup mentions={notification.comment.mentions}>
             {filteredContent}

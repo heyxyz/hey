@@ -36,7 +36,7 @@ const PostBody: FC<PostBodyProps> = ({
   showMore = false
 }) => {
   const targetPost = isRepost(post) ? post.repostOf : post;
-  const { slug, metadata } = targetPost;
+  const { id, metadata } = targetPost;
 
   const filteredContent = getPostData(metadata)?.content || "";
   const filteredAttachments = getPostData(metadata)?.attachments || [];
@@ -98,7 +98,7 @@ const PostBody: FC<PostBodyProps> = ({
       {canShowMore ? (
         <H6 className="ld-text-gray-500 mt-4 flex items-center space-x-1">
           <EyeIcon className="size-4" />
-          <Link href={`/posts/${slug}`}>Show more</Link>
+          <Link href={`/posts/${id}`}>Show more</Link>
         </H6>
       ) : null}
       {/* Attachments and Quotes */}

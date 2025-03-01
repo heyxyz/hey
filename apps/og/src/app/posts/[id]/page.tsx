@@ -10,17 +10,17 @@ import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string }>;
 }
 
 export const generateMetadata = async ({
   params
 }: Props): Promise<Metadata> => {
-  const { slug } = await params;
+  const { id } = await params;
 
   const { data } = await apolloClient().query({
     query: PostDocument,
-    variables: { request: { post: slug } }
+    variables: { request: { post: id } }
   });
 
   if (!data.post) {
@@ -39,18 +39,18 @@ export const generateMetadata = async ({
   const description = (filteredContent || title).slice(0, 155);
 
   return {
-    alternates: { canonical: `https://hey.xyz/posts/${targetPost.slug}` },
+    alternates: { canonical: `https://hey.xyz/posts/${targetPost.id}` },
     applicationName: APP_NAME,
     authors: { name, url: `https://hey.xyz${link}` },
     creator: name,
     description: description,
-    metadataBase: new URL(`https://hey.xyz/posts/${targetPost.slug}`),
+    metadataBase: new URL(`https://hey.xyz/posts/${targetPost.id}`),
     openGraph: {
       description: description,
       images: getPostOGImages(metadata) as any,
       siteName: "Hey",
       type: "article",
-      url: `https://hey.xyz/posts/${targetPost.slug}`
+      url: `https://hey.xyz/posts/${targetPost.id}`
     },
     other: {
       "count:collects": targetPost.stats.collects,
@@ -59,7 +59,7 @@ export const generateMetadata = async ({
       "count:likes": targetPost.stats.reactions,
       "count:reposts": targetPost.stats.reposts,
       "count:quotes": targetPost.stats.quotes,
-      "lens:slug": targetPost.slug
+      "lens:id": targetPost.id
     },
     publisher: name,
     title: title,
@@ -71,16 +71,16 @@ export const generateMetadata = async ({
 };
 
 const Page = async ({ params }: Props) => {
-  const { slug } = await params;
+  const { id } = await params;
   const metadata = await generateMetadata({ params });
 
   if (!metadata) {
-    return <h1>{slug}</h1>;
+    return <h1>{id}</h1>;
   }
 
-  const postUrl = `https://hey.xyz/posts/${metadata.other?.["lens:slug"]}`;
+  const postUrl = `https://hey.xyz/posts/${metadata.other?.["lens:id"]}`;
 
-  logger.info(`[OG] Fetched post /posts/${metadata.other?.["lens:slug"]}`);
+  logger.info(`[OG] Fetched post /posts/${metadata.other?.["lens:id"]}`);
 
   return (
     <>

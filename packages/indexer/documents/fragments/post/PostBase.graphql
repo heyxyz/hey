@@ -1,6 +1,5 @@
 fragment PostBase on Post {
   id
-  slug
   isDeleted
   feed {
     group {

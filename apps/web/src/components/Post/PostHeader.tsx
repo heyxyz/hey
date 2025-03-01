@@ -35,7 +35,7 @@ const PostHeader: FC<PostHeaderProps> = ({
       <PostAccount
         account={account}
         group={targetPost.feed?.group as PostGroupInfo}
-        postSlug={targetPost.slug}
+        postSlug={targetPost.id}
         timestamp={timestamp}
       />
       {!post.isDeleted && !quoted ? (

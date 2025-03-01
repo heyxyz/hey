@@ -53,27 +53,27 @@ const ViewPost: NextPage = () => {
   const {
     isReady,
     pathname,
-    query: { slug }
+    query: { id }
   } = useRouter();
 
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const { preLoadedPosts } = useOptimisticNavigation();
 
-  const showQuotes = pathname === "/posts/[slug]/quotes";
-  const preLoadedPost = preLoadedPosts.find((p) => p.slug === slug);
+  const showQuotes = pathname === "/posts/[id]/quotes";
+  const preLoadedPost = preLoadedPosts.find((p) => p.id === id);
 
   const { data, error, loading } = usePostQuery({
-    skip: !slug || preLoadedPost?.slug,
-    variables: { request: { post: slug } }
+    skip: !id || preLoadedPost?.id,
+    variables: { request: { post: id } }
   });
 
   const { data: comments } = usePostReferencesQuery({
-    skip: !slug,
+    skip: !id,
     variables: {
       request: {
         pageSize: PageSize.Fifty,
-        referencedPost: slug,
+        referencedPost: id,
         visibilityFilter: PostVisibilityFilter.Hidden,
         referenceTypes: [PostReferenceType.CommentOn]
       }
