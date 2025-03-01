@@ -1,4 +1,4 @@
-import type { Maybe, MetadataAttribute } from "@hey/indexer";
+import type { Maybe, MetadataAttributeFragment } from "@hey/indexer";
 
 type Key = "location" | "website" | "x";
 
@@ -11,7 +11,7 @@ type Key = "location" | "website" | "x";
  */
 const getAccountAttribute = (
   key: Key,
-  attributes: Maybe<MetadataAttribute[]> = []
+  attributes: Maybe<MetadataAttributeFragment[]> = []
 ): string => {
   const attribute = attributes?.find((attr) => attr.key === key);
   return attribute?.value || "";
