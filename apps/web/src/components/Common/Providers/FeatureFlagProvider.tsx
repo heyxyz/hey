@@ -21,6 +21,7 @@ const FeatureFlagProvider: FC<FeatureFlagProviderProps> = ({ children }) => {
         usePOSTrequests: true,
         url: UNLEASH_API_URL
       }}
+      startClient={!!address}
     >
       {children}
     </FlagProvider>
