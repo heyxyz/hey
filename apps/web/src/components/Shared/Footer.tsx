@@ -1,10 +1,12 @@
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
+import { Modal } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useFlag } from "@unleash/proxy-client-react";
 import Link from "next/link";
 import type { FC } from "react";
-
+import { useState } from "react";
+import TipHey from "./Modal/TipHey";
 const currentYear = new Date().getFullYear();
 
 const links = [
@@ -32,6 +34,7 @@ const links = [
 
 const Footer: FC = () => {
   const isStaff = useFlag(FeatureFlag.Staff);
+  const [showTipModal, setShowTipModal] = useState(false);
 
   return (
     <footer
@@ -43,6 +46,13 @@ const Footer: FC = () => {
       <span className="ld-text-gray-500 font-bold">
         &copy; {currentYear} {APP_NAME}.xyz
       </span>
+      <button
+        type="button"
+        className="font-bold text-green-600"
+        onClick={() => setShowTipModal(true)}
+      >
+        Tip
+      </button>
       {links.map((link) => (
         <Link
           className="outline-offset-4"
@@ -54,6 +64,13 @@ const Footer: FC = () => {
           {link.label}
         </Link>
       ))}
+      <Modal
+        title="Tip"
+        show={showTipModal}
+        onClose={() => setShowTipModal(false)}
+      >
+        <TipHey onTip={() => setShowTipModal(false)} />
+      </Modal>
     </footer>
   );
 };
