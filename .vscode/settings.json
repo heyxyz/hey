@@ -24,5 +24,6 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "editor.fontSize": 12,
-  "editor.lineHeight": 2.2
+  "editor.lineHeight": 2.2,
+  "editor.fontFamily": "Monolisa, Menlo, Monaco, 'Courier New', monospace"
 }
