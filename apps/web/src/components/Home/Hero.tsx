@@ -1,4 +1,4 @@
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import type { FC } from "react";
 
 const Hero: FC = () => {
@@ -8,7 +8,7 @@ const Hero: FC = () => {
         <img
           alt="Hey Logo"
           className="mr-5 size-24 sm:mr-8 sm:size-36"
-          src="/logo.png"
+          src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
         />
         <div className="flex-1 space-y-1 tracking-tight sm:max-w-lg">
           <div className="font-extrabold text-2xl sm:text-5xl">

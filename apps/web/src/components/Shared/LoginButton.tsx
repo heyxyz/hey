@@ -1,3 +1,4 @@
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Button } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC, MouseEvent } from "react";
@@ -34,7 +35,7 @@ const LoginButton: FC<LoginButtonProps> = ({
           alt="Lens Logo"
           className="mr-0.5 h-3"
           height={12}
-          src="/lens.svg"
+          src={`${STATIC_IMAGES_URL}/brands/lens.svg`}
           width={19}
         />
       }

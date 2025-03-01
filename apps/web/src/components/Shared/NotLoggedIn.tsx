@@ -1,6 +1,6 @@
 import MetaTags from "@components/Common/MetaTags";
 import LoginButton from "@components/Shared/LoginButton";
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { H2 } from "@hey/ui";
 import type { FC } from "react";
 
@@ -12,7 +12,7 @@ const NotLoggedIn: FC = () => {
         alt="Logo"
         className="size-20"
         height={80}
-        src="/logo.png"
+        src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
         width={80}
       />
       <div className="py-10 text-center">
