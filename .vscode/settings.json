@@ -23,7 +23,7 @@
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
-  "editor.fontSize": 12,
-  "editor.lineHeight": 2.2,
+  "editor.fontSize": 11,
+  "editor.lineHeight": 2.3,
   "editor.fontFamily": "Monolisa, Menlo, Monaco, 'Courier New', monospace"
 }
