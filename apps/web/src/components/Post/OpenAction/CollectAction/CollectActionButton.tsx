@@ -10,7 +10,7 @@ import getCollectActionData from "@hey/helpers/getCollectActionData";
 import {
   type LoggedInPostOperationsFragment,
   type Post,
-  type PostAction,
+  type PostActionFragment,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { Button, WarningMessage } from "@hey/ui";
@@ -26,7 +26,7 @@ import { useBalance } from "wagmi";
 interface CollectActionButtonProps {
   collects: number;
   onCollectSuccess?: () => void;
-  postAction: PostAction;
+  postAction: PostActionFragment;
   post: Post;
 }
 
