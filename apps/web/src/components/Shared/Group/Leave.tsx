@@ -5,7 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
   type GroupFragment,
-  type LoggedInGroupOperations,
+  type LoggedInGroupOperationsFragment,
   useLeaveGroupMutation
 } from "@hey/indexer";
 import { Button } from "@hey/ui";
@@ -29,7 +29,7 @@ const Leave: FC<LeaveProps> = ({ group, setJoined, small }) => {
   const updateCache = () => {
     cache.modify({
       fields: { isMember: () => false },
-      id: cache.identify(group.operations as LoggedInGroupOperations)
+      id: cache.identify(group.operations as LoggedInGroupOperationsFragment)
     });
   };
 
