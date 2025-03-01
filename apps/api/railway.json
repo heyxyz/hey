@@ -1,12 +1,11 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS",
-    "buildCommand": "pnpm --filter @hey/web build"
+    "builder": "NIXPACKS"
   },
   "deploy": {
     "runtime": "V2",
-    "startCommand": "pnpm --filter @hey/web start",
+    "startCommand": "pnpm --filter @hey/api start",
     "healthcheckPath": "/",
     "healthcheckTimeout": 1000,
     "region": "europe-west4-drams3a",
