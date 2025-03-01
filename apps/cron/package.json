@@ -4,6 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
+    "build": "echo 'Not required'",
     "dev": "NODE_ENV=production tsx src/index.ts",
     "start": "NODE_ENV=production tsx src/index.ts",
     "sync": "NODE_ENV=production tsx src/run.ts",
