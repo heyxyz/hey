@@ -4,6 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
+    "build": "echo 'Not required'",
     "dev": "nodemon -w src -x tsx src/server.ts",
     "dev:silent": "pnpm dev --silent > /dev/null 2>&1",
     "start": "NODE_ENV=production tsx src/server.ts",
