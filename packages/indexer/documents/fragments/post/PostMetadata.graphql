@@ -26,4 +26,22 @@ fragment PostMetadata on PostMetadata {
   ... on CheckingInMetadata {
     ...CheckingInMetadata
   }
+  ... on SpaceMetadata {
+    ...SpaceMetadata
+  }
+  ... on StoryMetadata {
+    ...StoryMetadata
+  }
+  ... on ThreeDMetadata {
+    ...ThreeDMetadata
+  }
+  ... on EmbedMetadata {
+    ...EmbedMetadata
+  }
+  ... on TransactionMetadata {
+    ...TransactionMetadata
+  }
+  ... on EventMetadata {
+    ...EventMetadata
+  }
 }

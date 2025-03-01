@@ -1,0 +1,11 @@
+fragment EmbedMetadata on EmbedMetadata {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...Media
+  }
+}

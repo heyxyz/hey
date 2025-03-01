@@ -1,10 +1,10 @@
 import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
-import type { PostMetadata } from "@hey/indexer";
+import type { PostMetadataFragment } from "@hey/indexer";
 import type { MetadataAsset } from "@hey/types/misc";
 import getAttachmentsData from "./getAttachmentsData";
 
 const getPostData = (
-  metadata: PostMetadata
+  metadata: PostMetadataFragment
 ): {
   asset?: MetadataAsset;
   attachments?: {
@@ -17,12 +17,20 @@ const getPostData = (
 
   switch (metadata.__typename) {
     case "ArticleMetadata":
+    case "ThreeDMetadata":
+    case "LinkMetadata":
+    case "EmbedMetadata":
+    case "EventMetadata":
+    case "TransactionMetadata":
+    case "MintMetadata":
+    case "LivestreamMetadata":
+    case "CheckingInMetadata":
       return {
         attachments: getAttachmentsData(metadata.attachments),
         content
       };
     case "TextOnlyMetadata":
-    case "LinkMetadata":
+    case "StoryMetadata":
       return { content };
     case "ImageMetadata":
       return {
@@ -64,13 +72,6 @@ const getPostData = (
         content
       };
     }
-    case "MintMetadata":
-    case "LivestreamMetadata":
-    case "CheckingInMetadata":
-      return {
-        attachments: getAttachmentsData(metadata.attachments),
-        content
-      };
     default:
       return null;
   }

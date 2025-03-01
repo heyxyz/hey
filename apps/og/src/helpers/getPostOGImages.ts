@@ -1,7 +1,7 @@
 import getPostData from "@hey/helpers/getPostData";
-import type { PostMetadata } from "@hey/indexer";
+import type { PostMetadataFragment } from "@hey/indexer";
 
-const getPostOGImages = (metadata: PostMetadata) => {
+const getPostOGImages = (metadata: PostMetadataFragment) => {
   const filteredAttachments = getPostData(metadata)?.attachments || [];
   const filteredAsset = getPostData(metadata)?.asset;
 

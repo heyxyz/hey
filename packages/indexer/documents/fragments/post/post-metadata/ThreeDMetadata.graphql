@@ -1,0 +1,11 @@
+fragment ThreeDMetadata on ThreeDMetadata {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...Media
+  }
+}

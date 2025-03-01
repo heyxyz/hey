@@ -1,0 +1,11 @@
+fragment EventMetadata on EventMetadata {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...Media
+  }
+}

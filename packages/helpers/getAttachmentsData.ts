@@ -1,6 +1,6 @@
-import type { AnyMedia, Maybe } from "@hey/indexer";
+import type { Maybe, MediaFragment } from "@hey/indexer";
 
-const getAttachmentsData = (attachments?: Maybe<AnyMedia[]>): any => {
+const getAttachmentsData = (attachments?: Maybe<MediaFragment[]>): any => {
   if (!attachments) {
     return [];
   }

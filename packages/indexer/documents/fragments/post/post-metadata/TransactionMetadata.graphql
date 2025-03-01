@@ -1,0 +1,11 @@
+fragment TransactionMetadata on TransactionMetadata {
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...Media
+  }
+}
