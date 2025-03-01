@@ -2,12 +2,12 @@ import MetaDetails from "@components/Shared/MetaDetails";
 import { BanknotesIcon, HashtagIcon } from "@heroicons/react/24/outline";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
 import formatAddress from "@hey/helpers/formatAddress";
-import type { Account } from "@hey/indexer";
+import type { AccountFieldsFragment } from "@hey/indexer";
 import { H5 } from "@hey/ui";
 import type { FC } from "react";
 
 interface AccountOverviewProps {
-  account: Account;
+  account: AccountFieldsFragment;
 }
 
 const AccountOverview: FC<AccountOverviewProps> = ({ account }) => {

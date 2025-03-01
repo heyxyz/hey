@@ -1,11 +1,11 @@
 import SingleAccount from "@components/Shared/SingleAccount";
-import type { Account } from "@hey/indexer";
+import type { AccountFieldsFragment } from "@hey/indexer";
 import type { FC } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface MoreRelevantPeopleProps {
-  accounts: Account[];
+  accounts: AccountFieldsFragment[];
 }
 
 const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ accounts }) => {
@@ -23,7 +23,7 @@ const MoreRelevantPeople: FC<MoreRelevantPeopleProps> = ({ accounts }) => {
             <SingleAccount
               hideFollowButton={currentAccount?.address === account.address}
               hideUnfollowButton={currentAccount?.address === account.address}
-              account={account as Account}
+              account={account}
               showBio
               showUserPreview={false}
             />

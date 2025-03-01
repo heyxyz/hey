@@ -5,7 +5,7 @@ import StaffSidebar from "@components/Staff/Sidebar";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import { type Account, useAccountQuery } from "@hey/indexer";
+import { useAccountQuery } from "@hey/indexer";
 import {
   Card,
   EmptyState,
@@ -33,7 +33,7 @@ const Overview: NextPage = () => {
     variables: { request: { address: address } }
   });
 
-  const account = data?.account as Account;
+  const account = data?.account;
 
   if (!currentAccount || !isStaff) {
     return <Custom404 />;

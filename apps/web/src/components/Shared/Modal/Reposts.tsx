@@ -2,7 +2,6 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import {
-  type Account,
   PageSize,
   PostReferenceType,
   type WhoReferencedPostRequest,
@@ -80,7 +79,7 @@ const Reposts: FC<RepostsProps> = ({ postId }) => {
           <SingleAccount
             hideFollowButton={currentAccount?.address === account.address}
             hideUnfollowButton={currentAccount?.address === account.address}
-            account={account as Account}
+            account={account}
             showBio
             showUserPreview={false}
           />

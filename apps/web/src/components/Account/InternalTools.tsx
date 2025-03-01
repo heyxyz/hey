@@ -1,5 +1,5 @@
 import { FeatureFlag } from "@hey/data/feature-flags";
-import type { Account } from "@hey/indexer";
+import type { AccountFieldsFragment } from "@hey/indexer";
 import { Card } from "@hey/ui";
 import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
@@ -7,7 +7,7 @@ import CreatorTool from "./CreatorTool";
 import StaffTool from "./StaffTool";
 
 interface InternalToolsProps {
-  account: Account;
+  account: AccountFieldsFragment;
 }
 
 const InternalTools: FC<InternalToolsProps> = ({ account }) => {

@@ -1,7 +1,7 @@
 import isVerified from "@helpers/isVerified";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import { type Account, useAccountsLazyQuery } from "@hey/indexer";
+import { useAccountsLazyQuery } from "@hey/indexer";
 import { useEffect, useState } from "react";
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
@@ -31,7 +31,7 @@ const useMentionQuery = (query: string): MentionAccount[] => {
     }).then(({ data }) => {
       const search = data?.accounts;
       const accountsSearchResult = search;
-      const accounts = accountsSearchResult?.items as Account[];
+      const accounts = accountsSearchResult?.items;
       const accountsResults = (accounts ?? []).map(
         (account): MentionAccount => ({
           displayUsername: getAccount(account).usernameWithPrefix,

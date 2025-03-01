@@ -3,7 +3,7 @@ import errorToast from "@helpers/errorToast";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Account, AccountReportReason } from "@hey/indexer";
+import type { AccountFieldsFragment, AccountReportReason } from "@hey/indexer";
 import { useReportAccountMutation } from "@hey/indexer";
 import {
   Button,
@@ -28,7 +28,7 @@ const validationSchema = object({
 });
 
 interface ReportAccountProps {
-  account: Account | null;
+  account: AccountFieldsFragment | null;
 }
 
 const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
@@ -77,7 +77,7 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
-              account={account as Account}
+              account={account}
               showUserPreview={false}
             />
           </Card>

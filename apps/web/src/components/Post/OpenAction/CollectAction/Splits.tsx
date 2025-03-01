@@ -3,11 +3,7 @@ import { BLOCK_EXPLORER_URL } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import {
-  type Account,
-  type RecipientPercent,
-  useAccountsBulkQuery
-} from "@hey/indexer";
+import { type RecipientPercent, useAccountsBulkQuery } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -61,10 +57,8 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                     src={getAvatar(account)}
                   />
                   {account ? (
-                    <Link href={getAccount(account as Account).link}>
-                      <Slug
-                        slug={getAccount(account as Account).usernameWithPrefix}
-                      />
+                    <Link href={getAccount(account).link}>
+                      <Slug slug={getAccount(account).usernameWithPrefix} />
                     </Link>
                   ) : (
                     <Link

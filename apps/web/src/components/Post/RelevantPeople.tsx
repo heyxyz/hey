@@ -1,7 +1,7 @@
 import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import {
-  type Account,
+  type AccountFieldsFragment,
   type PostMention,
   useAccountsBulkQuery
 } from "@hey/indexer";
@@ -64,7 +64,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
             <SingleAccount
               hideFollowButton={currentAccount?.address === account.address}
               hideUnfollowButton={currentAccount?.address === account.address}
-              account={account as Account}
+              account={account}
               showUserPreview={false}
             />
           </div>
@@ -84,7 +84,9 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {
         show={showMore}
         title="Relevant people"
       >
-        <MoreRelevantPeople accounts={data?.accountsBulk as Account[]} />
+        <MoreRelevantPeople
+          accounts={data?.accountsBulk as AccountFieldsFragment[]}
+        />
       </Modal>
     </>
   );

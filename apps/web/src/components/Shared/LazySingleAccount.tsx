@@ -1,4 +1,4 @@
-import { type Account, useAccountQuery } from "@hey/indexer";
+import { useAccountQuery } from "@hey/indexer";
 import type { FC } from "react";
 import type { Address } from "viem";
 import SingleAccountShimmer from "./Shimmer/SingleAccountShimmer";
@@ -24,11 +24,7 @@ const LazySingleAccount: FC<LazySingleAccountProps> = ({ address }) => {
   }
 
   return (
-    <SingleAccount
-      hideFollowButton
-      hideUnfollowButton
-      account={data.account as Account}
-    />
+    <SingleAccount hideFollowButton hideUnfollowButton account={data.account} />
   );
 };
 

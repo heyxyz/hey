@@ -2,7 +2,6 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import {
-  type Account,
   type WhoExecutedActionOnPostRequest,
   useWhoExecutedActionOnPostQuery
 } from "@hey/indexer";
@@ -81,7 +80,7 @@ const Collectors: FC<CollectorsProps> = ({ postId }) => {
             hideUnfollowButton={
               currentAccount?.address === action.account.address
             }
-            account={action.account as Account}
+            account={action.account}
             showBio
             showUserPreview={false}
           />

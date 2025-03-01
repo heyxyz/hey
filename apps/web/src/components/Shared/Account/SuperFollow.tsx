@@ -4,7 +4,7 @@ import { APP_NAME } from "@hey/data/constants";
 import { tokens } from "@hey/data/tokens";
 import getAccount from "@hey/helpers/getAccount";
 import getTokenImage from "@hey/helpers/getTokenImage";
-import type { Account, AccountFollowRules } from "@hey/indexer";
+import type { AccountFieldsFragment, AccountFollowRules } from "@hey/indexer";
 import { H3, H5 } from "@hey/ui";
 import type { FC } from "react";
 import { useSuperFollowModalStore } from "src/store/non-persisted/modal/useSuperFollowModalStore";
@@ -74,7 +74,7 @@ const SuperFollow: FC = () => {
       <div className="mt-5">
         {hasEnoughBalance ? (
           <Follow
-            account={superFollowingAccount as Account}
+            account={superFollowingAccount as AccountFieldsFragment}
             buttonClassName="w-full"
             small={false}
             title="Super Follow"

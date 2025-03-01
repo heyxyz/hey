@@ -4,7 +4,7 @@ import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
-  type Account,
+  type AccountFieldsFragment,
   type LoggedInAccountOperations,
   useFollowMutation
 } from "@hey/indexer";
@@ -20,7 +20,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 interface FollowProps {
   onFollow?: () => void;
   buttonClassName: string;
-  account: Account;
+  account: AccountFieldsFragment;
   small: boolean;
   title?: string;
 }

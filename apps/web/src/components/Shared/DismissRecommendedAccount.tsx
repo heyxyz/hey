@@ -1,12 +1,12 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
-  type Account,
+  type AccountFieldsFragment,
   useMlDismissRecommendedAccountsMutation
 } from "@hey/indexer";
 import type { FC } from "react";
 
 interface DismissRecommendedAccountProps {
-  account: Account;
+  account: AccountFieldsFragment;
 }
 
 const DismissRecommendedAccount: FC<DismissRecommendedAccountProps> = ({

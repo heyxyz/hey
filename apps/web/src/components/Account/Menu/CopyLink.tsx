@@ -2,13 +2,13 @@ import { MenuItem } from "@headlessui/react";
 import { LinkIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Account } from "@hey/indexer";
+import type { AccountFieldsFragment } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 
 interface CopyLinkProps {
-  account: Account;
+  account: AccountFieldsFragment;
 }
 
 const CopyLink: FC<CopyLinkProps> = ({ account }) => {

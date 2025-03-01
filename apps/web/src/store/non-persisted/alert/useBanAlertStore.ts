@@ -1,16 +1,16 @@
-import type { Account } from "@hey/indexer";
+import type { AccountFieldsFragment } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  banningOrUnbanningAccount: null | Account;
+  banningOrUnbanningAccount: null | AccountFieldsFragment;
   banningGroupAddress: null | string;
   banning: boolean;
   showBanOrUnbanAlert: boolean;
   setShowBanOrUnbanAlert: (
     showBanOrUnbanAlert: boolean,
     banning: boolean,
-    banningOrUnbanningAccount: null | Account,
+    banningOrUnbanningAccount: null | AccountFieldsFragment,
     banningGroupAddress: null | string
   ) => void;
 }

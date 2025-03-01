@@ -1,4 +1,4 @@
-import { type Account, useAccountQuery } from "@hey/indexer";
+import { useAccountQuery } from "@hey/indexer";
 import type { FC } from "react";
 import SmallSingleAccountShimmer from "./Shimmer/SmallSingleAccountShimmer";
 import SmallSingleAccount from "./SmallSingleAccount";
@@ -30,7 +30,7 @@ const LazySmallSingleAccount: FC<LazySmallSingleAccountProps> = ({
     <SmallSingleAccount
       hideSlug={hideSlug}
       linkToAccount={linkToAccount}
-      account={data.account as Account}
+      account={data.account}
       smallAvatar
     />
   );

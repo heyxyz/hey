@@ -6,7 +6,7 @@ import {
   NULL_ADDRESS
 } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import type { Account } from "@hey/indexer";
+import type { AccountFieldsFragment } from "@hey/indexer";
 import {
   Button,
   Card,
@@ -50,7 +50,7 @@ const DeleteSettings: FC = () => {
         <SingleAccount
           hideFollowButton
           hideUnfollowButton
-          account={currentAccount as Account}
+          account={currentAccount as AccountFieldsFragment}
         />
         <div className="space-y-3">
           <H5 className="text-red-500">Delete Lens account</H5>

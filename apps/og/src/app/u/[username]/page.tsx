@@ -2,7 +2,7 @@ import { APP_NAME } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import logger from "@hey/helpers/logger";
-import { type Account, AccountDocument } from "@hey/indexer";
+import { AccountDocument, type AccountFieldsFragment } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
@@ -25,7 +25,7 @@ export const generateMetadata = async ({
     return defaultMetadata;
   }
 
-  const account = data.account as Account;
+  const account = data.account as AccountFieldsFragment;
   const { name, link, usernameWithPrefix } = getAccount(account);
   const title = `${name} (${usernameWithPrefix}) • ${APP_NAME}`;
   const description = (account?.metadata?.bio || title).slice(0, 155);

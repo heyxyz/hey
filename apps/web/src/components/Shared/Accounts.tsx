@@ -1,10 +1,10 @@
-import type { Account } from "@hey/indexer";
+import type { AccountFieldsFragment } from "@hey/indexer";
 import type { FC, ReactNode } from "react";
 import FallbackAccountName from "./FallbackAccountName";
 
 interface AccountsProps {
   context?: string;
-  accounts: Account[];
+  accounts: AccountFieldsFragment[];
 }
 
 const Accounts: FC<AccountsProps> = ({ context, accounts }) => {

@@ -5,7 +5,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import getAccount from "@hey/helpers/getAccount";
 import {
-  type Account,
+  type AccountFieldsFragment,
   useBanGroupAccountsMutation,
   useUnbanGroupAccountsMutation
 } from "@hey/indexer";
@@ -33,7 +33,9 @@ const BanOrUnbanAccount: FC = () => {
   const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateCache = () => {
-    cache.evict({ id: cache.identify(banningOrUnbanningAccount as Account) });
+    cache.evict({
+      id: cache.identify(banningOrUnbanningAccount as AccountFieldsFragment)
+    });
   };
 
   const onCompleted = () => {

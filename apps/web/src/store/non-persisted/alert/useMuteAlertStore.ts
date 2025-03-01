@@ -1,13 +1,13 @@
-import type { Account } from "@hey/indexer";
+import type { AccountFieldsFragment } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  mutingOrUnmutingAccount: null | Account;
+  mutingOrUnmutingAccount: null | AccountFieldsFragment;
   showMuteOrUnmuteAlert: boolean;
   setShowMuteOrUnmuteAlert: (
     showMuteOrUnmuteAlert: boolean,
-    mutingOrUnmutingAccount: null | Account
+    mutingOrUnmutingAccount: null | AccountFieldsFragment
   ) => void;
 }
 

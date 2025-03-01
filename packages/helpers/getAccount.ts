@@ -1,11 +1,11 @@
 import { LENS_NAMESPACE } from "@hey/data/constants";
-import type { Account } from "@hey/indexer";
+import type { AccountFieldsFragment } from "@hey/indexer";
 import formatAddress from "./formatAddress";
 import isAccountDeleted from "./isAccountDeleted";
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
 const getAccount = (
-  account: Account | null
+  account: AccountFieldsFragment | null
 ): {
   name: string;
   link: string;

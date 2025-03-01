@@ -3,13 +3,13 @@ import AccountPreview from "@components/Shared/AccountPreview";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Account } from "@hey/indexer";
+import type { AccountFieldsFragment } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
 
 interface NotificationProfileProps {
-  account: Account;
+  account: AccountFieldsFragment;
 }
 
 export const NotificationAccountAvatar: FC<NotificationProfileProps> = ({
