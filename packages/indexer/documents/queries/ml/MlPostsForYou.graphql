@@ -2,12 +2,12 @@ query MlPostsForYou($request: MlpostsForYouRequest!) {
   mlPostsForYou(request: $request) {
     items {
       post {
-        ...PostFields
+        ...Post
       }
       source
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

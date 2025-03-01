@@ -1,20 +1,20 @@
-fragment GroupFields on Group {
+fragment Group on Group {
   address
   feed
   owner
   rules {
     anyOf {
-      ...GroupRuleFields
+      ...GroupRule
     }
     required {
-      ...GroupRuleFields
+      ...GroupRule
     }
   }
   operations {
-    ...LoggedInGroupOperationsFields
+    ...LoggedInGroupOperations
   }
   metadata {
-    ...GroupMetadataFields
+    ...GroupMetadata
   }
   timestamp
 }

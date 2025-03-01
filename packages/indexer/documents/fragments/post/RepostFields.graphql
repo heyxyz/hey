@@ -1,10 +1,10 @@
-fragment RepostFields on Repost {
+fragment Repost on Repost {
   id
   isDeleted
   author {
     ...Account
   }
   repostOf {
-    ...PostFields
+    ...Post
   }
 }

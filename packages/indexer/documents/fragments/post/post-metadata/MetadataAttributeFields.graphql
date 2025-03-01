@@ -1,4 +1,4 @@
-fragment MetadataAttributeFields on MetadataAttribute {
+fragment MetadataAttribute on MetadataAttribute {
   type
   key
   value

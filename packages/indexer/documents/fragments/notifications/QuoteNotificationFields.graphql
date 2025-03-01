@@ -1,6 +1,6 @@
-fragment QuoteNotificationFields on QuoteNotification {
+fragment QuoteNotification on QuoteNotification {
   id
   quote {
-    ...PostFields
+    ...Post
   }
 }

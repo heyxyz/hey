@@ -1,4 +1,4 @@
-fragment CheckingInMetadataFields on CheckingInMetadata {
+fragment CheckingInMetadata on CheckingInMetadata {
   id
   content
   tags
@@ -10,9 +10,9 @@ fragment CheckingInMetadataFields on CheckingInMetadata {
     postalCode
   }
   attributes {
-    ...MetadataAttributeFields
+    ...MetadataAttribute
   }
   attachments {
-    ...MediaFields
+    ...Media
   }
 }

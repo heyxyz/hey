@@ -1,9 +1,9 @@
-fragment GroupRuleFields on GroupRule {
+fragment GroupRule on GroupRule {
   id
   type
   address
   executesOn
   config {
-    ...AnyKeyValueFields
+    ...AnyKeyValue
   }
 }

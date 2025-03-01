@@ -1,13 +1,13 @@
-fragment LivestreamMetadataFields on LivestreamMetadata {
+fragment LivestreamMetadata on LivestreamMetadata {
   id
   playbackUrl
   liveUrl
   content
   tags
   attributes {
-    ...MetadataAttributeFields
+    ...MetadataAttribute
   }
   attachments {
-    ...MediaFields
+    ...Media
   }
 }

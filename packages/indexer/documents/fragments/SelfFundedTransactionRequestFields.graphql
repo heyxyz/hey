@@ -1,4 +1,4 @@
-fragment SelfFundedTransactionRequestFields on SelfFundedTransactionRequest {
+fragment SelfFundedTransactionRequest on SelfFundedTransactionRequest {
   reason
   raw {
     chainId

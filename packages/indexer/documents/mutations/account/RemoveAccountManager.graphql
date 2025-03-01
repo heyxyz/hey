@@ -1,13 +1,13 @@
 mutation RemoveAccountManager($request: RemoveAccountManagerRequest!) {
   removeAccountManager(request: $request) {
     ... on SelfFundedTransactionRequest {
-      ...SelfFundedTransactionRequestFields
+      ...SelfFundedTransactionRequest
     }
     ... on SponsoredTransactionRequest {
-      ...SponsoredTransactionRequestFields
+      ...SponsoredTransactionRequest
     }
     ... on TransactionWillFail {
-      ...TransactionWillFailFields
+      ...TransactionWillFail
     }
   }
 }

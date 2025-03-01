@@ -11,7 +11,7 @@ query GroupBannedAccounts($request: GroupBannedAccountsRequest!) {
       lastActiveAt
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

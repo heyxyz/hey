@@ -1,4 +1,4 @@
-fragment SponsoredTransactionRequestFields on SponsoredTransactionRequest {
+fragment SponsoredTransactionRequest on SponsoredTransactionRequest {
   reason
   raw {
     chainId

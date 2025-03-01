@@ -1,11 +1,11 @@
-fragment MintMetadataFields on MintMetadata {
+fragment MintMetadata on MintMetadata {
   id
   content
   tags
   attributes {
-    ...MetadataAttributeFields
+    ...MetadataAttribute
   }
   attachments {
-    ...MediaFields
+    ...Media
   }
 }

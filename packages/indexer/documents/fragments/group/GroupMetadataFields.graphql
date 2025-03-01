@@ -1,4 +1,4 @@
-fragment GroupMetadataFields on GroupMetadata {
+fragment GroupMetadata on GroupMetadata {
   name
   description
   icon

@@ -4,13 +4,13 @@ mutation BanGroupAccounts($request: BanGroupAccountsRequest!) {
       hash
     }
     ... on SelfFundedTransactionRequest {
-      ...SelfFundedTransactionRequestFields
+      ...SelfFundedTransactionRequest
     }
     ... on SponsoredTransactionRequest {
-      ...SponsoredTransactionRequestFields
+      ...SponsoredTransactionRequest
     }
     ... on TransactionWillFail {
-      ...TransactionWillFailFields
+      ...TransactionWillFail
     }
   }
 }

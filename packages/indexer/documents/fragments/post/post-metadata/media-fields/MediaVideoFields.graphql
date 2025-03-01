@@ -1,4 +1,4 @@
-fragment MediaVideoFields on MediaVideo {
+fragment MediaVideo on MediaVideo {
   item
   cover
   license

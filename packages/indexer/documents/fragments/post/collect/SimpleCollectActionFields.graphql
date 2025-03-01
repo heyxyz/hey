@@ -1,4 +1,4 @@
-fragment SimpleCollectActionFields on SimpleCollectAction {
+fragment SimpleCollectAction on SimpleCollectAction {
   address
   referralShare
   collectLimit
@@ -8,6 +8,6 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     percent
   }
   amount {
-    ...Erc20AmountFields
+    ...Erc20Amount
   }
 }

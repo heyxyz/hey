@@ -1,4 +1,4 @@
-fragment AnyKeyValueFields on AnyKeyValue {
+fragment AnyKeyValue on AnyKeyValue {
   ... on AddressKeyValue {
     key
     address

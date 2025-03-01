@@ -4,20 +4,20 @@ fragment Account on Account {
   createdAt
   rules {
     anyOf {
-      ...AccountFollowRuleFields
+      ...AccountFollowRule
     }
     required {
-      ...AccountFollowRuleFields
+      ...AccountFollowRule
     }
   }
   operations {
-    ...LoggedInAccountOperationsFields
+    ...LoggedInAccountOperations
   }
   metadata {
-    ...AccountMetadataFields
+    ...AccountMetadata
   }
   username(request: { autoResolve: true }) {
-    ...UsernameFields
+    ...Username
   }
   pro: username(
     request: { namespace: "0x8cC5F0756Ab65f8c8706a181c12407950902767D" }

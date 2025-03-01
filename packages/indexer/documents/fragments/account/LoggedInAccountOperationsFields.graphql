@@ -1,4 +1,4 @@
-fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+fragment LoggedInAccountOperations on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe

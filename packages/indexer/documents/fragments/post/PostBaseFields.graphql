@@ -1,4 +1,4 @@
-fragment PostBaseFields on Post {
+fragment PostBase on Post {
   id
   slug
   isDeleted
@@ -6,15 +6,15 @@ fragment PostBaseFields on Post {
     group {
       address
       metadata {
-        ...GroupMetadataFields
+        ...GroupMetadata
       }
     }
   }
   stats {
-    ...PostStatsFields
+    ...PostStats
   }
   operations {
-    ...LoggedInPostOperationsFields
+    ...LoggedInPostOperations
   }
   actions {
     __typename
@@ -23,10 +23,10 @@ fragment PostBaseFields on Post {
     ...Account
   }
   metadata {
-    ...PostMetadataFields
+    ...PostMetadata
   }
   mentions {
-    ...AccountMentionFields
+    ...AccountMention
   }
   timestamp
 }

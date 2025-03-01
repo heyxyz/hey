@@ -2,13 +2,13 @@ query CollectAction($request: PostRequest!) {
   post(request: $request) {
     ... on Post {
       actions {
-        ...PostActionFields
+        ...PostAction
       }
     }
     ... on Repost {
       repostOf {
         actions {
-          ...PostActionFields
+          ...PostAction
         }
       }
     }

@@ -6,7 +6,7 @@ query PostReactions($request: PostReactionsRequest!) {
       }
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

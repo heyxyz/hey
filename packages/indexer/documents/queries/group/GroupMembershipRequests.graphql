@@ -6,7 +6,7 @@ query GroupMembershipRequests($request: GroupMembershipRequestsRequest!) {
       }
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

@@ -1,8 +1,8 @@
-fragment PostActionFields on PostAction {
+fragment PostAction on PostAction {
   ... on SimpleCollectAction {
-    ...SimpleCollectActionFields
+    ...SimpleCollectAction
   }
   ... on UnknownAction {
-    ...UnknownActionFields
+    ...UnknownAction
   }
 }

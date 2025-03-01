@@ -1,6 +1,6 @@
-fragment MentionNotificationFields on MentionNotification {
+fragment MentionNotification on MentionNotification {
   id
   post {
-    ...PostFields
+    ...Post
   }
 }

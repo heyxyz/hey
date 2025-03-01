@@ -1,29 +1,29 @@
-fragment PostMetadataFields on PostMetadata {
+fragment PostMetadata on PostMetadata {
   ... on VideoMetadata {
-    ...VideoMetadataFields
+    ...VideoMetadata
   }
   ... on ArticleMetadata {
-    ...ArticleMetadataFields
+    ...ArticleMetadata
   }
   ... on AudioMetadata {
-    ...AudioMetadataFields
+    ...AudioMetadata
   }
   ... on ImageMetadata {
-    ...ImageMetadataFields
+    ...ImageMetadata
   }
   ... on LinkMetadata {
-    ...LinkMetadataFields
+    ...LinkMetadata
   }
   ... on LivestreamMetadata {
-    ...LivestreamMetadataFields
+    ...LivestreamMetadata
   }
   ... on MintMetadata {
-    ...MintMetadataFields
+    ...MintMetadata
   }
   ... on TextOnlyMetadata {
-    ...TextOnlyMetadataFields
+    ...TextOnlyMetadata
   }
   ... on CheckingInMetadata {
-    ...CheckingInMetadataFields
+    ...CheckingInMetadata
   }
 }

@@ -1,4 +1,4 @@
-fragment MediaAudioFields on MediaAudio {
+fragment MediaAudio on MediaAudio {
   artist
   item
   cover

@@ -1,4 +1,4 @@
-fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+fragment LoggedInPostOperations on LoggedInPostOperations {
   id
   hasBookmarked
   hasReacted
@@ -6,13 +6,13 @@ fragment LoggedInPostOperationsFields on LoggedInPostOperations {
   hasTipped
   isNotInterested
   hasCommented {
-    ...BooleanValueFields
+    ...BooleanValue
   }
   hasQuoted {
-    ...BooleanValueFields
+    ...BooleanValue
   }
   hasReposted {
-    ...BooleanValueFields
+    ...BooleanValue
   }
   canRepost {
     __typename

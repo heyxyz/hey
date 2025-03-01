@@ -1,7 +1,7 @@
-fragment ReactionNotificationFields on ReactionNotification {
+fragment ReactionNotification on ReactionNotification {
   id
   post {
-    ...PostFields
+    ...Post
   }
   reactions {
     account {

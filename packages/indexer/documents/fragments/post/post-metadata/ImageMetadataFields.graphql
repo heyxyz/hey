@@ -1,14 +1,14 @@
-fragment ImageMetadataFields on ImageMetadata {
+fragment ImageMetadata on ImageMetadata {
   id
   content
   tags
   attributes {
-    ...MetadataAttributeFields
+    ...MetadataAttribute
   }
   attachments {
-    ...MediaFields
+    ...Media
   }
   image {
-    ...MediaImageFields
+    ...MediaImage
   }
 }

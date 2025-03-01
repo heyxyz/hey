@@ -4,10 +4,10 @@ mutation CreateGroup($request: CreateGroupRequest!) {
       hash
     }
     ... on SelfFundedTransactionRequest {
-      ...SelfFundedTransactionRequestFields
+      ...SelfFundedTransactionRequest
     }
     ... on TransactionWillFail {
-      ...TransactionWillFailFields
+      ...TransactionWillFail
     }
   }
 }

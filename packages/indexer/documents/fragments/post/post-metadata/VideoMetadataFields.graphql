@@ -1,14 +1,14 @@
-fragment VideoMetadataFields on VideoMetadata {
+fragment VideoMetadata on VideoMetadata {
   id
   content
   tags
   attributes {
-    ...MetadataAttributeFields
+    ...MetadataAttribute
   }
   video {
-    ...MediaVideoFields
+    ...MediaVideo
   }
   attachments {
-    ...MediaFields
+    ...Media
   }
 }

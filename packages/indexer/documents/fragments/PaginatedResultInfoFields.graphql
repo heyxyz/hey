@@ -1,4 +1,4 @@
-fragment PaginatedResultInfoFields on PaginatedResultInfo {
+fragment PaginatedResultInfo on PaginatedResultInfo {
   prev
   next
 }

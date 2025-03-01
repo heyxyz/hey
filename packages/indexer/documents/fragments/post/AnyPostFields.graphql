@@ -1,8 +1,8 @@
-fragment AnyPostFields on AnyPost {
+fragment AnyPost on AnyPost {
   ... on Post {
-    ...PostFields
+    ...Post
   }
   ... on Repost {
-    ...RepostFields
+    ...Repost
   }
 }

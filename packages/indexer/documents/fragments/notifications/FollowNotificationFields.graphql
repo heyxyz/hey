@@ -1,4 +1,4 @@
-fragment FollowNotificationFields on FollowNotification {
+fragment FollowNotification on FollowNotification {
   id
   followers {
     account {

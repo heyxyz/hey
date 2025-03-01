@@ -1,4 +1,4 @@
-fragment LoggedInGroupOperationsFields on LoggedInGroupOperations {
+fragment LoggedInGroupOperations on LoggedInGroupOperations {
   id
   isMember
   isBanned

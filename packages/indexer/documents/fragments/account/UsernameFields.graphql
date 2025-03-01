@@ -1,4 +1,4 @@
-fragment UsernameFields on Username {
+fragment Username on Username {
   namespace
   localName
   linkedTo

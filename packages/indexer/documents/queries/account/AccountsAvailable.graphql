@@ -19,7 +19,7 @@ query AccountsAvailable(
       }
     }
     pageInfo {
-      ...PaginatedResultInfoFields
+      ...PaginatedResultInfo
     }
   }
 }

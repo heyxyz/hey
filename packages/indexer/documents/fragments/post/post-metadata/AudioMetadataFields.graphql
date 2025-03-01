@@ -1,15 +1,15 @@
-fragment AudioMetadataFields on AudioMetadata {
+fragment AudioMetadata on AudioMetadata {
   id
   title
   content
   tags
   attributes {
-    ...MetadataAttributeFields
+    ...MetadataAttribute
   }
   audio {
-    ...MediaAudioFields
+    ...MediaAudio
   }
   attachments {
-    ...MediaFields
+    ...Media
   }
 }

@@ -1,11 +1,11 @@
-fragment MediaFields on AnyMedia {
+fragment Media on AnyMedia {
   ... on MediaVideo {
-    ...MediaVideoFields
+    ...MediaVideo
   }
   ... on MediaImage {
-    ...MediaImageFields
+    ...MediaImage
   }
   ... on MediaAudio {
-    ...MediaAudioFields
+    ...MediaAudio
   }
 }

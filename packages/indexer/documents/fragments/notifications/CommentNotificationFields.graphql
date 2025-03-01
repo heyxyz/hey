@@ -1,6 +1,6 @@
-fragment CommentNotificationFields on CommentNotification {
+fragment CommentNotification on CommentNotification {
   id
   comment {
-    ...PostFields
+    ...Post
   }
 }

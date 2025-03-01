@@ -1,4 +1,4 @@
-fragment BooleanValueFields on BooleanValue {
+fragment BooleanValue on BooleanValue {
   onChain
   optimistic
 }
