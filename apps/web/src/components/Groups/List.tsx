@@ -2,7 +2,6 @@ import GroupListShimmer from "@components/Shared/Shimmer/GroupListShimmer";
 import SingleGroup from "@components/Shared/SingleGroup";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import {
-  type Group,
   GroupsOrderBy,
   type GroupsRequest,
   PageSize,
@@ -89,7 +88,7 @@ const List: FC<ListProps> = ({ focus }) => {
         endReached={onEndReached}
         itemContent={(_, group) => (
           <div className="p-5">
-            <SingleGroup group={group as Group} showDescription isBig />
+            <SingleGroup group={group} showDescription isBig />
           </div>
         )}
         useWindowScroll

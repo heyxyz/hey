@@ -1,7 +1,7 @@
 import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { APP_NAME } from "@hey/data/constants";
-import { type Group, useGroupQuery } from "@hey/indexer";
+import { useGroupQuery } from "@hey/indexer";
 import { GridItemEight, GridItemFour, GridLayout, PageLoading } from "@hey/ui";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -32,9 +32,9 @@ const RulesSettings: NextPage = () => {
     return <Custom500 />;
   }
 
-  const group = data?.group as Group;
+  const group = data?.group;
 
-  if (currentAccount?.address !== group.owner) {
+  if (!group || currentAccount?.address !== group.owner) {
     return <Custom404 />;
   }
 

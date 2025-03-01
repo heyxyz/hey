@@ -2,7 +2,7 @@ import MetaTags from "@components/Common/MetaTags";
 import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
-import { type Group, useGroupQuery } from "@hey/indexer";
+import { useGroupQuery } from "@hey/indexer";
 import {
   GridItemEight,
   GridItemFour,
@@ -42,7 +42,7 @@ const ViewGroup: NextPage = () => {
     return <Custom500 />;
   }
 
-  const group = data.group as Group;
+  const group = data.group;
   const isMember = group.operations?.isMember;
   const isBanned = group.operations?.isBanned;
 
