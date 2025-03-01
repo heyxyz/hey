@@ -17,7 +17,8 @@ const FeatureFlagProvider: FC<FeatureFlagProviderProps> = ({ children }) => {
         environment: "production",
         clientKey: UNLEASH_API_TOKEN,
         context: { sessionId: authenticationId, userId: address },
-        refreshInterval: 15,
+        disableRefresh: true,
+        usePOSTrequests: true,
         url: UNLEASH_API_URL
       }}
     >
