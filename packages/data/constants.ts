@@ -21,9 +21,6 @@ export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const COLLECT_FEES_WALLET = "0xF618330F51fa54Ce5951d627Ee150c0fDADeBA43";
-export const HEY_TIP_POST = IS_MAINNET
-  ? "3fjbb6s4757yyqa2dzx"
-  : "3fjbb6s4757yyqa2dzx";
 
 // Application
 export const APP_NAME = "Hey";

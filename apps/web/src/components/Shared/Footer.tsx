@@ -69,7 +69,7 @@ const Footer: FC = () => {
         show={showTipModal}
         onClose={() => setShowTipModal(false)}
       >
-        <TipHey onTip={() => setShowTipModal(false)} />
+        <TipHey onSuccess={() => setShowTipModal(false)} />
       </Modal>
     </footer>
   );
