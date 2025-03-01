@@ -2,7 +2,7 @@ import AccountListShimmer from "@components/Shared/Shimmer/AccountListShimmer";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
-  type Group,
+  type GroupFragment,
   type GroupMembersRequest,
   PageSize,
   useGroupMembersQuery
@@ -14,7 +14,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import Ban from "./Ban";
 
 interface MembersProps {
-  group: Group;
+  group: GroupFragment;
 }
 
 const Members: FC<MembersProps> = ({ group }) => {

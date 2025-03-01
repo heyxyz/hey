@@ -6,7 +6,7 @@ import uploadMetadata from "@helpers/uploadMetadata";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import { Regex } from "@hey/data/regex";
-import { type Group, useSetGroupMetadataMutation } from "@hey/indexer";
+import { type GroupFragment, useSetGroupMetadataMutation } from "@hey/indexer";
 import { Button, Card, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import { group as groupMetadata } from "@lens-protocol/metadata";
 import type { FC } from "react";
@@ -30,7 +30,7 @@ const validationSchema = object({
 });
 
 interface GroupSettingsFormProps {
-  group: Group;
+  group: GroupFragment;
 }
 
 const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {

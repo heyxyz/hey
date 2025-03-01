@@ -1,5 +1,5 @@
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Group } from "@hey/indexer";
+import type { GroupFragment } from "@hey/indexer";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -9,7 +9,7 @@ import Leave from "./Leave";
 interface JoinLeaveButtonProps {
   hideJoinButton?: boolean;
   hideLeaveButton?: boolean;
-  group: Group;
+  group: GroupFragment;
   small?: boolean;
 }
 

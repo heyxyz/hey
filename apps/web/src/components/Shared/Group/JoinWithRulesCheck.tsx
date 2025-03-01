@@ -2,14 +2,14 @@ import {
   getMembershipApprovalDetails,
   getSimplePaymentDetails
 } from "@helpers/rules";
-import type { Group } from "@hey/indexer";
+import type { GroupFragment, GroupRules } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import { useSuperJoinModalStore } from "src/store/non-persisted/modal/useSuperJoinModalStore";
 import Join from "./Join";
 
 interface JoinWithRulesCheckProps {
-  group: Group;
+  group: GroupFragment;
   setJoined: (joined: boolean) => void;
   small: boolean;
 }
@@ -21,9 +21,11 @@ const JoinWithRulesCheck: FC<JoinWithRulesCheckProps> = ({
 }) => {
   const { setShowSuperJoinModal } = useSuperJoinModalStore();
   const { assetContract: requiredSimplePayment } = getSimplePaymentDetails(
-    group.rules
+    group.rules as GroupRules
   );
-  const requiresMembershipApproval = getMembershipApprovalDetails(group.rules);
+  const requiresMembershipApproval = getMembershipApprovalDetails(
+    group.rules as GroupRules
+  );
 
   if (requiredSimplePayment) {
     return (

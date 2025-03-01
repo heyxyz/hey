@@ -5,7 +5,7 @@ import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
-  type Group,
+  type GroupFragment,
   GroupRuleType,
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
@@ -16,7 +16,7 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 
 interface ApprovalRuleProps {
-  group: Group;
+  group: GroupFragment;
 }
 
 const ApprovalRule: FC<ApprovalRuleProps> = ({ group }) => {

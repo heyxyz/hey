@@ -6,12 +6,12 @@ import {
   NoSymbolIcon,
   UserGroupIcon
 } from "@heroicons/react/24/outline";
-import type { Group } from "@hey/indexer";
+import type { GroupFragment } from "@hey/indexer";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 
 interface SettingsSidebarProps {
-  group: Group;
+  group: GroupFragment;
 }
 
 const SettingsSidebar: FC<SettingsSidebarProps> = ({ group }) => {

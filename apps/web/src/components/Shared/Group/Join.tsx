@@ -3,7 +3,7 @@ import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
-import { type Group, useJoinGroupMutation } from "@hey/indexer";
+import { type GroupFragment, useJoinGroupMutation } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
@@ -11,7 +11,7 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 
 interface JoinProps {
-  group: Group;
+  group: GroupFragment;
   setJoined: (joined: boolean) => void;
   small: boolean;
   className?: string;

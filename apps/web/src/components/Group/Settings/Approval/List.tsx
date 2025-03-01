@@ -2,7 +2,7 @@ import Loader from "@components/Shared/Loader";
 import SingleAccount from "@components/Shared/SingleAccount";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import {
-  type Group,
+  type GroupFragment,
   type GroupMembershipRequestsRequest,
   PageSize,
   useGroupMembershipRequestsQuery
@@ -14,7 +14,7 @@ import { useBanAlertStore } from "src/store/non-persisted/alert/useBanAlertStore
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface ListProps {
-  group: Group;
+  group: GroupFragment;
 }
 
 const List: FC<ListProps> = ({ group }) => {

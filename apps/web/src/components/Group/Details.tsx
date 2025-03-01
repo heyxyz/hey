@@ -3,7 +3,7 @@ import Markup from "@components/Shared/Markup";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import getAvatar from "@hey/helpers/getAvatar";
 import getMentions from "@hey/helpers/getMentions";
-import type { Group } from "@hey/indexer";
+import type { GroupFragment } from "@hey/indexer";
 import { Button, H3, Image, LightBox } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -12,7 +12,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MembersCount from "./MembersCount";
 
 interface DetailsProps {
-  group: Group;
+  group: GroupFragment;
 }
 
 const Details: FC<DetailsProps> = ({ group }) => {

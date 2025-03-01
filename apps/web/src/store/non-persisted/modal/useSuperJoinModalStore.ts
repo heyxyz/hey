@@ -1,13 +1,13 @@
-import type { Group } from "@hey/indexer";
+import type { GroupFragment } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
   showSuperJoinModal: boolean;
-  superJoiningGroup: null | Group;
+  superJoiningGroup: null | GroupFragment;
   setShowSuperJoinModal: (
     showSuperJoinModal: boolean,
-    superJoiningGroup: null | Group
+    superJoiningGroup: null | GroupFragment
   ) => void;
 }
 

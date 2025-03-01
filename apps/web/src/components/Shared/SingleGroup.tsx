@@ -1,6 +1,6 @@
 import getAvatar from "@hey/helpers/getAvatar";
 import getMentions from "@hey/helpers/getMentions";
-import type { Group } from "@hey/indexer";
+import type { GroupFragment } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
@@ -15,7 +15,7 @@ interface SingleGroupProps {
   isBig?: boolean;
   linkToGroup?: boolean;
   showDescription?: boolean;
-  group: Group;
+  group: GroupFragment;
 }
 
 const SingleGroup: FC<SingleGroupProps> = ({

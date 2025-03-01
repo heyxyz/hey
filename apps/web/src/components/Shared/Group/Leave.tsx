@@ -4,7 +4,7 @@ import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
-  type Group,
+  type GroupFragment,
   type LoggedInGroupOperations,
   useLeaveGroupMutation
 } from "@hey/indexer";
@@ -15,7 +15,7 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 
 interface LeaveProps {
-  group: Group;
+  group: GroupFragment;
   setJoined: (joined: boolean) => void;
   small: boolean;
 }

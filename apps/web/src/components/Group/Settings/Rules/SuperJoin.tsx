@@ -5,8 +5,9 @@ import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
-  type Group,
+  type GroupFragment,
   GroupRuleType,
+  type GroupRules,
   useTransactionStatusLazyQuery,
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
@@ -19,7 +20,7 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 
 interface SuperJoinProps {
-  group: Group;
+  group: GroupFragment;
 }
 
 const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
@@ -38,7 +39,9 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
     ...group.rules.required,
     ...group.rules.anyOf
   ].find((rule) => rule.type === GroupRuleType.SimplePayment);
-  const { amount: simplePaymentAmount } = getSimplePaymentDetails(group.rules);
+  const { amount: simplePaymentAmount } = getSimplePaymentDetails(
+    group.rules as GroupRules
+  );
 
   useEffect(() => {
     setAmount(simplePaymentAmount || 0);

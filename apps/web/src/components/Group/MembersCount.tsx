@@ -1,12 +1,12 @@
 import Members from "@components/Shared/Modal/Members";
 import GraphStatsShimmer from "@components/Shared/Shimmer/GraphStatsShimmer";
 import humanize from "@hey/helpers/humanize";
-import { type Group, useGroupStatsQuery } from "@hey/indexer";
+import { type GroupFragment, useGroupStatsQuery } from "@hey/indexer";
 import { H4, Modal } from "@hey/ui";
 import { type FC, useState } from "react";
 
 interface MembersCountProps {
-  group: Group;
+  group: GroupFragment;
 }
 
 const MembersCount: FC<MembersCountProps> = ({ group }) => {

@@ -1,5 +1,5 @@
 import { Errors } from "@hey/data/errors";
-import type { AccountFragment, Group } from "@hey/indexer";
+import type { AccountFragment, GroupFragment } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import type { FC } from "react";
 import toast from "react-hot-toast";
@@ -9,7 +9,7 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface BanProps {
-  group: Group;
+  group: GroupFragment;
   account: AccountFragment;
 }
 
