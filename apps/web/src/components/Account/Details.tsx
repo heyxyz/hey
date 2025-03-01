@@ -1,4 +1,5 @@
 import FollowUnfollowButton from "@components/Shared/Account/FollowUnfollowButton";
+import Pro from "@components/Shared/Account/Icons/Pro";
 import Verified from "@components/Shared/Account/Icons/Verified";
 import Markup from "@components/Shared/Markup";
 import Slug from "@components/Shared/Slug";
@@ -74,6 +75,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getAccount(account).name}</H3>
           <Verified address={account.address} showTooltip />
+          <Pro account={account} showTooltip />
           {isSuspended ? (
             <Tooltip content="Suspended">
               <EyeSlashIcon className="size-6 text-brand-500" />
