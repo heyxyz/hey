@@ -51,7 +51,7 @@ const WhoToFollow: FC = () => {
   const recommendedAccounts = data?.mlAccountRecommendations.items.filter(
     (account) =>
       !account.operations?.isBlockedByMe && !account.operations?.isFollowedByMe
-  );
+  ) as AccountFragment[];
 
   if (recommendedAccounts?.length === 0) {
     return null;
@@ -90,7 +90,7 @@ const WhoToFollow: FC = () => {
         show={showMore}
         title="Suggested for you"
       >
-        <Suggested accounts={recommendedAccounts as AccountFragment[]} />
+        <Suggested accounts={recommendedAccounts} />
       </Modal>
     </>
   );

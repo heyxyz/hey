@@ -7,7 +7,6 @@ import { HEY_APP } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
-  type AccountFragment,
   useAccountsAvailableQuery,
   useAuthenticateMutation,
   useChallengeMutation
@@ -106,9 +105,9 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
         .map(({ account }) => account)
     : allProfiles.map(({ account }) => account);
 
-  const accounts = (
-    lastLogin ? [lastLogin, ...remainingProfiles] : remainingProfiles
-  ) as AccountFragment[];
+  const accounts = lastLogin
+    ? [lastLogin, ...remainingProfiles]
+    : remainingProfiles;
 
   return activeConnector?.id ? (
     <div className="space-y-3">
