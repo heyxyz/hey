@@ -1,7 +1,6 @@
 name: CD
 
 env:
-  WEB_RAILWAY_SERVICE_ID: 588272af-55fa-4a08-b0a2-ec2dec7600ce
   API_RAILWAY_SERVICE_ID: 838138b2-64c1-4ec4-8574-d272debeb5df
   CRON_RAILWAY_SERVICE_ID: 348ba788-3282-4f27-9967-ca04eea9ac4b
   OG_RAILWAY_SERVICE_ID: 76d31e4b-218d-4f82-974d-f2c8e91480e2
@@ -15,7 +14,6 @@ jobs:
   check-changes:
     runs-on: ubuntu-latest
     outputs:
-      web-changed: ${{ steps.filter.outputs.web }}
       api-changed: ${{ steps.filter.outputs.api }}
       cron-changed: ${{ steps.filter.outputs.cron }}
       og-changed: ${{ steps.filter.outputs.og }}
@@ -28,9 +26,6 @@ jobs:
         uses: dorny/paths-filter@v3
         with:
           filters: |
-            web:
-              - 'apps/web/**'
-              - 'packages/**'
             api:
               - 'apps/api/**'
               - 'packages/**'
@@ -40,33 +35,6 @@ jobs:
             og:
               - 'apps/og/**'
               - 'packages/**'
-
-  web:
-    needs: check-changes
-    if: needs.check-changes.outputs.web-changed == 'true'
-    name: heyverse/web:latest
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🚪
-        uses: actions/checkout@v4
-
-      - name: Build and push heyverse/web:latest 🚀
-        uses: ./.github/actions/docker
-        with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: web
-          tag_name: "v3"
-          docker_file: ./apps/web/Dockerfile
-
-      - name: Trigger Web Deployment 🚀
-        uses: indiesdev/curl@v1
-        id: deploy
-        with:
-          url: "https://redeploy.heyverse.workers.dev"
-          params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ env.WEB_RAILWAY_SERVICE_ID }}" }'
-          method: "GET"
-          timeout: 30000
 
   api:
     needs: check-changes
