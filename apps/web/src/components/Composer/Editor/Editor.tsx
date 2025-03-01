@@ -2,7 +2,6 @@ import { defineEditorExtension } from "@helpers/prosekit/extension";
 import { htmlFromMarkdown } from "@helpers/prosekit/markdown";
 import getAvatar from "@hey/helpers/getAvatar";
 import { Image } from "@hey/ui";
-import dynamic from "next/dynamic";
 import "prosekit/basic/style.css";
 import { createEditor } from "prosekit/core";
 import { ProseKit } from "prosekit/react";
@@ -14,9 +13,7 @@ import { usePaste } from "src/hooks/prosekit/usePaste";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { useEditorHandle } from "./EditorHandle";
-
-// Lazy load EditorMenus to reduce bundle size
-const EditorMenus = dynamic(() => import("./EditorMenus"), { ssr: false });
+import EditorMenus from "./EditorMenus";
 
 const Editor: FC = () => {
   const { currentAccount } = useAccountStore();
