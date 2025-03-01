@@ -19,4 +19,9 @@ fragment AccountFields on Account {
   username(request: { autoResolve: true }) {
     ...UsernameFields
   }
+  pro: username(
+    request: { namespace: "0x8cC5F0756Ab65f8c8706a181c12407950902767D" }
+  ) {
+    localName
+  }
 }
