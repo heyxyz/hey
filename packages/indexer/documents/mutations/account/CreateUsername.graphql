@@ -1,8 +1,6 @@
-mutation CreateAccountWithUsername(
-  $request: CreateAccountWithUsernameRequest!
-) {
-  createAccountWithUsername(request: $request) {
-    ... on CreateAccountResponse {
+mutation CreateUsername($request: CreateUsernameRequest!) {
+  createUsername(request: $request) {
+    ... on CreateUsernameResponse {
       hash
     }
     ... on NamespaceOperationValidationFailed {
