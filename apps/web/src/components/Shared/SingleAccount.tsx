@@ -8,7 +8,6 @@ import Link from "next/link";
 import type { FC, ReactNode } from "react";
 import { memo } from "react";
 import FollowUnfollowButton from "./Account/FollowUnfollowButton";
-import Pro from "./Account/Icons/Pro";
 import Verified from "./Account/Icons/Verified";
 import AccountPreview from "./AccountPreview";
 import Markup from "./Markup";
@@ -58,7 +57,6 @@ const SingleAccount: FC<SingleAccountProps> = ({
           </div>
         </div>
         <Verified address={account.address} iconClassName="ml-1 size-4" />
-        <Pro account={account} iconClassName="ml-1 size-4" />
       </div>
       <Slug className="text-sm" slug={getAccount(account).usernameWithPrefix} />
     </>

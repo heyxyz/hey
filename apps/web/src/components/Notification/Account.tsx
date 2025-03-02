@@ -1,4 +1,3 @@
-import Pro from "@components/Shared/Account/Icons/Pro";
 import Verified from "@components/Shared/Account/Icons/Verified";
 import AccountPreview from "@components/Shared/AccountPreview";
 import getAccount from "@hey/helpers/getAccount";
@@ -55,7 +54,6 @@ export const NotificationAccountName: FC<NotificationProfileProps> = ({
       >
         <span>{getAccount(account).name}</span>
         <Verified address={account.address} iconClassName="size-4" />
-        <Pro account={account} iconClassName="size-4" />
       </Link>
     </AccountPreview>
   );

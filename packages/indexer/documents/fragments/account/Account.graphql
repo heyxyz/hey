@@ -19,9 +19,4 @@ fragment Account on Account {
   username(request: { autoResolve: true }) {
     ...Username
   }
-  pro: username(
-    request: { namespace: "0x8cC5F0756Ab65f8c8706a181c12407950902767D" }
-  ) {
-    localName
-  }
 }
