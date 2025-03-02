@@ -1,0 +1,6 @@
+fragment PostGroupInfo on PostGroupInfo {
+  address
+  metadata {
+    ...GroupMetadata
+  }
+}

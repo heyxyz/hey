@@ -1,9 +1,26 @@
 fragment ReferencedPost on Post {
   id
+  isDeleted
+  feed {
+    ...PostFeedInfo
+  }
   author {
     ...Account
   }
   metadata {
     ...PostMetadata
   }
+  stats {
+    ...PostStats
+  }
+  operations {
+    ...LoggedInPostOperations
+  }
+  actions {
+    __typename
+  }
+  mentions {
+    ...PostMention
+  }
+  timestamp
 }

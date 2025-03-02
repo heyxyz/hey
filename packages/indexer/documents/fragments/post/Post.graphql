@@ -2,12 +2,7 @@ fragment Post on Post {
   id
   isDeleted
   feed {
-    group {
-      address
-      metadata {
-        ...GroupMetadata
-      }
-    }
+    ...PostFeedInfo
   }
   author {
     ...Account
@@ -27,7 +22,6 @@ fragment Post on Post {
   mentions {
     ...PostMention
   }
-  timestamp
   root {
     ...ReferencedPost
   }
@@ -37,4 +31,5 @@ fragment Post on Post {
   quoteOf {
     ...ReferencedPost
   }
+  timestamp
 }
