@@ -20,6 +20,16 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
+const ABI = [
+  {
+    inputs: [{ internalType: "address", name: "owner", type: "address" }],
+    name: "balanceOf",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function"
+  }
+];
+
 const features = [
   "Choose your app icon",
   "Pro Badge on your profile",

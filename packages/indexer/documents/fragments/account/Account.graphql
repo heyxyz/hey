@@ -20,7 +20,7 @@ fragment Account on Account {
     ...Username
   }
   pro: username(
-    request: { namespace: "0x8cC5F0756Ab65f8c8706a181c12407950902767D" }
+    request: { namespace: "0xe307C59d9A7B96371B962Ac2d5cC1be929B5b769" }
   ) {
     localName
   }
