@@ -1,7 +1,7 @@
 import Markup from "@components/Shared/Markup";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
 import getPostData from "@hey/helpers/getPostData";
-import type { RepostNotification as TRepostNotification } from "@hey/indexer";
+import type { PostMention, RepostNotificationFragment } from "@hey/indexer";
 import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
@@ -9,7 +9,7 @@ import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
 interface RepostNotificationProps {
-  notification: TRepostNotification;
+  notification: RepostNotificationFragment;
 }
 
 const RepostNotification: FC<RepostNotificationProps> = ({ notification }) => {
@@ -48,7 +48,7 @@ const RepostNotification: FC<RepostNotificationProps> = ({ notification }) => {
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
           href={`/posts/${notification.post.id}`}
         >
-          <Markup mentions={notification.post.mentions}>
+          <Markup mentions={notification.post.mentions as PostMention[]}>
             {filteredContent}
           </Markup>
         </Link>

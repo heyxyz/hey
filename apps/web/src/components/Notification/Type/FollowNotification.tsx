@@ -1,6 +1,6 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
-import type { FollowNotification as TFollowNotification } from "@hey/indexer";
+import type { FollowNotificationFragment } from "@hey/indexer";
 import plur from "plur";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -8,7 +8,7 @@ import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
 interface FollowNotificationProps {
-  notification: TFollowNotification;
+  notification: FollowNotificationFragment;
 }
 
 const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {

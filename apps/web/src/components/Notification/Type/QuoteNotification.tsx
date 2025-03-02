@@ -1,14 +1,14 @@
 import Markup from "@components/Shared/Markup";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
-import type { QuoteNotification as TQuoteNotification } from "@hey/indexer";
+import type { PostMention, QuoteNotificationFragment } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
 import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
 interface QuoteNotificationProps {
-  notification: TQuoteNotification;
+  notification: QuoteNotificationFragment;
 }
 
 const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
@@ -38,7 +38,7 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
           href={`/posts/${notification.quote.id}`}
         >
-          <Markup mentions={notification.quote.mentions}>
+          <Markup mentions={notification.quote.mentions as PostMention[]}>
             {filteredContent}
           </Markup>
         </Link>

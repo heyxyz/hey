@@ -1,7 +1,7 @@
 import Markup from "@components/Shared/Markup";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
-import type { ReactionNotification as TReactionNotification } from "@hey/indexer";
+import type { PostMention, ReactionNotificationFragment } from "@hey/indexer";
 import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
@@ -9,7 +9,7 @@ import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
 interface ReactionNotificationProps {
-  notification: TReactionNotification;
+  notification: ReactionNotificationFragment;
 }
 
 const ReactionNotification: FC<ReactionNotificationProps> = ({
@@ -50,7 +50,7 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
           href={`/posts/${notification.post.id}`}
         >
-          <Markup mentions={notification.post.mentions}>
+          <Markup mentions={notification.post.mentions as PostMention[]}>
             {filteredContent}
           </Markup>
         </Link>
