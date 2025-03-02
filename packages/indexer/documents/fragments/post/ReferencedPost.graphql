@@ -1,0 +1,9 @@
+fragment ReferencedPost on Post {
+  id
+  author {
+    ...Account
+  }
+  metadata {
+    ...PostMetadata
+  }
+}

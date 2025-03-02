@@ -58,7 +58,6 @@ const ForYou: FC = () => {
     <Card>
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, item) => `${item.post.id}-${index}`}
         data={posts}
         endReached={onEndReached}
         itemContent={(index, item) => (

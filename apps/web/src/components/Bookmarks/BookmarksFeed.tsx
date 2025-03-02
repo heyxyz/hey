@@ -73,7 +73,6 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
     <Card>
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, post) => `${post.id}-${index}`}
         data={posts}
         endReached={onEndReached}
         isScrolling={onScrolling}

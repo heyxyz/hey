@@ -71,7 +71,6 @@ const Reposts: FC<RepostsProps> = ({ postId }) => {
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, account) => `${account.address}-${index}`}
       data={accounts}
       endReached={onEndReached}
       itemContent={(_, account) => (

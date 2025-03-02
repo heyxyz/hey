@@ -72,9 +72,6 @@ const FollowersYouKnow: FC<FollowersYouKnowProps> = ({ handle, address }) => {
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, follower) =>
-        `${follower.follower.address}-${index}`
-      }
       data={followersYouKnow}
       endReached={onEndReached}
       itemContent={(_, follower) => (

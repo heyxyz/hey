@@ -75,9 +75,6 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
         <Card>
           <Virtuoso
             className="virtual-divider-list-window"
-            computeItemKey={(index, comment) =>
-              `${postId}-${comment.id}-${index}`
-            }
             data={comments}
             endReached={onEndReached}
             itemContent={(index, comment) => {

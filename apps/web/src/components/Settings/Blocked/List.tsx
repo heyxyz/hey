@@ -58,9 +58,6 @@ const List: FC = () => {
     <div className="space-y-4">
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, accountBlocked) =>
-          `${accountBlocked.account.address}-${index}`
-        }
         data={accountsBlocked}
         endReached={onEndReached}
         itemContent={(_, accountBlocked) => (

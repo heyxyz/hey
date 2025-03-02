@@ -1,12 +1,40 @@
 fragment Post on Post {
-  ...PostBase
+  id
+  isDeleted
+  feed {
+    group {
+      address
+      metadata {
+        ...GroupMetadata
+      }
+    }
+  }
+  author {
+    ...Account
+  }
+  metadata {
+    ...PostMetadata
+  }
+  stats {
+    ...PostStats
+  }
+  operations {
+    ...LoggedInPostOperations
+  }
+  actions {
+    __typename
+  }
+  mentions {
+    ...PostMention
+  }
+  timestamp
   root {
-    ...PostBase
+    ...ReferencedPost
   }
   commentOn {
-    ...PostBase
+    ...ReferencedPost
   }
   quoteOf {
-    ...PostBase
+    ...ReferencedPost
   }
 }

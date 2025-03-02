@@ -110,9 +110,6 @@ const List: FC = () => {
   return (
     <Virtuoso
       className="virtual-divider-list-window"
-      computeItemKey={(index, session) =>
-        `${session.authenticationId}-${index}`
-      }
       data={authenticatedSessions}
       endReached={onEndReached}
       itemContent={(_, session) => (

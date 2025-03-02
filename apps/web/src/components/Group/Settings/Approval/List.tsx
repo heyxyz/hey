@@ -67,9 +67,6 @@ const List: FC<ListProps> = ({ group }) => {
     <Card className="space-y-4">
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, membershipRequest) =>
-          `${membershipRequest.account.address}-${index}`
-        }
         data={membershipRequests}
         endReached={onEndReached}
         itemContent={(_, bannedAccount) => (
