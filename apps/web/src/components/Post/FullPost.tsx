@@ -5,7 +5,7 @@ import getAccountDetails, {
 } from "@hey/helpers/api/getAccountDetails";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost } from "@hey/indexer";
+import type { AnyPostFragment } from "@hey/indexer";
 import { Card, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
@@ -22,7 +22,7 @@ import PostType from "./Type";
 
 interface FullPostProps {
   hasHiddenComments: boolean;
-  post: AnyPost;
+  post: AnyPostFragment;
 }
 
 const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
@@ -31,7 +31,7 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
   const isStaff = useFlag(FeatureFlag.Staff);
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
-  const { author, timestamp, app } = targetPost;
+  const { author, timestamp } = targetPost;
 
   const { data: accountDetails } = useQuery({
     enabled: Boolean(author.address),
@@ -68,9 +68,6 @@ const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
               />
               <div className="ld-text-gray-500 my-3 text-sm">
                 <span>{formatDate(timestamp, "hh:mm A · MMM D, YYYY")}</span>
-                {app?.address ? (
-                  <span> · Posted via {app.metadata?.name}</span>
-                ) : null}
               </div>
               <PostStats post={targetPost} />
               <div className="divider" />

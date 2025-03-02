@@ -1,5 +1,5 @@
 import PostWrapper from "@components/Shared/PostWrapper";
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import type { FC } from "react";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
@@ -8,7 +8,7 @@ import PostHeader from "./PostHeader";
 
 interface QuotedPostProps {
   isNew?: boolean;
-  post: Post;
+  post: PostFragment;
 }
 
 const QuotedPost: FC<QuotedPostProps> = ({ isNew = false, post }) => {

@@ -28,7 +28,7 @@ const validationSchema = object({
 });
 
 interface ReportAccountProps {
-  account: AccountFragment | null;
+  account?: AccountFragment;
 }
 
 const ReportAccount: FC<ReportAccountProps> = ({ account }) => {

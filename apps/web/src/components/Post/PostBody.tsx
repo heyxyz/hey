@@ -10,7 +10,7 @@ import getPostData from "@hey/helpers/getPostData";
 import getURLs from "@hey/helpers/getURLs";
 import isPostMetadataTypeAllowed from "@hey/helpers/isPostMetadataTypeAllowed";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost, Post } from "@hey/indexer";
+import type { AnyPostFragment } from "@hey/indexer";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { getSrc } from "@livepeer/react/external";
@@ -24,7 +24,7 @@ import NotSupportedPost from "./NotSupportedPost";
 
 interface PostBodyProps {
   contentClassName?: string;
-  post: AnyPost;
+  post: AnyPostFragment;
   quoted?: boolean;
   showMore?: boolean;
 }
@@ -67,8 +67,6 @@ const PostBody: FC<PostBodyProps> = ({
   const showSharingLink = metadata.__typename === "LinkMetadata";
   // Show checking in
   const showCheckin = metadata.__typename === "CheckingInMetadata";
-  // Show quote
-  const showQuote = targetPost.quoteOf;
   // Hide oembed if the post has the hide_oembed attribute
   const hideOembed =
     getPostAttribute(metadata.attributes, KNOWN_ATTRIBUTES.HIDE_OEMBED) ===
@@ -81,7 +79,7 @@ const PostBody: FC<PostBodyProps> = ({
     !showLive &&
     !showAttachments &&
     !quoted &&
-    !showQuote;
+    !targetPost.quoteOf;
 
   return (
     <div className="break-words">
@@ -113,7 +111,7 @@ const PostBody: FC<PostBodyProps> = ({
       {showCheckin ? <Checkin post={targetPost} /> : null}
       {showOembed ? <Oembed url={urls[0]} /> : null}
       {showSharingLink ? <Oembed url={metadata.sharingLink} /> : null}
-      {showQuote ? <Quote post={targetPost.quoteOf as Post} /> : null}
+      {targetPost.quoteOf ? <Quote post={targetPost.quoteOf} /> : null}
       <Metadata metadata={targetPost.metadata} />
     </div>
   );

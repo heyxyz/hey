@@ -1,18 +1,18 @@
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  deletingPost: Post | null;
+  deletingPost?: PostFragment;
   showPostDeleteAlert: boolean;
   setShowPostDeleteAlert: (
     showPostDeleteAlert: boolean,
-    deletingPost: Post | null
+    deletingPost?: PostFragment
   ) => void;
 }
 
 const store = create<State>((set) => ({
-  deletingPost: null,
+  deletingPost: undefined,
   showPostDeleteAlert: false,
   setShowPostDeleteAlert: (showPostDeleteAlert, deletingPost) =>
     set(() => ({ deletingPost, showPostDeleteAlert }))

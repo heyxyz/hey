@@ -6,7 +6,6 @@ type AuthModalType = "login" | "signup";
 interface State {
   showAuthModal: boolean;
   authModalType: AuthModalType;
-  reportingPostId: null | string;
   setShowAuthModal: (
     showAuthModal: boolean,
     authModalType?: AuthModalType
@@ -16,7 +15,6 @@ interface State {
 const store = create<State>((set) => ({
   showAuthModal: false,
   authModalType: "login",
-  reportingPostId: null,
   setShowAuthModal: (showAuthModal, authModalType) =>
     set(() => ({ showAuthModal, authModalType }))
 }));

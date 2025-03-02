@@ -4,7 +4,6 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import getAvatar from "@hey/helpers/getAvatar";
 import {
   PageSize,
-  type Post,
   PostReferenceType,
   type PostReferencesRequest,
   PostVisibilityFilter,
@@ -89,7 +88,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ postId }) => {
                 <SinglePost
                   isFirst={isFirst}
                   isLast={isLast}
-                  post={comment as Post}
+                  post={comment}
                   showType={false}
                 />
               );

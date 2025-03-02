@@ -9,8 +9,8 @@ import { Events } from "@hey/data/events";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
 import {
   type LoggedInPostOperationsFragment,
-  type Post,
   type PostActionFragment,
+  type PostFragment,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { Button, WarningMessage } from "@hey/ui";
@@ -27,7 +27,7 @@ interface CollectActionButtonProps {
   collects: number;
   onCollectSuccess?: () => void;
   postAction: PostActionFragment;
-  post: Post;
+  post: PostFragment;
 }
 
 const CollectActionButton: FC<CollectActionButtonProps> = ({

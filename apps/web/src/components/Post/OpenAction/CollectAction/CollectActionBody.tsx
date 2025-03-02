@@ -20,7 +20,7 @@ import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
-  type AnyPost,
+  type AnyPostFragment,
   type SimpleCollectActionFragment,
   useCollectActionQuery
 } from "@hey/indexer";
@@ -33,7 +33,7 @@ import CollectActionButton from "./CollectActionButton";
 import Splits from "./Splits";
 
 interface CollectActionBodyProps {
-  post: AnyPost;
+  post: AnyPostFragment;
 }
 
 const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {

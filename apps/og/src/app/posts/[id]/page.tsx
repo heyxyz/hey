@@ -4,7 +4,7 @@ import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import logger from "@hey/helpers/logger";
 import { isRepost } from "@hey/helpers/postHelpers";
-import { type AnyPost, PostDocument } from "@hey/indexer";
+import { type AnyPostFragment, PostDocument } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
@@ -27,7 +27,7 @@ export const generateMetadata = async ({
     return defaultMetadata;
   }
 
-  const post = data.post as AnyPost;
+  const post = data.post as AnyPostFragment;
   const targetPost = isRepost(post) ? post.repostOf : post;
   const { author, metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content || "";

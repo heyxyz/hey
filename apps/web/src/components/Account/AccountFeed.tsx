@@ -5,7 +5,6 @@ import { AccountFeedType } from "@hey/data/enums";
 import {
   MainContentFocus,
   PageSize,
-  type Post,
   PostType,
   type PostsRequest,
   usePostsQuery
@@ -145,7 +144,7 @@ const AccountFeed: FC<AccountFeedProps> = ({
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post as Post}
+            post={post}
             showThread={
               type !== AccountFeedType.Media &&
               type !== AccountFeedType.Collects

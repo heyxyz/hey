@@ -1,10 +1,10 @@
 import Accounts from "@components/Shared/Accounts";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import type { Repost } from "@hey/indexer";
+import type { RepostFragment } from "@hey/indexer";
 import type { FC } from "react";
 
 interface RepostedProps {
-  reposts: Repost[];
+  reposts: RepostFragment[];
 }
 
 const Reposted: FC<RepostedProps> = ({ reposts }) => {

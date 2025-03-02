@@ -5,13 +5,13 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface State {
-  currentAccount: null | AccountFragment;
+  currentAccount?: AccountFragment;
   isSignlessEnabled: boolean;
   setCurrentAccount: ({
     currentAccount,
     isSignlessEnabled
   }: {
-    currentAccount: null | AccountFragment;
+    currentAccount?: AccountFragment;
     isSignlessEnabled: boolean;
   }) => void;
 }
@@ -19,7 +19,7 @@ interface State {
 const store = create(
   persist<State>(
     (set) => ({
-      currentAccount: null,
+      currentAccount: undefined,
       isSignlessEnabled: false,
       setCurrentAccount: ({ currentAccount, isSignlessEnabled }) =>
         set(() => ({ currentAccount, isSignlessEnabled }))

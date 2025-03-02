@@ -1,10 +1,10 @@
 import QuotedPost from "@components/Post/QuotedPost";
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import type { FC } from "react";
 import Wrapper from "./Wrapper";
 
 interface QuoteProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const Quote: FC<QuoteProps> = ({ post }) => {

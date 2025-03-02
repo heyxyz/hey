@@ -4,7 +4,7 @@ import errorToast from "@helpers/errorToast";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import { isRepost } from "@hey/helpers/postHelpers";
-import { type AnyPost, useDeletePostMutation } from "@hey/indexer";
+import { type AnyPostFragment, useDeletePostMutation } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { toast } from "react-hot-toast";
@@ -12,7 +12,7 @@ import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface UndoRepostProps {
-  post: AnyPost;
+  post: AnyPostFragment;
   isSubmitting: boolean;
   setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 }

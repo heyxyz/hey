@@ -1,11 +1,11 @@
 import Accounts from "@components/Shared/Accounts";
 import { SparklesIcon } from "@heroicons/react/24/outline";
-import type { TimelineItem } from "@hey/indexer";
+import type { TimelineItemFragment } from "@hey/indexer";
 import type { FC } from "react";
 import { Fragment } from "react";
 
 interface CombinedProps {
-  timelineItem: TimelineItem;
+  timelineItem: TimelineItemFragment;
 }
 
 const Combined: FC<CombinedProps> = ({ timelineItem }) => {

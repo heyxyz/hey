@@ -25,7 +25,7 @@ const DeletePost: FC = () => {
   };
 
   const onCompleted = () => {
-    setShowPostDeleteAlert(false, null);
+    setShowPostDeleteAlert(false);
     updateCache();
     trackEvent(Events.Post.Delete);
     toast.success("Post deleted");
@@ -65,7 +65,7 @@ const DeletePost: FC = () => {
       description="This can't be undone and it will be removed from your account, the timeline of any accounts that follow you, and from search results."
       isDestructive
       isPerformingAction={loading}
-      onClose={() => setShowPostDeleteAlert(false, null)}
+      onClose={() => setShowPostDeleteAlert(false)}
       onConfirm={deletePublication}
       show={showPostDeleteAlert}
       title="Delete Publication?"

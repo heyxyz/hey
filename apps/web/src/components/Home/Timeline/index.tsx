@@ -1,12 +1,7 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
-import {
-  type Post,
-  type TimelineItem,
-  type TimelineRequest,
-  useTimelineQuery
-} from "@hey/indexer";
+import { type TimelineRequest, useTimelineQuery } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { memo, useRef } from "react";
@@ -75,10 +70,10 @@ const Timeline: FC = () => {
         isScrolling={onScrolling}
         itemContent={(index, timelineItem) => (
           <SinglePost
-            timelineItem={timelineItem as TimelineItem}
+            timelineItem={timelineItem}
             isFirst={index === 0}
             isLast={index === (feed?.length || 0) - 1}
-            post={timelineItem.primary as Post}
+            post={timelineItem.primary}
           />
         )}
         ref={virtuoso}

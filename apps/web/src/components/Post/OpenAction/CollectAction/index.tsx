@@ -1,14 +1,14 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import humanize from "@hey/helpers/humanize";
 import nFormatter from "@hey/helpers/nFormatter";
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import { Modal, Tooltip } from "@hey/ui";
 import plur from "plur";
 import { type FC, useState } from "react";
 import CollectActionBody from "./CollectActionBody";
 
 interface CollectActionProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const CollectAction: FC<CollectActionProps> = ({ post }) => {

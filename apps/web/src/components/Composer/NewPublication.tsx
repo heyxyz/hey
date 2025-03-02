@@ -12,7 +12,7 @@ import { Events } from "@hey/data/events";
 import collectActionParams from "@hey/helpers/collectActionParams";
 import getAccount from "@hey/helpers/getAccount";
 import getMentions from "@hey/helpers/getMentions";
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { Button, Card, H6 } from "@hey/ui";
@@ -48,7 +48,7 @@ import LinkPreviews from "./LinkPreviews";
 
 interface NewPublicationProps {
   className?: string;
-  post?: Post;
+  post?: PostFragment;
   feed?: string;
 }
 
@@ -109,7 +109,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
     setShowLiveVideoEditor(false);
     resetLiveVideoConfig();
     setAttachments([]);
-    setQuotedPost(null);
+    setQuotedPost();
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setAudioPost(DEFAULT_AUDIO_POST);
     setLicense(null);
@@ -263,7 +263,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
       <NewAttachments attachments={attachments} />
       {quotedPost ? (
         <Wrapper className="m-5" zeroPadding>
-          <QuotedPost isNew post={quotedPost as Post} />
+          <QuotedPost isNew post={quotedPost} />
         </Wrapper>
       ) : null}
       <div className="divider mx-5" />

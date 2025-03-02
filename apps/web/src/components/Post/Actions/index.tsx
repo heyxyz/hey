@@ -1,6 +1,6 @@
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AnyPost } from "@hey/indexer";
+import type { AnyPostFragment } from "@hey/indexer";
 import type { FC } from "react";
 import { memo } from "react";
 import CollectAction from "../OpenAction/CollectAction";
@@ -11,7 +11,7 @@ import Like from "./Like";
 import ShareMenu from "./Share";
 
 interface PostActionsProps {
-  post: AnyPost;
+  post: AnyPostFragment;
   showCount?: boolean;
 }
 

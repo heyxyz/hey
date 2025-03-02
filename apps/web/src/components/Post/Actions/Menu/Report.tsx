@@ -1,13 +1,13 @@
 import { MenuItem } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useReportPostModalStore } from "src/store/non-persisted/modal/useReportPostModalStore";
 
 interface ReportProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const Report: FC<ReportProps> = ({ post }) => {

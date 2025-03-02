@@ -4,16 +4,16 @@ import { create } from "zustand";
 
 interface State {
   showSuperFollowModal: boolean;
-  superFollowingAccount: null | AccountFragment;
+  superFollowingAccount?: AccountFragment;
   setShowSuperFollowModal: (
     showSuperFollowModal: boolean,
-    superFollowingAccount: null | AccountFragment
+    superFollowingAccount?: AccountFragment
   ) => void;
 }
 
 const store = create<State>((set) => ({
   showSuperFollowModal: false,
-  superFollowingAccount: null,
+  superFollowingAccount: undefined,
   setShowSuperFollowModal: (showSuperFollowModal, superFollowingAccount) =>
     set(() => ({ showSuperFollowModal, superFollowingAccount }))
 }));

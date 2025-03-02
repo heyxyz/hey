@@ -1,9 +1,9 @@
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import { Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 
 interface CheckinProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const Checkin: FC<CheckinProps> = ({ post }) => {

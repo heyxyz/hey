@@ -1,33 +1,5 @@
 fragment Post on Post {
-  id
-  isDeleted
-  feed {
-    group {
-      address
-      metadata {
-        ...GroupMetadata
-      }
-    }
-  }
-  author {
-    ...Account
-  }
-  metadata {
-    ...PostMetadata
-  }
-  stats {
-    ...PostStats
-  }
-  operations {
-    ...LoggedInPostOperations
-  }
-  actions {
-    __typename
-  }
-  mentions {
-    ...PostMention
-  }
-  timestamp
+  ...ReferencedPost
   root {
     ...ReferencedPost
   }

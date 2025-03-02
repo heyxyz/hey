@@ -5,7 +5,7 @@ import isAccountDeleted from "./isAccountDeleted";
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
 const getAccount = (
-  account: AccountFragment | null
+  account?: AccountFragment
 ): {
   name: string;
   link: string;

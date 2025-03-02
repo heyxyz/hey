@@ -8,7 +8,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
   type LoggedInPostOperationsFragment,
-  type Post,
+  type PostFragment,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { Button, Input, Spinner } from "@hey/ui";
@@ -28,7 +28,7 @@ const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
 interface ActionProps {
   closePopover: () => void;
-  post: Post;
+  post: PostFragment;
 }
 
 const Action: FC<ActionProps> = ({ closePopover, post }) => {

@@ -51,7 +51,7 @@ const BlockOrUnblockAccount: FC = () => {
     updateCache();
     setIsSubmitting(false);
     setHasBlocked(!hasBlocked);
-    setShowBlockOrUnblockAlert(false, null);
+    setShowBlockOrUnblockAlert(false);
     trackEvent(hasBlocked ? Events.Account.Unblock : Events.Account.Block);
     toast.success(
       hasBlocked ? "Unblocked successfully" : "Blocked successfully"
@@ -133,7 +133,7 @@ const BlockOrUnblockAccount: FC = () => {
       } ${getAccount(blockingorUnblockingAccount).usernameWithPrefix}?`}
       isDestructive
       isPerformingAction={isSubmitting}
-      onClose={() => setShowBlockOrUnblockAlert(false, null)}
+      onClose={() => setShowBlockOrUnblockAlert(false)}
       onConfirm={blockOrUnblock}
       show={showBlockOrUnblockAlert}
       title="Block Account"

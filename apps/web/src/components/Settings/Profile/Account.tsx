@@ -8,11 +8,7 @@ import { Events } from "@hey/data/events";
 import { Regex } from "@hey/data/regex";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import trimify from "@hey/helpers/trimify";
-import {
-  type AccountFragment,
-  useMeLazyQuery,
-  useSetAccountMetadataMutation
-} from "@hey/indexer";
+import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
 import { Button, Card, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import type {
   AccountOptions,
@@ -66,7 +62,7 @@ const AccountSettingsForm: FC = () => {
   const onCompleted = () => {
     getCurrentAccountDetails().then(({ data }) => {
       setCurrentAccount({
-        currentAccount: data?.me.loggedInAs.account as AccountFragment,
+        currentAccount: data?.me.loggedInAs.account,
         isSignlessEnabled: data?.me.isSignless || false
       });
     });
