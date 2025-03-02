@@ -78,7 +78,7 @@ const Pro: NextPage = () => {
         request: {
           username: {
             namespace: PRO_NAMESPACE,
-            localName: prepareProUsername(currentAccount.address)
+            localName: prepareProUsername(currentAccount.address, proExpiresAt)
           }
         }
       }
