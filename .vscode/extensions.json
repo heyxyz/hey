@@ -10,7 +10,6 @@
     "Prisma.prisma",
     "christian-kohler.npm-intellisense",
     "bradlc.vscode-tailwindcss",
-    "aaron-bond.better-comments",
-    "kochan.pro-commit"
+    "aaron-bond.better-comments"
   ]
 }
