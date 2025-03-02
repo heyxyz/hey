@@ -10,7 +10,7 @@ import getPostData from "@hey/helpers/getPostData";
 import getURLs from "@hey/helpers/getURLs";
 import isPostMetadataTypeAllowed from "@hey/helpers/isPostMetadataTypeAllowed";
 import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPost, Post } from "@hey/indexer";
+import type { AnyPostFragment, PostFragment } from "@hey/indexer";
 import { H6 } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { getSrc } from "@livepeer/react/external";
@@ -24,7 +24,7 @@ import NotSupportedPost from "./NotSupportedPost";
 
 interface PostBodyProps {
   contentClassName?: string;
-  post: AnyPost;
+  post: AnyPostFragment;
   quoted?: boolean;
   showMore?: boolean;
 }
@@ -113,7 +113,7 @@ const PostBody: FC<PostBodyProps> = ({
       {showCheckin ? <Checkin post={targetPost} /> : null}
       {showOembed ? <Oembed url={urls[0]} /> : null}
       {showSharingLink ? <Oembed url={metadata.sharingLink} /> : null}
-      {showQuote ? <Quote post={targetPost.quoteOf as Post} /> : null}
+      {showQuote ? <Quote post={targetPost.quoteOf as PostFragment} /> : null}
       <Metadata metadata={targetPost.metadata} />
     </div>
   );

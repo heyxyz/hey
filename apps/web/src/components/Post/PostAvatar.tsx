@@ -2,7 +2,7 @@ import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AnyPost, TimelineItem } from "@hey/indexer";
+import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import Link from "next/link";
@@ -11,8 +11,8 @@ import type { FC } from "react";
 import { memo } from "react";
 
 interface PostAvatarProps {
-  timelineItem?: TimelineItem;
-  post: AnyPost;
+  timelineItem?: TimelineItemFragment;
+  post: AnyPostFragment;
   quoted?: boolean;
 }
 

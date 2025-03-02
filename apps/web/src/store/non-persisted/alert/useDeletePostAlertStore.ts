@@ -1,13 +1,13 @@
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  deletingPost: Post | null;
+  deletingPost: PostFragment | null;
   showPostDeleteAlert: boolean;
   setShowPostDeleteAlert: (
     showPostDeleteAlert: boolean,
-    deletingPost: Post | null
+    deletingPost: PostFragment | null
   ) => void;
 }
 

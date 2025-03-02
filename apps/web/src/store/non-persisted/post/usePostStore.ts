@@ -1,12 +1,12 @@
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
   postContent: string;
-  quotedPost: Post | null;
+  quotedPost: PostFragment | null;
   setPostContent: (postContent: string) => void;
-  setQuotedPost: (quotedPost: Post | null) => void;
+  setQuotedPost: (quotedPost: PostFragment | null) => void;
 }
 
 const store = create<State>((set) => ({

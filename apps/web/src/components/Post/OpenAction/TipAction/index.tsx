@@ -3,14 +3,14 @@ import { TipIcon } from "@components/Shared/TipIcon";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import nFormatter from "@hey/helpers/nFormatter";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import { Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import Action from "./Action";
 
 interface TipActionProps {
-  post: Post;
+  post: PostFragment;
   showCount: boolean;
 }
 

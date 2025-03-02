@@ -5,7 +5,7 @@ import {
 } from "@heroicons/react/24/outline";
 import {
   PageSize,
-  type Post,
+  type PostFragment,
   PostReferenceType,
   type PostReferencesRequest,
   usePostReferencesQuery
@@ -17,7 +17,7 @@ import { Virtuoso } from "react-virtuoso";
 import SinglePost from "./SinglePost";
 
 interface QuotesProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const Quotes: FC<QuotesProps> = ({ post }) => {
@@ -78,7 +78,7 @@ const Quotes: FC<QuotesProps> = ({ post }) => {
           <SinglePost
             isFirst={false}
             isLast={index === quotes.length - 1}
-            post={quote as Post}
+            post={quote as PostFragment}
             showType={false}
           />
         )}

@@ -4,8 +4,8 @@ import { BookmarkIcon } from "@heroicons/react/24/outline";
 import {
   type MainContentFocus,
   PageSize,
-  type Post,
   type PostBookmarksRequest,
+  type PostFragment,
   usePostBookmarksQuery
 } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
@@ -80,7 +80,7 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post as Post}
+            post={post as PostFragment}
           />
         )}
         ref={virtuoso}

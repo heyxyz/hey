@@ -5,7 +5,7 @@ import errorToast from "@helpers/errorToast";
 import { CheckCircleIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
-  type Post,
+  type PostFragment,
   useHideReplyMutation,
   useUnhideReplyMutation
 } from "@hey/indexer";
@@ -15,7 +15,7 @@ import { toast } from "react-hot-toast";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface HideCommentProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const HideComment: FC<HideCommentProps> = ({ post }) => {

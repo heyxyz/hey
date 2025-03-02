@@ -1,4 +1,4 @@
-import type { AnyPost } from "@hey/indexer";
+import type { AnyPostFragment } from "@hey/indexer";
 
 type Typename<T = string> = { [key in "__typename"]?: T };
 
@@ -11,7 +11,7 @@ type PickByTypename<
   ? T
   : never;
 
-export function isRepost<T extends AnyPost>(
+export function isRepost<T extends AnyPostFragment>(
   post: null | T
 ): post is PickByTypename<T, "Repost"> {
   return post?.__typename === "Repost";

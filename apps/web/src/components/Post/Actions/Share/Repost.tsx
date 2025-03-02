@@ -7,7 +7,7 @@ import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import {
   type LoggedInPostOperationsFragment,
-  type Post,
+  type PostFragment,
   useRepostMutation
 } from "@hey/indexer";
 import cn from "@hey/ui/cn";
@@ -20,7 +20,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface RepostProps {
   isSubmitting: boolean;
-  post: Post;
+  post: PostFragment;
   setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 }
 

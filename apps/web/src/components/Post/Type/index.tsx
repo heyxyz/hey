@@ -1,12 +1,12 @@
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { AnyPost } from "@hey/indexer";
+import type { AnyPostFragment } from "@hey/indexer";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import Commented from "./Commented";
 import Reposted from "./Reposted";
 
 interface PostTypeProps {
-  post: AnyPost;
+  post: AnyPostFragment;
   showThread?: boolean;
   showType: boolean;
 }
@@ -29,7 +29,7 @@ const PostType: FC<PostTypeProps> = ({
       {type === "Post" &&
       post.commentOn &&
       (showThread || pathname === "/posts/[id]") ? (
-        <Commented post={post} />
+        <Commented commentOn={post.commentOn} />
       ) : null}
     </span>
   );

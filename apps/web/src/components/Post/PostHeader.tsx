@@ -2,9 +2,9 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type {
-  AnyPost,
+  AnyPostFragment,
   PostGroupInfoFragment,
-  TimelineItem
+  TimelineItemFragment
 } from "@hey/indexer";
 import type { FC } from "react";
 import { usePostStore } from "src/store/non-persisted/post/usePostStore";
@@ -12,9 +12,9 @@ import PostMenu from "./Actions/Menu";
 import PostAccount from "./PostAccount";
 
 interface PostHeaderProps {
-  timelineItem?: TimelineItem;
+  timelineItem?: TimelineItemFragment;
   isNew?: boolean;
-  post: AnyPost;
+  post: AnyPostFragment;
   quoted?: boolean;
 }
 

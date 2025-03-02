@@ -2,9 +2,8 @@ import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
-  type AnyPost,
   PageSize,
-  type Post,
+  type PostFragment,
   type PostsRequest,
   usePostsQuery
 } from "@hey/indexer";
@@ -32,7 +31,7 @@ const Posts: FC<PostsProps> = ({ query }) => {
     variables: { request }
   });
 
-  const posts = data?.posts?.items as AnyPost[];
+  const posts = data?.posts?.items;
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -84,7 +83,7 @@ const Posts: FC<PostsProps> = ({ query }) => {
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post as Post}
+            post={post as PostFragment}
           />
         )}
         ref={virtuoso}

@@ -6,7 +6,7 @@ import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
   type LoggedInPostOperationsFragment,
-  type Post,
+  type PostFragment,
   useBookmarkPostMutation,
   useUndoBookmarkPostMutation
 } from "@hey/indexer";
@@ -16,7 +16,7 @@ import type { FC } from "react";
 import { toast } from "react-hot-toast";
 
 interface BookmarkProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const Bookmark: FC<BookmarkProps> = ({ post }) => {

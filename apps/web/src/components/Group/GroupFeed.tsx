@@ -3,7 +3,7 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
-  type Post,
+  type PostFragment,
   type PostsRequest,
   usePostsQuery
 } from "@hey/indexer";
@@ -84,7 +84,7 @@ const GroupFeed: FC<GroupFeedProps> = ({ feed }) => {
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post as Post}
+            post={post as PostFragment}
           />
         )}
         ref={virtuoso}

@@ -1,13 +1,13 @@
 import { MenuItem } from "@headlessui/react";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { useDeletePostAlertStore } from "src/store/non-persisted/alert/useDeletePostAlertStore";
 
 interface DeleteProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const Delete: FC<DeleteProps> = ({ post }) => {

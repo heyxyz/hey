@@ -9,7 +9,7 @@ import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
-  type AnyPost,
+  type AnyPostFragment,
   PageSize,
   PostReferenceType,
   PostVisibilityFilter,
@@ -94,7 +94,7 @@ const ViewPost: NextPage = () => {
     return <Custom500 />;
   }
 
-  const post = preLoadedPost || (data?.post as AnyPost);
+  const post = preLoadedPost || (data?.post as AnyPostFragment);
   const targetPost = isRepost(post) ? post.repostOf : post;
   const canComment =
     targetPost.operations?.canComment.__typename ===

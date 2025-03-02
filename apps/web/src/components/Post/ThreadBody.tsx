@@ -1,5 +1,5 @@
 import PostWrapper from "@components/Shared/PostWrapper";
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import type { FC } from "react";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
@@ -8,7 +8,7 @@ import PostBody from "./PostBody";
 import PostHeader from "./PostHeader";
 
 interface ThreadBodyProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const ThreadBody: FC<ThreadBodyProps> = ({ post }) => {

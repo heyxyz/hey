@@ -8,7 +8,7 @@ import { Events } from "@hey/data/events";
 import nFormatter from "@hey/helpers/nFormatter";
 import {
   type LoggedInPostOperationsFragment,
-  type Post,
+  type PostFragment,
   PostReactionType,
   useAddReactionMutation,
   useUndoReactionMutation
@@ -22,7 +22,7 @@ import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
 interface LikeProps {
-  post: Post;
+  post: PostFragment;
   showCount: boolean;
 }
 

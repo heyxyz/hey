@@ -2,7 +2,7 @@ import MenuTransition from "@components/Shared/MenuTransition";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { Fragment } from "react";
@@ -16,7 +16,7 @@ import Report from "./Report";
 import Share from "./Share";
 
 interface PostMenuProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const PostMenu: FC<PostMenuProps> = ({ post }) => {

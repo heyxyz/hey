@@ -5,7 +5,7 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import {
   type LoggedInPostOperationsFragment,
-  type Post,
+  type PostFragment,
   type PostNotInterestedRequest,
   useAddPostNotInterestedMutation,
   useUndoPostNotInterestedMutation
@@ -15,7 +15,7 @@ import type { FC } from "react";
 import { toast } from "react-hot-toast";
 
 interface NotInterestedProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const NotInterested: FC<NotInterestedProps> = ({ post }) => {

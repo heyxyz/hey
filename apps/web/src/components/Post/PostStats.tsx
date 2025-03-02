@@ -2,7 +2,7 @@ import Collectors from "@components/Shared/Modal/Collectors";
 import Likes from "@components/Shared/Modal/Likes";
 import Reposts from "@components/Shared/Modal/Reposts";
 import nFormatter from "@hey/helpers/nFormatter";
-import type { Post } from "@hey/indexer";
+import type { PostFragment } from "@hey/indexer";
 import { Modal } from "@hey/ui";
 import Link from "next/link";
 import plur from "plur";
@@ -10,7 +10,7 @@ import type { FC } from "react";
 import { memo, useState } from "react";
 
 interface PostStatsProps {
-  post: Post;
+  post: PostFragment;
 }
 
 const PostStats: FC<PostStatsProps> = ({ post }) => {

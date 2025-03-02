@@ -1,9 +1,9 @@
-import { type Post, useCreatePostMutation } from "@hey/indexer";
+import { type PostFragment, useCreatePostMutation } from "@hey/indexer";
 import { addOptimisticPublication } from "src/store/persisted/useOptimisticPublicationStore";
 import useTransactionLifecycle from "./useTransactionLifecycle";
 
 interface CreatePostProps {
-  commentOn?: Post;
+  commentOn?: PostFragment;
   onCompleted: () => void;
   onError: (error: any) => void;
 }
