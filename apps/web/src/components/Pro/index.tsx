@@ -2,12 +2,21 @@ import type { NextPage } from "next";
 
 import errorToast from "@helpers/errorToast";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
+import {
+  APP_NAME,
+  PRO_NAMESPACE,
+  STATIC_IMAGES_URL
+} from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
+import formatDate from "@hey/helpers/datetime/formatDate";
+import extractProTimestamp from "@hey/helpers/extractProTimestamp";
+import isPro from "@hey/helpers/isPro";
+import prepareProUsername from "@hey/helpers/prepareProUsername";
+import { useCreateUsernameMutation } from "@hey/indexer";
 import { Button } from "@hey/ui";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
+import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 
@@ -22,8 +31,36 @@ const features = [
 const Pro: NextPage = () => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const [isLoading, setIsLoading] = useState(false);
-  const handleWrongNetwork = useHandleWrongNetwork();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleTransactionLifecycle = useTransactionLifecycle();
+
+  const proUsername = currentAccount?.pro?.localName;
+  const proExpiresAt = extractProTimestamp(proUsername);
+
+  const onCompleted = () => {
+    setIsSubmitting(false);
+    toast.success("Upgraded to Pro!");
+  };
+
+  const onError = (error: any) => {
+    setIsSubmitting(false);
+    errorToast(error);
+  };
+
+  const [createUsername] = useCreateUsernameMutation({
+    onCompleted: async ({ createUsername }) => {
+      if (createUsername.__typename === "CreateUsernameResponse") {
+        return onCompleted();
+      }
+
+      return await handleTransactionLifecycle({
+        transactionData: createUsername,
+        onCompleted,
+        onError
+      });
+    },
+    onError
+  });
 
   const upgrade = async () => {
     if (!currentAccount) {
@@ -34,12 +71,18 @@ const Pro: NextPage = () => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsLoading(true);
-      await handleWrongNetwork();
-    } catch (error) {
-      errorToast(error);
-    }
+    setIsSubmitting(true);
+
+    return await createUsername({
+      variables: {
+        request: {
+          username: {
+            namespace: PRO_NAMESPACE,
+            localName: prepareProUsername(currentAccount.address)
+          }
+        }
+      }
+    });
   };
 
   return (
@@ -74,8 +117,8 @@ const Pro: NextPage = () => {
             <b className="text-5xl text-gray-900 dark:text-white">5</b>
             <span className="ld-text-gray-500">/month</span>
           </p>
-          <p className="ld-text-gray-500 mt-6">Billed monthly</p>
-          <ul className="ld-text-gray-500 mt-8 space-y-1 text-sm sm:mt-10">
+          <p className="ld-text-gray-500 mt-3">Billed monthly</p>
+          <ul className="ld-text-gray-500 mt-5 space-y-1 text-sm">
             {features.map((feature) => (
               <li className="flex items-center space-x-3" key={feature}>
                 <CheckIcon aria-hidden="true" className="size-5" />
@@ -83,26 +126,19 @@ const Pro: NextPage = () => {
               </li>
             ))}
           </ul>
+          {proExpiresAt ? (
+            <div className="mt-5 mb-2 text-sm">
+              Your Pro expires at <b>{formatDate(proExpiresAt)}</b>
+            </div>
+          ) : null}
           <Button
             className="mt-3 w-full"
-            disabled={isLoading}
+            disabled={isSubmitting}
             onClick={upgrade}
             size="lg"
           >
-            Upgrade to Pro
+            {isPro(proUsername) ? "Extend Subscription" : "Upgrade to Pro"}
           </Button>
-          {isLoading ? (
-            <Button
-              className="mt-3 w-full"
-              disabled={isLoading}
-              onClick={upgrade}
-              outline
-              size="lg"
-              variant="danger"
-            >
-              Cancel Subscription
-            </Button>
-          ) : null}
         </div>
       </div>
     </div>

@@ -88,24 +88,20 @@ const GroupSettingsForm: FC<GroupSettingsFormProps> = ({ group }) => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsSubmitting(true);
+    setIsSubmitting(true);
 
-      const metadataUri = await uploadMetadata(
-        groupMetadata({
-          name: data.name,
-          description: data.description,
-          icon: pfpUrl || undefined,
-          coverPicture: coverUrl || undefined
-        })
-      );
+    const metadataUri = await uploadMetadata(
+      groupMetadata({
+        name: data.name,
+        description: data.description,
+        icon: pfpUrl || undefined,
+        coverPicture: coverUrl || undefined
+      })
+    );
 
-      return await setGroupMetadata({
-        variables: { request: { group: group.address, metadataUri } }
-      });
-    } catch (error) {
-      onError(error);
-    }
+    return await setGroupMetadata({
+      variables: { request: { group: group.address, metadataUri } }
+    });
   };
 
   return (
