@@ -53,16 +53,12 @@ const List: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setRevoking(true);
-      setRevokeingSessionId(authenticationId);
+    setRevoking(true);
+    setRevokeingSessionId(authenticationId);
 
-      return await revokeAuthentication({
-        variables: { request: { authenticationId } }
-      });
-    } catch (error) {
-      onError(error);
-    }
+    return await revokeAuthentication({
+      variables: { request: { authenticationId } }
+    });
   };
 
   const request: AuthenticatedSessionsRequest = { pageSize: PageSize.Fifty };

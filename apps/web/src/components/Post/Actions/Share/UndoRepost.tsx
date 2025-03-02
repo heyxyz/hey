@@ -66,15 +66,11 @@ const UndoRepost: FC<UndoRepostProps> = ({
       return toast.error(Errors.SignWallet);
     }
 
-    try {
-      setIsSubmitting(true);
+    setIsSubmitting(true);
 
-      return await undoRepost({
-        variables: { request: { post: post.id } }
-      });
-    } catch (error) {
-      onError(error);
-    }
+    return await undoRepost({
+      variables: { request: { post: post.id } }
+    });
   };
 
   return (

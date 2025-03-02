@@ -124,61 +124,55 @@ const AccountSettingsForm: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsSubmitting(true);
-      const otherAttributes =
-        currentAccount.metadata?.attributes
-          ?.filter(
-            (attr) =>
-              !["app", "location", "timestamp", "website", "x"].includes(
-                attr.key
-              )
-          )
-          .map(({ key, type, value }) => ({
-            key,
-            type: MetadataAttributeType[type] as any,
-            value
-          })) || [];
+    setIsSubmitting(true);
+    const otherAttributes =
+      currentAccount.metadata?.attributes
+        ?.filter(
+          (attr) =>
+            !["app", "location", "timestamp", "website", "x"].includes(attr.key)
+        )
+        .map(({ key, type, value }) => ({
+          key,
+          type: MetadataAttributeType[type] as any,
+          value
+        })) || [];
 
-      const preparedAccountMetadata: AccountOptions = {
-        ...(data.name && { name: data.name }),
-        ...(data.bio && { bio: data.bio }),
-        attributes: [
-          ...(otherAttributes as MetadataAttribute[]),
-          {
-            key: "location",
-            type: MetadataAttributeType.STRING,
-            value: data.location
-          },
-          {
-            key: "website",
-            type: MetadataAttributeType.STRING,
-            value: data.website
-          },
-          { key: "x", type: MetadataAttributeType.STRING, value: data.x },
-          {
-            key: "timestamp",
-            type: MetadataAttributeType.STRING,
-            value: new Date().toISOString()
-          }
-        ],
-        coverPicture: coverUrl || undefined,
-        picture: pfpUrl || undefined
-      };
-      preparedAccountMetadata.attributes =
-        preparedAccountMetadata.attributes?.filter((m) => {
-          return m.key !== "" && Boolean(trimify(m.value));
-        });
-      const metadataUri = await uploadMetadata(
-        accountMetadata(preparedAccountMetadata)
-      );
-
-      return await setAccountMetadata({
-        variables: { request: { metadataUri } }
+    const preparedAccountMetadata: AccountOptions = {
+      ...(data.name && { name: data.name }),
+      ...(data.bio && { bio: data.bio }),
+      attributes: [
+        ...(otherAttributes as MetadataAttribute[]),
+        {
+          key: "location",
+          type: MetadataAttributeType.STRING,
+          value: data.location
+        },
+        {
+          key: "website",
+          type: MetadataAttributeType.STRING,
+          value: data.website
+        },
+        { key: "x", type: MetadataAttributeType.STRING, value: data.x },
+        {
+          key: "timestamp",
+          type: MetadataAttributeType.STRING,
+          value: new Date().toISOString()
+        }
+      ],
+      coverPicture: coverUrl || undefined,
+      picture: pfpUrl || undefined
+    };
+    preparedAccountMetadata.attributes =
+      preparedAccountMetadata.attributes?.filter((m) => {
+        return m.key !== "" && Boolean(trimify(m.value));
       });
-    } catch (error) {
-      onError(error);
-    }
+    const metadataUri = await uploadMetadata(
+      accountMetadata(preparedAccountMetadata)
+    );
+
+    return await setAccountMetadata({
+      variables: { request: { metadataUri } }
+    });
   };
 
   const onSetAvatar = async (src: string | undefined) => {

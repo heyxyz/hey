@@ -39,7 +39,9 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
     schema: validationSchema
   });
 
-  const [createReport, { data, error, loading }] = useReportAccountMutation();
+  const [createReport, { data, error, loading }] = useReportAccountMutation({
+    onError: (error) => errorToast(error)
+  });
 
   const reportProfile = async ({
     additionalComment
@@ -48,19 +50,15 @@ const ReportAccount: FC<ReportAccountProps> = ({ account }) => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      return await createReport({
-        variables: {
-          request: {
-            additionalComment,
-            account: account?.address,
-            reason: reason as AccountReportReason
-          }
+    return await createReport({
+      variables: {
+        request: {
+          additionalComment,
+          account: account?.address,
+          reason: reason as AccountReportReason
         }
-      });
-    } catch (error) {
-      errorToast(error);
-    }
+      }
+    });
   };
 
   return (

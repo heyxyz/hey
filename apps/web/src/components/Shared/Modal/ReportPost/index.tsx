@@ -36,7 +36,9 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
     schema: validationSchema
   });
 
-  const [createReport, { data, error, loading }] = useReportPostMutation();
+  const [createReport, { data, error, loading }] = useReportPostMutation({
+    onError: (error) => errorToast(error)
+  });
 
   const reportPost = async ({
     additionalComment
@@ -45,19 +47,15 @@ const ReportPost: FC<ReportPostProps> = ({ postId }) => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      return await createReport({
-        variables: {
-          request: {
-            additionalComment,
-            post: postId,
-            reason: reason as PostReportReason
-          }
+    return await createReport({
+      variables: {
+        request: {
+          additionalComment,
+          post: postId,
+          reason: reason as PostReportReason
         }
-      });
-    } catch (error) {
-      errorToast(error);
-    }
+      }
+    });
   };
 
   return (

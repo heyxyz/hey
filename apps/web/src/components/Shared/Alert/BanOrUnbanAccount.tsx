@@ -90,23 +90,11 @@ const BanOrUnbanAccount: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsSubmitting(true);
+    setIsSubmitting(true);
 
-      // Unban
-      if (banning) {
-        return await banGroupAccounts({
-          variables: {
-            request: {
-              accounts: [banningOrUnbanningAccount?.address],
-              group: banningGroupAddress
-            }
-          }
-        });
-      }
-
-      // Ban
-      return await unbanGroupAccounts({
+    // Unban
+    if (banning) {
+      return await banGroupAccounts({
         variables: {
           request: {
             accounts: [banningOrUnbanningAccount?.address],
@@ -114,9 +102,17 @@ const BanOrUnbanAccount: FC = () => {
           }
         }
       });
-    } catch (error) {
-      onError(error);
     }
+
+    // Ban
+    return await unbanGroupAccounts({
+      variables: {
+        request: {
+          accounts: [banningOrUnbanningAccount?.address],
+          group: banningGroupAddress
+        }
+      }
+    });
   };
 
   return (

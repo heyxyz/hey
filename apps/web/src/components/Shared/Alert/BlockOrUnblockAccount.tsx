@@ -102,27 +102,23 @@ const BlockOrUnblockAccount: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsSubmitting(true);
+    setIsSubmitting(true);
 
-      // Unblock
-      if (hasBlocked) {
-        return await unblock({
-          variables: {
-            request: { account: blockingorUnblockingAccount?.address }
-          }
-        });
-      }
-
-      // Block
-      return await block({
+    // Unblock
+    if (hasBlocked) {
+      return await unblock({
         variables: {
           request: { account: blockingorUnblockingAccount?.address }
         }
       });
-    } catch (error) {
-      onError(error);
     }
+
+    // Block
+    return await block({
+      variables: {
+        request: { account: blockingorUnblockingAccount?.address }
+      }
+    });
   };
 
   return (

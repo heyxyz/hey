@@ -74,27 +74,23 @@ const MuteOrUnmuteAccount: FC = () => {
       return toast.error(Errors.Suspended);
     }
 
-    try {
-      setIsSubmitting(true);
+    setIsSubmitting(true);
 
-      // Unmute
-      if (hasMuted) {
-        return await unmute({
-          variables: {
-            request: { account: mutingOrUnmutingAccount?.address }
-          }
-        });
-      }
-
-      // Mute
-      return await mute({
+    // Unmute
+    if (hasMuted) {
+      return await unmute({
         variables: {
           request: { account: mutingOrUnmutingAccount?.address }
         }
       });
-    } catch (error) {
-      onError(error);
     }
+
+    // Mute
+    return await mute({
+      variables: {
+        request: { account: mutingOrUnmutingAccount?.address }
+      }
+    });
   };
 
   return (
