@@ -4,7 +4,6 @@ import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
-  type PostFragment,
   PostReferenceType,
   type PostReferencesRequest,
   PostVisibilityFilter,
@@ -83,7 +82,7 @@ const CommentFeed: FC<CommentFeedProps> = ({ postId }) => {
               <SinglePost
                 isFirst={isFirst}
                 isLast={isLast}
-                post={comment as PostFragment}
+                post={comment}
                 showType={false}
               />
             );

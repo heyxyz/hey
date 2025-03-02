@@ -5,7 +5,6 @@ import {
   type MainContentFocus,
   PageSize,
   type PostBookmarksRequest,
-  type PostFragment,
   usePostBookmarksQuery
 } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
@@ -80,7 +79,7 @@ const BookmarksFeed: FC<BookmarksFeedProps> = ({ focus }) => {
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post as PostFragment}
+            post={post}
           />
         )}
         ref={virtuoso}

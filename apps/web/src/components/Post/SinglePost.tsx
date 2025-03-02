@@ -1,6 +1,6 @@
 import ActionType from "@components/Home/Timeline/EventType";
 import PostWrapper from "@components/Shared/PostWrapper";
-import type { PostFragment, TimelineItemFragment } from "@hey/indexer";
+import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
 import cn from "@hey/ui/cn";
 import type { FC } from "react";
 import { memo } from "react";
@@ -15,7 +15,7 @@ interface SinglePostProps {
   timelineItem?: TimelineItemFragment;
   isFirst?: boolean;
   isLast?: boolean;
-  post: PostFragment;
+  post: AnyPostFragment;
   showActions?: boolean;
   showMore?: boolean;
   showThread?: boolean;

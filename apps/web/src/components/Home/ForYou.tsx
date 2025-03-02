@@ -4,7 +4,6 @@ import { LightBulbIcon } from "@heroicons/react/24/outline";
 import {
   type MlpostsForYouRequest,
   PageSize,
-  type PostFragment,
   useMlPostsForYouQuery
 } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
@@ -64,7 +63,7 @@ const ForYou: FC = () => {
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={item.post as PostFragment}
+            post={item.post}
           />
         )}
         useWindowScroll

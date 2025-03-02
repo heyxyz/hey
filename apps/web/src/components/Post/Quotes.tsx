@@ -78,7 +78,7 @@ const Quotes: FC<QuotesProps> = ({ post }) => {
           <SinglePost
             isFirst={false}
             isLast={index === quotes.length - 1}
-            post={quote as PostFragment}
+            post={quote}
             showType={false}
           />
         )}

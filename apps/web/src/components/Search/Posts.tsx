@@ -1,12 +1,7 @@
 import SinglePost from "@components/Post/SinglePost";
 import PostsShimmer from "@components/Shared/Shimmer/PostsShimmer";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import {
-  PageSize,
-  type PostFragment,
-  type PostsRequest,
-  usePostsQuery
-} from "@hey/indexer";
+import { PageSize, type PostsRequest, usePostsQuery } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
 import type { FC } from "react";
 import { useRef } from "react";
@@ -83,7 +78,7 @@ const Posts: FC<PostsProps> = ({ query }) => {
           <SinglePost
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
-            post={post as PostFragment}
+            post={post}
           />
         )}
         ref={virtuoso}
