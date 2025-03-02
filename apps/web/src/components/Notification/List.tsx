@@ -91,7 +91,6 @@ const List: FC<ListProps> = ({ feedType }) => {
     <Card>
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, notification) => `${notification.id}-${index}`}
         data={notifications}
         endReached={onEndReached}
         itemContent={(_, notification) => (

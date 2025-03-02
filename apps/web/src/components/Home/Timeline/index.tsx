@@ -70,7 +70,6 @@ const Timeline: FC = () => {
     <Card>
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, timelineItem) => `${timelineItem.id}-${index}`}
         data={feed}
         endReached={onEndReached}
         isScrolling={onScrolling}

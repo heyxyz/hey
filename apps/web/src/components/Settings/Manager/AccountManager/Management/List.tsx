@@ -118,9 +118,6 @@ const List: FC<ListProps> = ({ managed = false }) => {
 
   return (
     <Virtuoso
-      computeItemKey={(index, accountAvailable) =>
-        `${accountAvailable.account.address}-${index}`
-      }
       data={accountsAvailable}
       endReached={onEndReached}
       itemContent={(_, accountAvailable) => (

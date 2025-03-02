@@ -68,7 +68,6 @@ const Collectors: FC<CollectorsProps> = ({ postId }) => {
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, action) => `${action.account.address}-${index}`}
       data={accounts}
       endReached={onEndReached}
       itemContent={(_, action) => (

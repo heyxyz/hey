@@ -76,7 +76,6 @@ const ExploreFeed: FC<ExploreFeedProps> = ({ feedType = "", focus }) => {
     <Card>
       <Virtuoso
         className="virtual-divider-list-window"
-        computeItemKey={(index, post) => `${post.id}-${index}`}
         data={posts}
         endReached={onEndReached}
         isScrolling={onScrolling}

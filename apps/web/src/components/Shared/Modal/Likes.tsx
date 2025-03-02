@@ -69,7 +69,6 @@ const Likes: FC<LikesProps> = ({ postId }) => {
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, like) => `${like.account.address}-${index}`}
       data={accounts}
       endReached={onEndReached}
       itemContent={(_, like) => (

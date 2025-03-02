@@ -110,7 +110,6 @@ const List: FC = () => {
           <ErrorMessage error={accountsError} title="Failed to load accounts" />
         ) : accounts?.length ? (
           <Virtuoso
-            computeItemKey={(index, account) => `${account.address}-${index}`}
             data={accounts}
             endReached={onEndReached}
             itemContent={(_, account) => (

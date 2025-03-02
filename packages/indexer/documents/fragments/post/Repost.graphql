@@ -7,4 +7,5 @@ fragment Repost on Repost {
   repostOf {
     ...Post
   }
+  timestamp
 }

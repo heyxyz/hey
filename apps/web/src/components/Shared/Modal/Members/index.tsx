@@ -69,7 +69,6 @@ const Members: FC<MembersProps> = ({ group }) => {
   return (
     <Virtuoso
       className="virtual-account-list"
-      computeItemKey={(index, member) => `${member.account.address}-${index}`}
       data={groupMembers}
       endReached={onEndReached}
       itemContent={(_, member) => (

@@ -57,7 +57,6 @@ const Accounts: FC<AccountsProps> = ({ query }) => {
   return (
     <Virtuoso
       className="[&>div>div]:space-y-3"
-      computeItemKey={(index, account) => `${account.address}-${index}`}
       data={accounts}
       endReached={onEndReached}
       itemContent={(_, account) => (
