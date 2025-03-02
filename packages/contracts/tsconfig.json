@@ -1,0 +1,7 @@
+{
+  "extends": "@hey/config/base.tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS"
+  },
+  "exclude": ["typechain-types"]
+}
