@@ -3,12 +3,6 @@ import { NotificationFeedType } from "@hey/data/enums";
 import {
   type NotificationRequest,
   NotificationType,
-  type CommentNotification as TCommentNotification,
-  type FollowNotification as TFollowNotification,
-  type MentionNotification as TMentionNotification,
-  type QuoteNotification as TQuoteNotification,
-  type ReactionNotification as TReactionNotification,
-  type RepostNotification as TRepostNotification,
   useNotificationsQuery
 } from "@hey/indexer";
 import { Card, EmptyState, ErrorMessage } from "@hey/ui";
@@ -107,34 +101,22 @@ const List: FC<ListProps> = ({ feedType }) => {
             })}
           >
             {notification.__typename === "FollowNotification" && (
-              <FollowNotification
-                notification={notification as TFollowNotification}
-              />
+              <FollowNotification notification={notification} />
             )}
             {notification.__typename === "MentionNotification" && (
-              <MentionNotification
-                notification={notification as TMentionNotification}
-              />
+              <MentionNotification notification={notification} />
             )}
             {notification.__typename === "ReactionNotification" && (
-              <ReactionNotification
-                notification={notification as TReactionNotification}
-              />
+              <ReactionNotification notification={notification} />
             )}
             {notification.__typename === "CommentNotification" && (
-              <CommentNotification
-                notification={notification as TCommentNotification}
-              />
+              <CommentNotification notification={notification} />
             )}
             {notification.__typename === "RepostNotification" && (
-              <RepostNotification
-                notification={notification as TRepostNotification}
-              />
+              <RepostNotification notification={notification} />
             )}
             {notification.__typename === "QuoteNotification" && (
-              <QuoteNotification
-                notification={notification as TQuoteNotification}
-              />
+              <QuoteNotification notification={notification} />
             )}
           </div>
         )}
