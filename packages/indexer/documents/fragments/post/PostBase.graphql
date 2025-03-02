@@ -25,7 +25,7 @@ fragment PostBase on Post {
     ...PostMetadata
   }
   mentions {
-    ...AccountMention
+    ...PostMention
   }
   timestamp
 }

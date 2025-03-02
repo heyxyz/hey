@@ -2,7 +2,7 @@ import SingleAccountShimmer from "@components/Shared/Shimmer/SingleAccountShimme
 import SingleAccount from "@components/Shared/SingleAccount";
 import {
   type AccountFragment,
-  type PostMention,
+  type PostMentionFragment,
   useAccountsBulkQuery
 } from "@hey/indexer";
 import { Card, ErrorMessage, Modal } from "@hey/ui";
@@ -12,7 +12,7 @@ import { useAccountStore } from "src/store/persisted/useAccountStore";
 import MoreRelevantPeople from "./MoreRelevantPeople";
 
 interface RelevantPeopleProps {
-  mentions: PostMention[];
+  mentions: PostMentionFragment[];
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ mentions }) => {

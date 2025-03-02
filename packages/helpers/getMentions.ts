@@ -1,7 +1,7 @@
 import { Regex } from "@hey/data/regex";
-import type { AccountMention, PostMention } from "@hey/indexer";
+import type { AccountMentionFragment, PostMentionFragment } from "@hey/indexer";
 
-const getMentions = (text: string): [] | PostMention[] => {
+const getMentions = (text: string): [] | PostMentionFragment[] => {
   if (!text) {
     return [];
   }
@@ -18,7 +18,7 @@ const getMentions = (text: string): [] | PostMention[] => {
         from: handleWithoutNameSpace.toLowerCase(),
         to: handleWithoutNameSpace.toLowerCase()
       }
-    } as AccountMention;
+    } as AccountMentionFragment;
   });
 
   return processedMentions || [];

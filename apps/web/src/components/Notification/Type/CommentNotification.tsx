@@ -1,7 +1,7 @@
 import Markup from "@components/Shared/Markup";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
-import type { CommentNotificationFragment, PostMention } from "@hey/indexer";
+import type { CommentNotificationFragment } from "@hey/indexer";
 import Link from "next/link";
 import type { FC } from "react";
 import { NotificationAccountAvatar } from "../Account";
@@ -41,7 +41,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
           href={`/posts/${notification.comment.id}`}
         >
-          <Markup mentions={notification.comment.mentions as PostMention[]}>
+          <Markup mentions={notification.comment.mentions}>
             {filteredContent}
           </Markup>
         </Link>

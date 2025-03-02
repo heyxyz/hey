@@ -1,7 +1,7 @@
 import Markup from "@components/Shared/Markup";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
 import getPostData from "@hey/helpers/getPostData";
-import type { PostMention, RepostNotificationFragment } from "@hey/indexer";
+import type { RepostNotificationFragment } from "@hey/indexer";
 import Link from "next/link";
 import plur from "plur";
 import type { FC } from "react";
@@ -48,7 +48,7 @@ const RepostNotification: FC<RepostNotificationProps> = ({ notification }) => {
           className="ld-text-gray-500 linkify mt-2 line-clamp-2"
           href={`/posts/${notification.post.id}`}
         >
-          <Markup mentions={notification.post.mentions as PostMention[]}>
+          <Markup mentions={notification.post.mentions}>
             {filteredContent}
           </Markup>
         </Link>
