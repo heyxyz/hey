@@ -1,4 +1,4 @@
-fragment PostBase on Post {
+fragment ReferencedPost on Post {
   id
   isDeleted
   feed {

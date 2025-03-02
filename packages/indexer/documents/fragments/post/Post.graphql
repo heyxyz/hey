@@ -1,12 +1,12 @@
 fragment Post on Post {
-  ...PostBase
+  ...ReferencedPost
   root {
-    ...PostBase
+    ...ReferencedPost
   }
   commentOn {
-    ...PostBase
+    ...ReferencedPost
   }
   quoteOf {
-    ...PostBase
+    ...ReferencedPost
   }
 }
