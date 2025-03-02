@@ -25,7 +25,7 @@ const validationSchema = object({
 });
 
 interface ReportPostProps {
-  postId: null | string;
+  postId?: string;
 }
 
 const ReportPost: FC<ReportPostProps> = ({ postId }) => {

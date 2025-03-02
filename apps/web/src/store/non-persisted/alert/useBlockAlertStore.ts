@@ -3,16 +3,16 @@ import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  blockingorUnblockingAccount: null | AccountFragment;
+  blockingorUnblockingAccount?: AccountFragment;
   showBlockOrUnblockAlert: boolean;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
-    blockingorUnblockingAccount: null | AccountFragment
+    blockingorUnblockingAccount?: AccountFragment
   ) => void;
 }
 
 const store = create<State>((set) => ({
-  blockingorUnblockingAccount: null,
+  blockingorUnblockingAccount: undefined,
   showBlockOrUnblockAlert: false,
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert,

@@ -3,21 +3,21 @@ import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  banningOrUnbanningAccount: null | AccountFragment;
-  banningGroupAddress: null | string;
+  banningOrUnbanningAccount?: AccountFragment;
+  banningGroupAddress?: string;
   banning: boolean;
   showBanOrUnbanAlert: boolean;
   setShowBanOrUnbanAlert: (
     showBanOrUnbanAlert: boolean,
     banning: boolean,
-    banningOrUnbanningAccount: null | AccountFragment,
-    banningGroupAddress: null | string
+    banningOrUnbanningAccount?: AccountFragment,
+    banningGroupAddress?: string
   ) => void;
 }
 
 const store = create<State>((set) => ({
-  banningOrUnbanningAccount: null,
-  banningGroupAddress: null,
+  banningOrUnbanningAccount: undefined,
+  banningGroupAddress: undefined,
   banning: false,
   showBanOrUnbanAlert: false,
   setShowBanOrUnbanAlert: (

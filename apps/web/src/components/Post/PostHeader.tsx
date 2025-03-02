@@ -51,7 +51,7 @@ const PostHeader: FC<PostHeaderProps> = ({
         <button
           aria-label="Remove Quote"
           className="rounded-full border p-1.5 hover:bg-gray-300/20"
-          onClick={() => setQuotedPost(null)}
+          onClick={() => setQuotedPost()}
           type="reset"
         >
           <XMarkIcon className="ld-text-gray-500 size-4" />

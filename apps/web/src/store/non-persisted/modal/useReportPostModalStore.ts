@@ -3,16 +3,16 @@ import { create } from "zustand";
 
 interface State {
   showReportPostModal: boolean;
-  reportingPostId: null | string;
+  reportingPostId?: string;
   setShowReportPostModal: (
     showReportPostModal: boolean,
-    reportingPostId: null | string
+    reportingPostId?: string
   ) => void;
 }
 
 const store = create<State>((set) => ({
   showReportPostModal: false,
-  reportingPostId: null,
+  reportingPostId: undefined,
   setShowReportPostModal: (showReportPostModal, reportingPostId) =>
     set(() => ({ showReportPostModal, reportingPostId }))
 }));

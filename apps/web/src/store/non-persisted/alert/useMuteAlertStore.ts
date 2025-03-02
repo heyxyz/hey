@@ -3,16 +3,16 @@ import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  mutingOrUnmutingAccount: null | AccountFragment;
+  mutingOrUnmutingAccount?: AccountFragment;
   showMuteOrUnmuteAlert: boolean;
   setShowMuteOrUnmuteAlert: (
     showMuteOrUnmuteAlert: boolean,
-    mutingOrUnmutingAccount: null | AccountFragment
+    mutingOrUnmutingAccount?: AccountFragment
   ) => void;
 }
 
 const store = create<State>((set) => ({
-  mutingOrUnmutingAccount: null,
+  mutingOrUnmutingAccount: undefined,
   showMuteOrUnmuteAlert: false,
   setShowMuteOrUnmuteAlert: (showMuteOrUnmuteAlert, mutingOrUnmutingAccount) =>
     set(() => ({ mutingOrUnmutingAccount, showMuteOrUnmuteAlert }))

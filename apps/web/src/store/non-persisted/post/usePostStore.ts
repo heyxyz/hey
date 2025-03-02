@@ -4,14 +4,14 @@ import { create } from "zustand";
 
 interface State {
   postContent: string;
-  quotedPost: PostFragment | null;
+  quotedPost?: PostFragment;
   setPostContent: (postContent: string) => void;
-  setQuotedPost: (quotedPost: PostFragment | null) => void;
+  setQuotedPost: (quotedPost?: PostFragment) => void;
 }
 
 const store = create<State>((set) => ({
   postContent: "",
-  quotedPost: null,
+  quotedPost: undefined,
   setPostContent: (postContent) => set(() => ({ postContent })),
   setQuotedPost: (quotedPost) => set(() => ({ quotedPost }))
 }));

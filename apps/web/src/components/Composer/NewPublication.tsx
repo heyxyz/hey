@@ -109,7 +109,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
     setShowLiveVideoEditor(false);
     resetLiveVideoConfig();
     setAttachments([]);
-    setQuotedPost(null);
+    setQuotedPost();
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setAudioPost(DEFAULT_AUDIO_POST);
     setLicense(null);

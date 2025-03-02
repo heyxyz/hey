@@ -3,16 +3,16 @@ import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  deletingPost: PostFragment | null;
+  deletingPost?: PostFragment;
   showPostDeleteAlert: boolean;
   setShowPostDeleteAlert: (
     showPostDeleteAlert: boolean,
-    deletingPost: PostFragment | null
+    deletingPost?: PostFragment
   ) => void;
 }
 
 const store = create<State>((set) => ({
-  deletingPost: null,
+  deletingPost: undefined,
   showPostDeleteAlert: false,
   setShowPostDeleteAlert: (showPostDeleteAlert, deletingPost) =>
     set(() => ({ deletingPost, showPostDeleteAlert }))

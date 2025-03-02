@@ -45,7 +45,7 @@ const MuteOrUnmuteAccount: FC = () => {
     updateCache();
     setIsSubmitting(false);
     setHasMuted(!hasMuted);
-    setShowMuteOrUnmuteAlert(false, null);
+    setShowMuteOrUnmuteAlert(false);
     trackEvent(hasMuted ? Events.Account.Unmute : Events.Account.Mute);
     toast.success(hasMuted ? "Unmuted successfully" : "Muted successfully");
   };
@@ -105,7 +105,7 @@ const MuteOrUnmuteAccount: FC = () => {
       } ${getAccount(mutingOrUnmutingAccount).usernameWithPrefix}?`}
       isDestructive
       isPerformingAction={isSubmitting}
-      onClose={() => setShowMuteOrUnmuteAlert(false, null)}
+      onClose={() => setShowMuteOrUnmuteAlert(false)}
       onConfirm={muteOrUnmute}
       show={showMuteOrUnmuteAlert}
       title="Mute Account"

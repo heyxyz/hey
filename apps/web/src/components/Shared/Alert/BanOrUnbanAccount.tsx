@@ -41,7 +41,7 @@ const BanOrUnbanAccount: FC = () => {
   const onCompleted = () => {
     updateCache();
     setIsSubmitting(false);
-    setShowBanOrUnbanAlert(false, banning, null, null);
+    setShowBanOrUnbanAlert(false, banning);
     trackEvent(banning ? Events.Group.Ban : Events.Group.Unban);
     toast.success(banning ? "Banned successfully" : "Unbanned successfully");
   };
@@ -127,7 +127,7 @@ const BanOrUnbanAccount: FC = () => {
       } ${getAccount(banningOrUnbanningAccount).usernameWithPrefix}?`}
       isDestructive
       isPerformingAction={isSubmitting}
-      onClose={() => setShowBanOrUnbanAlert(false, banning, null, null)}
+      onClose={() => setShowBanOrUnbanAlert(false, banning)}
       onConfirm={blockOrUnblock}
       show={showBanOrUnbanAlert}
       title="Ban Account"
