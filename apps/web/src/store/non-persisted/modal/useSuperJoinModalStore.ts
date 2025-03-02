@@ -4,16 +4,16 @@ import { create } from "zustand";
 
 interface State {
   showSuperJoinModal: boolean;
-  superJoiningGroup: null | GroupFragment;
+  superJoiningGroup?: GroupFragment;
   setShowSuperJoinModal: (
     showSuperJoinModal: boolean,
-    superJoiningGroup: null | GroupFragment
+    superJoiningGroup?: GroupFragment
   ) => void;
 }
 
 const store = create<State>((set) => ({
   showSuperJoinModal: false,
-  superJoiningGroup: null,
+  superJoiningGroup: undefined,
   setShowSuperJoinModal: (showSuperJoinModal, superJoiningGroup) =>
     set(() => ({ showSuperJoinModal, superJoiningGroup }))
 }));
