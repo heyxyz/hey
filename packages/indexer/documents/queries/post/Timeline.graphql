@@ -1,16 +1,7 @@
 query Timeline($request: TimelineRequest!) {
   timeline(request: $request) {
     items {
-      id
-      primary {
-        ...Post
-      }
-      comments {
-        ...Post
-      }
-      reposts {
-        ...Repost
-      }
+      ...TimelineItem
     }
     pageInfo {
       ...PaginatedResultInfo

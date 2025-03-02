@@ -1,0 +1,12 @@
+fragment TimelineItem on TimelineItem {
+  id
+  primary {
+    ...Post
+  }
+  comments {
+    ...Post
+  }
+  reposts {
+    ...Repost
+  }
+}
