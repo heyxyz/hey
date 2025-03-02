@@ -583,9 +583,6 @@ importers:
       '@hey/config':
         specifier: workspace:*
         version: link:../config
-      '@parcel/watcher':
-        specifier: ^2.5.1
-        version: 2.5.1
       '@types/node':
         specifier: ^22.13.8
         version: 22.13.8
@@ -8814,6 +8811,7 @@ snapshots:
       '@parcel/watcher-win32-arm64': 2.5.1
       '@parcel/watcher-win32-ia32': 2.5.1
       '@parcel/watcher-win32-x64': 2.5.1
+    optional: true
 
   '@paulmillr/qr@0.2.1': {}
 
@@ -11106,7 +11104,8 @@ snapshots:
 
   detect-indent@6.1.0: {}
 
-  detect-libc@1.0.3: {}
+  detect-libc@1.0.3:
+    optional: true
 
   detect-libc@2.0.3:
     optional: true
@@ -12745,7 +12744,8 @@ snapshots:
 
   node-addon-api@2.0.2: {}
 
-  node-addon-api@7.1.1: {}
+  node-addon-api@7.1.1:
+    optional: true
 
   node-cron@3.0.3:
     dependencies:
