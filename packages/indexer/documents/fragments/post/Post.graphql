@@ -1,27 +1,5 @@
 fragment Post on Post {
-  id
-  isDeleted
-  feed {
-    ...PostFeedInfo
-  }
-  author {
-    ...Account
-  }
-  metadata {
-    ...PostMetadata
-  }
-  stats {
-    ...PostStats
-  }
-  operations {
-    ...LoggedInPostOperations
-  }
-  actions {
-    __typename
-  }
-  mentions {
-    ...PostMention
-  }
+  ...ReferencedPost
   root {
     ...ReferencedPost
   }
@@ -31,5 +9,4 @@ fragment Post on Post {
   quoteOf {
     ...ReferencedPost
   }
-  timestamp
 }
