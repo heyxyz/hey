@@ -6,6 +6,6 @@ fragment MintMetadata on MintMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

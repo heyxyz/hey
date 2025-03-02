@@ -6,7 +6,7 @@ fragment ImageMetadata on ImageMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
   image {
     ...MediaImage

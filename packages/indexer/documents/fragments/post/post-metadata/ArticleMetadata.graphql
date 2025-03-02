@@ -6,6 +6,6 @@ fragment ArticleMetadata on ArticleMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

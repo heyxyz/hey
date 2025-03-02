@@ -6,6 +6,6 @@ fragment EventMetadata on EventMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

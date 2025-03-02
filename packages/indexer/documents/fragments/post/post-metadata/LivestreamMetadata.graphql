@@ -8,6 +8,6 @@ fragment LivestreamMetadata on LivestreamMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

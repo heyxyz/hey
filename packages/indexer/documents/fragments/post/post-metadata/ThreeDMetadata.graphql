@@ -6,6 +6,6 @@ fragment ThreeDMetadata on ThreeDMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

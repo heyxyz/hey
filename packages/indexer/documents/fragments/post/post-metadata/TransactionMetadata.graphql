@@ -6,6 +6,6 @@ fragment TransactionMetadata on TransactionMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

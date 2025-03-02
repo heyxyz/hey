@@ -1,4 +1,4 @@
-fragment Media on AnyMedia {
+fragment AnyMedia on AnyMedia {
   ... on MediaVideo {
     ...MediaVideo
   }

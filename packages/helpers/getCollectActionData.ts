@@ -1,7 +1,10 @@
-import type { RecipientPercent, SimpleCollectAction } from "@hey/indexer";
+import type {
+  RecipientPercent,
+  SimpleCollectActionFragment
+} from "@hey/indexer";
 
 const getCollectActionData = (
-  collectAction: SimpleCollectAction
+  collectAction: SimpleCollectActionFragment
 ): {
   amount?: number;
   assetAddress?: string;

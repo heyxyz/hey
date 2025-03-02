@@ -21,7 +21,7 @@ import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
   type AnyPost,
-  type SimpleCollectAction,
+  type SimpleCollectActionFragment,
   useCollectActionQuery
 } from "@hey/indexer";
 import { H3, H4, HelpTooltip, Modal, Tooltip, WarningMessage } from "@hey/ui";
@@ -60,7 +60,7 @@ const CollectActionBody: FC<CollectActionBodyProps> = ({ post }) => {
           )
         : null;
 
-  const collectAction = targetAction as SimpleCollectAction;
+  const collectAction = targetAction as SimpleCollectActionFragment;
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = Number(collectAction?.collectLimit);
   const amount = Number.parseFloat(collectAction?.amount?.value || "0");

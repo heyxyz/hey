@@ -13,6 +13,6 @@ fragment CheckingInMetadata on CheckingInMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

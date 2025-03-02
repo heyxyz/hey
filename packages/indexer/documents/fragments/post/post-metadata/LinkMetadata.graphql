@@ -7,6 +7,6 @@ fragment LinkMetadata on LinkMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

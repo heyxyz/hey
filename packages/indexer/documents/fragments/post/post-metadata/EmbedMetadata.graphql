@@ -6,6 +6,6 @@ fragment EmbedMetadata on EmbedMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

@@ -9,6 +9,6 @@ fragment VideoMetadata on VideoMetadata {
     ...MediaVideo
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

@@ -10,6 +10,6 @@ fragment AudioMetadata on AudioMetadata {
     ...MediaAudio
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }

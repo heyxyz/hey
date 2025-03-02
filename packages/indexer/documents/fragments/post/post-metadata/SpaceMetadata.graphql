@@ -6,6 +6,6 @@ fragment SpaceMetadata on SpaceMetadata {
     ...MetadataAttribute
   }
   attachments {
-    ...Media
+    ...AnyMedia
   }
 }
