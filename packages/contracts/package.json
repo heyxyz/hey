@@ -12,8 +12,6 @@
     "@matterlabs/hardhat-zksync": "^1.4.0",
     "@matterlabs/zksync-contracts": "1.0.0-beta.4",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "@nomiclabs/hardhat-ethers": "^2.2.3",
-    "@openzeppelin/contracts": "^5.1.0",
     "dotenv": "^16.4.7",
     "hardhat": "^2.22.15",
     "typescript": "^5.6.3",

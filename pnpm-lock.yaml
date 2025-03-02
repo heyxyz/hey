@@ -444,12 +444,6 @@ importers:
       '@nomicfoundation/hardhat-toolbox':
         specifier: ^5.0.0
         version: 5.0.0(0fac20a4c61649da87232b4623024c00)
-      '@nomiclabs/hardhat-ethers':
-        specifier: ^2.2.3
-        version: 2.2.3(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(hardhat@2.22.19(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@22.13.8)(typescript@5.8.2))(typescript@5.8.2)(utf-8-validate@5.0.10))
-      '@openzeppelin/contracts':
-        specifier: ^5.1.0
-        version: 5.2.0
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
@@ -2510,12 +2504,6 @@ packages:
 
   '@nomiclabs/hardhat-docker@2.0.2':
     resolution: {integrity: sha512-XgGEpRT3wlA1VslyB57zyAHV+oll8KnV1TjwnxxC1tpAL04/lbdwpdO5KxInVN8irMSepqFpsiSkqlcnvbE7Ng==}
-
-  '@nomiclabs/hardhat-ethers@2.2.3':
-    resolution: {integrity: sha512-YhzPdzb612X591FOe68q+qXVXGG2ANZRvDo0RRUtimev85rCrAlv/TLMEZw5c+kq9AbzocLTVX/h2jVIFPL9Xg==}
-    peerDependencies:
-      ethers: ^5.0.0
-      hardhat: ^2.0.0
 
   '@openzeppelin/contracts@5.2.0':
     resolution: {integrity: sha512-bxjNie5z89W1Ea0NZLZluFh8PrFNn9DH8DQlujEok2yjsOlraUPKID5p1Wk3qdNbf6XkQ1Os2RvfiHrrXLHWKA==}
@@ -11796,11 +11784,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
-
-  '@nomiclabs/hardhat-ethers@2.2.3(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(hardhat@2.22.19(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@22.13.8)(typescript@5.8.2))(typescript@5.8.2)(utf-8-validate@5.0.10))':
-    dependencies:
-      ethers: 6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      hardhat: 2.22.19(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@22.13.8)(typescript@5.8.2))(typescript@5.8.2)(utf-8-validate@5.0.10)
 
   '@openzeppelin/contracts@5.2.0': {}
 
